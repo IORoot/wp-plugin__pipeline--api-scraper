@@ -1,0 +1,37 @@
+.mediascraper__blue { 
+    color: #fff;
+    background-color: #53A5E3; 
+}
+.mediascraper__red { 
+    color: #fff;
+    background-color: #E34F65; 
+}
+.mediascraper__orange { 
+    color: #fff;
+    background-color: #E86546; 
+}
+.mediascraper__green { 
+    color: #fff;
+    background-color: #11998E; 
+}
+.mediascraper__goo { 
+    background-color: #38EF7D; 
+}
+
+.mediascraper__lightgrey { 
+    background-color: #E0E0E0; 
+}
+
+.mediascraper__midgrey { 
+    background-color: #757575; 
+}
+
+.mediascraper__darkgrey { 
+    color: #fff;
+    background-color: #424242; 
+}
+
+.mediascraper__black { 
+    color: #fff;
+    background-color: #242424; 
+}
