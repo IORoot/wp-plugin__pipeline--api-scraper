@@ -30,7 +30,7 @@ trait textreplacement {
      */
     public function filter_first_sentence_in_paragraph($text){
 
-        $arr = explode(".", $text, 2);
+        $arr = preg_split( "/(\.|!)/", $text );
 
         return $arr[0] . '.';
 
