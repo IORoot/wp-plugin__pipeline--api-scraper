@@ -36,7 +36,7 @@ class youtube_colour_hashtag {
         // Loop through each item.
         foreach ($this->input_stream as $item){
 
-            preg_match('/\#COL-(.{6})/', $item['description'], $matches, PREG_OFFSET_CAPTURE);
+            preg_match('/\#COL-(\S+)\z/', $item['description'], $matches, PREG_OFFSET_CAPTURE);
 
             if (!empty($matches[1][0])){
                 $item['colour'] = $matches[1][0];
