@@ -2,16 +2,39 @@
 
 
 
-function filtering_menu(){
+function filtering_menu($atts, $content = null){
 
+    //  ┌──────────────────────────────────────┐
+    //  │         Shortcode parameters         │
+    //  └──────────────────────────────────────┘
+    extract(
+        shortcode_atts(
+            array(
+                // Menu Name
+                'mobile' => null,
+            ),
+            $atts
+        )
+    );
 
     $output  = '<ul class="menu tutorial-filters">';
 
-        $output .= '<li class="menu-item item-alpha'.rotate_icon('title').' "><a href="'. currentUrl('mss', 'title') . '">Alphabetically</a></li>';
+        $output .= '<li class="menu-item item-alpha'.rotate_icon('title').' "><a href="'. currentUrl('mss', 'title') . '">A - Z</a></li>';
         $output .= '<li class="menu-item item-newest'.rotate_icon('date').'"><a href="'. currentUrl('mss', 'date') . '">Date</a></li>';
         $output .= '<li class="menu-item item-popularity'.rotate_icon('likes').'"><a href="'. currentUrl('mss', 'likes') . '">Popularity</a></li>';
 
     $output .= '</ul>';
+
+    // Mobile instead of desktop
+    if ($mobile) {
+
+        $output  = '<select class="menu tutorial-filters" onChange="window.location.href=this.value">';
+            $output .= '<option>Filters</option>';
+            $output .= '<option value="'. currentUrl('mss', 'title') . '" >Alphabetically</option>';
+            $output .= '<option value="'. currentUrl('mss', 'date') . '" >Date</option>';
+            $output .= '<option value="'. currentUrl('mss', 'likes') . '" >Popularity</option>';
+        $output .= '</select>';       
+    }
 
 
     return $output;
