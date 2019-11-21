@@ -120,7 +120,7 @@ trait instagramItems {
      * @return void
      */
     public function getImage($item){
-
+        
         // Check Media Type.
         switch( $item->getMediaType() ){
 
@@ -135,6 +135,36 @@ trait instagramItems {
             // Carousel of photos / videos
             case 8:
                 return $item->getCarouselMedia()[0]->getImageVersions2()->getCandidates()[0]->getUrl();
+
+            // Anything else
+            default:
+                return '';
+
+        }
+    }
+
+    /**
+     * getSmallImage
+     *
+     * @param mixed $item
+     * @return void
+     */
+    public function getSmallImage($item){
+
+        // Check Media Type.
+        switch( $item->getMediaType() ){
+
+            // Photos
+            case 1:
+                return $item->getImageVersions2()->getCandidates()[1]->getUrl();
+            
+            // Video
+            case 2:
+            return $item->getImageVersions2()->getCandidates()[1]->getUrl();
+
+            // Carousel of photos / videos
+            case 8:
+                return $item->getCarouselMedia()[0]->getImageVersions2()->getCandidates()[1]->getUrl();
 
             // Anything else
             default:

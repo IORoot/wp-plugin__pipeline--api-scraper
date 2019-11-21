@@ -79,6 +79,7 @@ class getUserFeed {
                 'comments'          => $this->getCommentCount($item),
                 'likes'             => $this->getLikeCount($item),
                 'image'             => $this->getImage($item),
+                'smallimage'        => $this->getSmallImage($item),
                 'type'              => $this->getType($item),
             );
 
