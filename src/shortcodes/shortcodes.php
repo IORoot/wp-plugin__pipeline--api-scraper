@@ -159,12 +159,12 @@ class shortcodes {
     //  └─────────────────────────────────────────────────────────────────────────┘░
     //   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
     public function check_cache($slug){
-     
+    
         $this->cached_result = $this->media_scraper->is_this_cached();
 
         $this->cache_status = $this->media_scraper->get_cache_status();
 
-        $this->cache_indicator();
+        // $this->cache_indicator();
 
         // Make sure the 'instance' is set, otherwise this will apply to all shortcodes
         // on the page. Not the targeted one.
@@ -195,7 +195,7 @@ class shortcodes {
     //  │                                                                         │░
     //  └─────────────────────────────────────────────────────────────────────────┘░
     //   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-   /**
+    /**
      * set_params_order
      * 
      * Order of importance.
