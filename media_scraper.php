@@ -1,12 +1,12 @@
 <?php
 
 /*
- * @package   Media Scraper
+ * @package   YouTube Scraper
  * @author    Andy Pearson <andy@londonparkour.com>
  * @copyright 2020 LondonParkour
  * 
  * @wordpress-plugin
- * Plugin Name:       _ANDYP - Media API Scraper
+ * Plugin Name:       _ANDYP - YouTube API Scraper
  * Plugin URI:        http://londonparkour.com
  * Description:       Query a social media API, cache results, output to shortcode.
  * Version:           1.0.0
