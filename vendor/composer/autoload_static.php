@@ -6,9 +6,16 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit30fd7ec9b8e2598fd2f686f91346eea7
 {
+    public static $classMap = array (
+        'yt\\api' => __DIR__ . '/../..' . '/src/youtube_api/youtube.php',
+        'yt\\options' => __DIR__ . '/../..' . '/src/acf/get_options.php',
+        'yt\\scraper' => __DIR__ . '/../..' . '/src/scraper.php',
+    );
+
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
+            $loader->classMap = ComposerStaticInit30fd7ec9b8e2598fd2f686f91346eea7::$classMap;
 
         }, null, ClassLoader::class);
     }

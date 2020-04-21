@@ -8,7 +8,7 @@
  * @wordpress-plugin
  * Plugin Name:       _ANDYP - YouTube API Scraper V2
  * Plugin URI:        http://londonparkour.com
- * Description:       Query a social media API, add results to CPT, output to shortcode.
+ * Description:       Query YouTube API, add results to a CPT, output to shortcode.
  * Version:           2.0.0
  * Author:            Andy Pearson
  * Author URI:        https://londonparkour.com
@@ -16,11 +16,22 @@
  * Domain Path:       /languages
  */
 
-// Composer Autoloader -  mgp25 - Instagram API 
+// ┌─────────────────────────────────────────────────────────────────────────┐
+// │                         Use composer autoloader                         │
+// └─────────────────────────────────────────────────────────────────────────┘
 require __DIR__.'/vendor/autoload.php';
 
-class media_scraper {
+//  ┌─────────────────────────────────────────────────────────────────────────┐
+//  │                      The CPT for YouTube Videos                         │
+//  └─────────────────────────────────────────────────────────────────────────┘
+require __DIR__.'/src/cpt/youtube_cpt.php'; 
 
+//  ┌─────────────────────────────────────────────────────────────────────────┐
+//  │               The ACF Page for YouTube Scraper Settings                 │
+//  └─────────────────────────────────────────────────────────────────────────┘
+require __DIR__.'/src/acf/options_page.php'; 
 
-
-}
+// ┌─────────────────────────────────────────────────────────────────────────┐
+// │                           Kick off the program                          │
+// └─────────────────────────────────────────────────────────────────────────┘
+new \yt\scraper;
