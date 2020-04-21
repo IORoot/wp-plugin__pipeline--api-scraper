@@ -1,25 +1,8 @@
 {
     "autoload": {
         "classmap": [
-            "src",
-            "src/css",
-            "src/admin",
-            "src/getters",
-            "src/getters/instagram",
-            "src/getters/instagram/models",
-            "src/getters/instagram/requests",
-            "src/getters/youtube",
-            "src/getters/youtube/models",
-            "src/getters/youtube/requests",
-            "src/helpers",
-            "src/filters",
-            "src/filters/sort",
-            "src/shortcodes"
+            "src"
         ]
-    },
-
-    "require": {
-        "mgp25/instagram-php": "^6.1"
     }
 
 }
