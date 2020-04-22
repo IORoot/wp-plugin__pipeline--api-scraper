@@ -26,13 +26,12 @@ class import
     public function add_terms($taxonomy, $searches_array)
     {
         if ($taxonomy == null || $taxonomy == '') {
-            throw new Exception('No Taxonomy has been specified. Cannot import->add_term().');
+            throw new Exception('No Taxonomy has been specified. Cannot import->add_terms().');
         }
         if ($searches_array == null || $searches_array == '') {
-            throw new Exception('No Term has been specified. Cannot import->add_term().');
+            throw new Exception('No Term has been specified. Cannot import->add_terms().');
         }
 
-        // loop over each search, adding each search_name to the taxonomy.
         foreach ($searches_array as $search_row) {
             $term = $search_row['yt_search_name'];
             $desc = $search_row['yt_search_description']; // optional
@@ -62,19 +61,33 @@ class import
     }
 
 
-    
-
-    public function add_posts($post_type, $items)
+    public function add_posts($post_type, $yt_results)
     {
+        if ($post_type == null || $post_type == '') {
+            throw new Exception('No post_type has been set. Cannot import->add_posts().');
+        }
+        if ($yt_results == null || $yt_results == '') {
+            throw new Exception('No search_results has been specified. Cannot import->add_posts().');
+        }
+
+        foreach ($yt_results->items as $yt_item) {
+            $this->add_post($post_type, $yt_item);
+        }
 
         return $this;
     }
 
 
-    public function add_post()
+
+    public function add_post($post_type, $yt_result)
     {
+        $this->post->set_posttype($post_type);
+        $this->post->set_postdata($yt_result);
+
         return $this;
     }
+
+
 
 
 }

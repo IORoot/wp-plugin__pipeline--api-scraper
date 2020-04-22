@@ -44,7 +44,7 @@ class scraper
         $this->import_terms();
 
         // Import post into CPT
-        // $this->import_posts();
+        $this->import_all_posts_from_all_searches();
     }
 
 
@@ -89,21 +89,25 @@ class scraper
 
 
 
-    // public function import_posts()
-    // {
+    public function import_all_posts_from_all_searches()
+    {
+
+        if ($this->options->import['yt_import_enabled'] == 0) {
+            return false;
+        }
+
+        if ($this->api->results == null) {
+            return false;
+        }
+
+        $post_type = $this->options->import["yt_import_post_type"];
+
+        foreach ($this->api->results as $result_posts) {
+            $this->import->add_posts($post_type, $result_posts);
+        }
         
-    //     // Check if import is enabled.
-    //     if ($this->options->import['yt_import_enabled'] == 0) {
-    //         return false;
-    //     }
 
-    //     // Check if there are results back from youtube
+        return $this;
+    }
 
-
-    //     $post_type = $this->options->import["yt_import_post_type"];
-
-    //     $this->import->add_posts($post_type, $this->search);
-
-    //     return $this;
-    // }
 }
