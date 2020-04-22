@@ -8,6 +8,8 @@ class api
 
     public $domain = "https://www.googleapis.com/youtube/v3";
 
+    public $all_queries;
+
     public $query_string;
 
     public $request_url;
@@ -15,10 +17,12 @@ class api
     public $results;
 
 
+    
     public function __construct()
     {
         return $this;
     }
+
 
 
     public function set_creds($api_key)
@@ -35,6 +39,22 @@ class api
     }
 
 
+
+    public function set_queries($all_queries)
+    {
+        if (!$all_queries) {
+            throw new Exception('No search string has been supplied. Please supply query_string.');
+        }
+        if ($all_queries == '') {
+            throw new Exception('Search string is blank. Please supply query_string.');
+        }
+
+        $this->all_queries = $all_queries;
+        return $this;
+    }
+
+
+
     public function set_query_string($string)
     {
         if (!$string) {
@@ -49,20 +69,32 @@ class api
     }
 
 
-    public function search()
-    {
-        $this->create_url();
 
-        $this->make_request();
+    public function run_all_queries()
+    {
+        foreach ($this->all_queries as $query) {
+            $this->set_query_string($query['yt_search_string']);
+            if ($query['yt_search_enabled'] == '0') {
+                return;
+            }
+            $this->results[] = $this->search();
+        }
 
         return $this;
     }
 
 
 
+    public function search()
+    {
+        $this->create_url();
+        return $this->make_request();
+    }
+
+
+
     public function create_url()
     {
-
         if ($this->domain == '') {
             throw new Exception('api->domain is blank. Please set.');
         }
@@ -78,6 +110,7 @@ class api
     }
 
 
+
     public function make_request()
     {
         if ($this->request_url == null) {
@@ -85,11 +118,11 @@ class api
         }
 
         try {
-            $this->results = json_decode(wp_remote_fopen($this->request_url));
+            $result = json_decode(wp_remote_fopen($this->request_url));
         } catch (Exception $e) {
             echo 'Caught exception calling YouTube: ',  $e->getMessage(), "\n";
         }
 
-        return $this;
+        return $result;
     }
 }

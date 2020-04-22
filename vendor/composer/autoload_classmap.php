@@ -11,5 +11,6 @@ return array(
     'yt\\filter' => $baseDir . '/src/filter/filter.php',
     'yt\\import' => $baseDir . '/src/import/import.php',
     'yt\\options' => $baseDir . '/src/acf/get_options.php',
+    'yt\\post' => $baseDir . '/src/import/create_post.php',
     'yt\\scraper' => $baseDir . '/src/scraper.php',
 );

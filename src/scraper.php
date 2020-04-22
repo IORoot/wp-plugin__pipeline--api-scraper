@@ -42,6 +42,9 @@ class scraper
 
         // Import results into CPT
         $this->import_terms();
+
+        // Import post into CPT
+        // $this->import_posts();
     }
 
 
@@ -49,19 +52,14 @@ class scraper
     public function scrape()
     {
 
-        // Check if search is enabled.
-        if ($this->options->search['yt_search_enabled'] == 0) {
-            return false;
-        }
-
         // Has the API key been set?
         $this->api->set_creds($this->options->creds['api_key']);
 
         // set the search string
-        $this->api->set_query_string($this->options->search['search_string']);
+        $this->api->set_queries($this->options->search);
 
-        // Get the YouTube result.
-        $this->api->search();
+        // Get the YouTube results.
+        $this->api->run_all_queries();
         
         return $this;
     }
@@ -74,6 +72,7 @@ class scraper
     }
 
 
+    
     public function import_terms()
     {
         // Check if import is enabled.
@@ -83,14 +82,28 @@ class scraper
 
         $taxonomy = $this->options->import["yt_import_taxonomy_type"];
 
-        // loop over each search, adding each search_name to the taxonomy.
-        foreach ($this->options->search as $search_row)
-        {
-            $term = $search_row['yt_search_name'];
-            $desc = $search_row['yt_search_description']; // optional
-            $this->import->add_term($taxonomy, $term, $desc);
-        }
+        $this->import->add_terms($taxonomy, $this->options->search);
 
         return $this;
     }
+
+
+
+    // public function import_posts()
+    // {
+        
+    //     // Check if import is enabled.
+    //     if ($this->options->import['yt_import_enabled'] == 0) {
+    //         return false;
+    //     }
+
+    //     // Check if there are results back from youtube
+
+
+    //     $post_type = $this->options->import["yt_import_post_type"];
+
+    //     $this->import->add_posts($post_type, $this->search);
+
+    //     return $this;
+    // }
 }
