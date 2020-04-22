@@ -4,6 +4,7 @@ namespace yt;
 
 use \yt\api;
 use \yt\filter;
+use \yt\import;
 use \yt\options;
 
 class scraper
@@ -23,8 +24,12 @@ class scraper
 
         $this->filter = new filter;
 
+        $this->import = new import;
+
         return;
     }
+
+
 
     public function run()
     {
@@ -35,7 +40,8 @@ class scraper
         // Filter the results returned
         $this->filter();
 
-        // Insert results into CPT
+        // Import results into CPT
+        $this->import_terms();
     }
 
 
@@ -44,7 +50,7 @@ class scraper
     {
 
         // Check if search is enabled.
-        if ($this->options->search['search_enabled'] == 0) {
+        if ($this->options->search['yt_search_enabled'] == 0) {
             return false;
         }
 
@@ -65,5 +71,26 @@ class scraper
     public function filter()
     {
         return;
+    }
+
+
+    public function import_terms()
+    {
+        // Check if import is enabled.
+        if ($this->options->import['yt_import_enabled'] == 0) {
+            return false;
+        }
+
+        $taxonomy = $this->options->import["yt_import_taxonomy_type"];
+
+        // loop over each search, adding each search_name to the taxonomy.
+        foreach ($this->options->search as $search_row)
+        {
+            $term = $search_row['yt_search_name'];
+            $desc = $search_row['yt_search_description']; // optional
+            $this->import->add_term($taxonomy, $term, $desc);
+        }
+
+        return $this;
     }
 }

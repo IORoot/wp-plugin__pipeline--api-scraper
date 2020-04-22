@@ -45,3 +45,13 @@ require __DIR__.'/src/acf/populate_filter_choices.php';
 //  │                UPDATE the filter layer types with choices               │
 //  └─────────────────────────────────────────────────────────────────────────┘
 require __DIR__.'/src/acf/populate_filter_types.php';
+
+//  ┌─────────────────────────────────────────────────────────────────────────┐
+//  │             UPDATE the post types to list all possibilities             │
+//  └─────────────────────────────────────────────────────────────────────────┘
+require __DIR__.'/src/acf/populate_post_types.php';
+
+//  ┌─────────────────────────────────────────────────────────────────────────┐
+//  │          UPDATE the TAXONOMY types to list all possibilities            │
+//  └─────────────────────────────────────────────────────────────────────────┘
+require __DIR__.'/src/acf/populate_tax_types.php';

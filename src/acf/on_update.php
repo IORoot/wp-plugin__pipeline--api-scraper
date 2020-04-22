@@ -14,7 +14,7 @@ function save_yt_options()
     // │                           Kick off the program                          │
     // └─────────────────────────────────────────────────────────────────────────┘
     $yt = new \yt\scraper;
-    // $yt->run();
+    $yt->run();
 
     return;
 }

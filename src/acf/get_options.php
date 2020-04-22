@@ -27,6 +27,11 @@ class options
 
         // filters
         $this->get_repeater_options('yt_filter_group', 'filter');
+
+        // import
+        $this->import['yt_import_enabled'] = get_field('yt_import_enabled', 'option');
+        $this->import['yt_import_post_type'] = get_field('yt_import_post_type', 'option');
+        $this->import['yt_import_taxonomy_type'] = get_field('yt_import_taxonomy_type', 'option');
         
         return $this->result;
     }
