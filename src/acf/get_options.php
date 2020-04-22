@@ -2,31 +2,57 @@
 
 namespace yt;
 
-class options {
+class options
+{
+    public $creds;
 
-    public $result;
+    public $search;
 
-    public function __construct(){
+    public $filter;
+
+    public function __construct()
+    {
         return $this->get_all_options();
     }
 
 
-    public function get_all_options(){
+    public function get_all_options()
+    {
+        // creds
+        $this->creds['api_project'] = get_field('yt_api_project_name', 'option');
+        $this->creds['api_key'] = get_field('yt_api_key', 'option');
 
-        $this->get_api_project_name();
-        $this->get_api_key();
+        // search
+        $this->get_repeater_options('yt_search_instance', 'search');
+
+        // filters
+        $this->get_repeater_options('yt_filter_group', 'filter');
         
         return $this->result;
     }
 
 
-    public function get_api_project_name(){
-        $this->result['api_project'] = get_field('yt_api_project_name' , 'option');
+
+    public function get_repeater_options($repeater_field_name, $result_parameter)
+    {
+        // If field exists as an option
+        if (have_rows($repeater_field_name, 'option')) {
+
+            // Go through all rows of 'repeater' genimage_filters
+            while (have_rows($repeater_field_name, 'option')): $row = the_row(true);
+
+            $this->get_repeater_row($row, $result_parameter);
+
+            endwhile;
+        }
     }
 
 
-    public function get_api_key(){
-        $this->result['api_key'] = get_field('yt_api_key' , 'option');
-    }
 
+    public function get_repeater_row($row, $result_parameter)
+    {
+        $this->$result_parameter[] = $row;
+
+        return $this;
+    }
 }

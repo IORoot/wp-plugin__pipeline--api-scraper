@@ -1,12 +1,11 @@
 <?php
 /**
  * Include ACF into plugin.
- * 
+ *
  */
 
 // Create New Menu
-if( function_exists('acf_add_options_page') ) {
-    
+if (function_exists('acf_add_options_page')) {
     $args = array(
 
         'page_title' => 'YouTube Settings',
@@ -27,5 +26,4 @@ if( function_exists('acf_add_options_page') ) {
      * Create a new options page.
      */
     acf_add_options_sub_page($args);
-    
 }

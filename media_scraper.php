@@ -4,7 +4,7 @@
  * @package   YouTube Scraper
  * @author    Andy Pearson <andy@londonparkour.com>
  * @copyright 2020 LondonParkour
- * 
+ *
  * @wordpress-plugin
  * Plugin Name:       _ANDYP - YouTube API Scraper V2
  * Plugin URI:        http://londonparkour.com
@@ -24,14 +24,24 @@ require __DIR__.'/vendor/autoload.php';
 //  ┌─────────────────────────────────────────────────────────────────────────┐
 //  │                      The CPT for YouTube Videos                         │
 //  └─────────────────────────────────────────────────────────────────────────┘
-require __DIR__.'/src/cpt/youtube_cpt.php'; 
+require __DIR__.'/src/cpt/youtube_cpt.php';
 
 //  ┌─────────────────────────────────────────────────────────────────────────┐
 //  │               The ACF Page for YouTube Scraper Settings                 │
 //  └─────────────────────────────────────────────────────────────────────────┘
-require __DIR__.'/src/acf/options_page.php'; 
+require __DIR__.'/src/acf/options_page.php';
 
-// ┌─────────────────────────────────────────────────────────────────────────┐
-// │                           Kick off the program                          │
-// └─────────────────────────────────────────────────────────────────────────┘
-new \yt\scraper;
+//  ┌─────────────────────────────────────────────────────────────────────────┐
+//  │               Only run when the UPDATE button is clicked                │
+//  └─────────────────────────────────────────────────────────────────────────┘
+require __DIR__.'/src/acf/on_update.php';
+
+//  ┌─────────────────────────────────────────────────────────────────────────┐
+//  │              UPDATE the filters selection box with choices              │
+//  └─────────────────────────────────────────────────────────────────────────┘
+require __DIR__.'/src/acf/populate_filter_choices.php';
+
+//  ┌─────────────────────────────────────────────────────────────────────────┐
+//  │                UPDATE the filter layer types with choices               │
+//  └─────────────────────────────────────────────────────────────────────────┘
+require __DIR__.'/src/acf/populate_filter_types.php';

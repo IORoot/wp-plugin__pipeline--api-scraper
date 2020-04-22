@@ -1,10 +1,7 @@
 {
     "autoload": {
         "classmap": [
-            "src",
-            "src/acf",
-            "src/cpt",
-            "src/youtube_api"
+            "src"
         ]
     }
 
