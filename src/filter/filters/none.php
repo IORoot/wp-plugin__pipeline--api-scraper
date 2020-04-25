@@ -6,8 +6,10 @@ use yt\interfaces\filterInterface;
 
 class none implements filterInterface
 {
+    
     public $description = "Does nothing.";
 
+    public $input;
     
     public function config($config)
     {
@@ -16,12 +18,13 @@ class none implements filterInterface
 
     public function in($input)
     {
+        $this->input = $input;
         return;
     }
 
     public function out()
     {
-        return;
+        return $this->input;
     }
 
 }

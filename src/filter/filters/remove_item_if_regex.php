@@ -9,9 +9,12 @@ class remove_item_if_regex implements filterInterface
 
     public $description = "Removes an item in the array if the REGEX is true.";
 
-    public $input;
+    public $collection;
 
     public $config;
+
+
+
 
     public function config($config)
     {
@@ -20,18 +23,20 @@ class remove_item_if_regex implements filterInterface
         return;
     }
 
-    public function in($input)
+    public function in($collection)
     {
-        $this->input = $input;
+        $this->collection = $collection;
         return;
     }
 
     public function out()
     {
-        $this->loop_input();
+        $this->loop_collection();
 
         return ;
     }
+
+
 
 
     public function config_string_to_array()
@@ -42,15 +47,17 @@ class remove_item_if_regex implements filterInterface
     }
 
 
-    public function loop_input(){
 
-        foreach($this->input->items as $key => $current_item)
+
+    public function loop_collection(){
+
+        foreach($this->collection->items as $key => $current_item)
         {
-            $field = $this->search_for_postion($current_item, $this->config['item_field']);
+            $value_in_field = $this->value_at_reference($current_item, $this->config['item_field']);
 
-            if ($this->regex_bool($field))
+            if ($this->should_item_be_in_collection($value_in_field))
             {
-                unset($this->input->items[$key]);
+                unset($this->collection->items[$key]);
             }
         }
 
@@ -58,13 +65,17 @@ class remove_item_if_regex implements filterInterface
     }
 
 
-    public function regex_bool($field)
+
+
+    public function should_item_be_in_collection($value_in_field)
     {
-        return preg_match($this->config['regex'], $field);
+        return preg_match($this->config['regex'], $value_in_field);
     }
 
 
-    public function search_for_postion($current_item, $pathString, $delimiter = '->'){
+
+
+    public function value_at_reference($current_item, $pathString, $delimiter = '->'){
 
         //split the string into an array
         $pathArray = explode($delimiter, $pathString);

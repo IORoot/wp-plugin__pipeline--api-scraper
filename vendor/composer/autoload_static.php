@@ -8,9 +8,9 @@ class ComposerStaticInit30fd7ec9b8e2598fd2f686f91346eea7
 {
     public static $classMap = array (
         'yt\\api' => __DIR__ . '/../..' . '/src/api/youtube.php',
+        'yt\\filter' => __DIR__ . '/../..' . '/src/filter/filter.php',
         'yt\\filter\\none' => __DIR__ . '/../..' . '/src/filter/filters/none.php',
         'yt\\filter\\remove_item_if_regex' => __DIR__ . '/../..' . '/src/filter/filters/remove_item_if_regex.php',
-        'yt\\filter\\string_remove' => __DIR__ . '/../..' . '/src/filter/filters/string_remove.php',
         'yt\\filter\\yt_array_front' => __DIR__ . '/../..' . '/src/filter/filters/yt_array_front.php',
         'yt\\filter_group' => __DIR__ . '/../..' . '/src/filter/filter_group.php',
         'yt\\filter_layer' => __DIR__ . '/../..' . '/src/filter/filter_layer.php',
@@ -19,9 +19,13 @@ class ComposerStaticInit30fd7ec9b8e2598fd2f686f91346eea7
         'yt\\import\\category' => __DIR__ . '/../..' . '/src/import/create_category.php',
         'yt\\import\\post' => __DIR__ . '/../..' . '/src/import/create_post.php',
         'yt\\interfaces\\filterInterface' => __DIR__ . '/../..' . '/src/interfaces/filterInterface.php',
-        'yt\\mapper' => __DIR__ . '/../..' . '/src/mapper/mapper.php',
+        'yt\\interfaces\\transformInterface' => __DIR__ . '/../..' . '/src/interfaces/transformInterface.php',
+        'yt\\mapper_collection' => __DIR__ . '/../..' . '/src/mapper/mapper_collection.php',
+        'yt\\mapper_item' => __DIR__ . '/../..' . '/src/mapper/mapper_item.php',
         'yt\\options' => __DIR__ . '/../..' . '/src/acf/get_options.php',
         'yt\\scraper' => __DIR__ . '/../..' . '/src/scraper.php',
+        'yt\\transform' => __DIR__ . '/../..' . '/src/transform/transform.php',
+        'yt\\transform\\string_remove' => __DIR__ . '/../..' . '/src/transform/transforms/string_remove.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

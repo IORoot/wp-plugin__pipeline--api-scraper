@@ -5,10 +5,11 @@ namespace yt;
 class options
 {
     public $scrape;
+    public $filter;
+    public $transforms;
 
     protected $auth;
     protected $search;
-    protected $filter;
     protected $mapper;
     protected $import;
     
@@ -34,14 +35,17 @@ class options
         // search
         $this->get_repeater_options('yt_search_instance', 'search');
 
-        // filters
-        $this->get_repeater_options('yt_filter_instance', 'filter');
-
         // mapper
         $this->get_repeater_options('yt_mapper_instance', 'mapper');
 
         // import
         $this->get_repeater_options('yt_import_instance', 'import');
+
+        // filters
+        $this->get_repeater_options('yt_filter_instance', 'filter');
+
+        // transforms
+        $this->get_repeater_options('yt_transform_instance', 'transform');
         
         return $this;
     }
@@ -129,9 +133,11 @@ class options
         // unset everything else.
         unset($this->auth);
         unset($this->search);
-        unset($this->filter);
         unset($this->mapper);
         unset($this->import);
+
+        // Keep 'filter' because we need the parameters to use on the mapper filters.
+        // see the mapper_item->filter_mapping()
 
         return;
     }

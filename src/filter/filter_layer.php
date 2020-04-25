@@ -6,11 +6,10 @@ use \yt\filter;
 
 class filter_layer
 {
-    public $filter_object;
 
     public $filter_layer;
 
-    public $item_collection;
+    public $collection;
 
 
     public function __construct()
@@ -18,9 +17,9 @@ class filter_layer
         return $this;
     }
 
-    public function set_item_collection($item_collection)
+    public function set_collection($collection)
     {
-        $this->item_collection = $item_collection;
+        $this->collection = $collection;
         return;
     }
 
@@ -34,9 +33,7 @@ class filter_layer
     public function run()
     {
         $this->check_filter_exists();
-        $result = $this->filter_instance();
-
-        return;
+        return $this->instantiate_filter();
     }
 
 
@@ -52,21 +49,20 @@ class filter_layer
     }
 
 
-    public function filter_instance()
+
+    public function instantiate_filter()
     {
+
         $filter_name = '\\yt\\filter\\'.$this->filter_layer['yt_filter'];
-        $filter_parameters = $this->filter_layer['yt_filter_parameters'];
-        
-        return $this->instantiate_filter($filter_name, $filter_parameters);
-    }
+        $parameters = $this->filter_layer['yt_filter_parameters'];
 
-    
-    public function instantiate_filter($filter_name, $parameters)
-    {
-        $this->filter_object = new $filter_name;
-        $this->filter_object->config($parameters);
-        $this->filter_object->in($this->item_collection);
+        $filter_object = new $filter_name;
+        $filter_object->config($parameters);
+        $filter_object->in($this->collection);
 
-        return $this->filter_object->out();
+        $out = $filter_object->out();
+
+        return $out;
+
     }
 }

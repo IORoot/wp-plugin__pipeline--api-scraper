@@ -7,9 +7,13 @@ use yt\interfaces\filterInterface;
 class filter_list {
 
 
-    public $list = [
-        'none' => 'none',
-    ];
+    public $list = [];
+
+
+    public $description = [];
+
+
+    public $descriptions = [];
 
 
     public function __construct(){
@@ -33,6 +37,45 @@ class filter_list {
         $this->list = $file_array;
 
         return;
+    }
+
+
+    public function get_all_filter_descriptions()
+    {
+        
+        $files = scandir(__DIR__ . '/filters');
+        foreach ($files as $file){
+
+            if ($file == '.' || $file == '..'){ continue; }
+
+            include(__DIR__ . '/'.$file);
+
+            $classname = '\\yt\\filter\\'.str_replace('.php', '', $file);
+
+            $instance = new $classname;
+
+            $description_array["${file}"] = $instance->description;
+        }
+
+
+        $this->descriptions = $description_array;
+
+        return $this->descriptions;
+
+    }
+
+
+    public function get_filter_description($filter)
+    {
+        
+        include(__DIR__ . '/'.$filter . '.php');
+
+        $instance = new $filter;
+
+        $this->description = $instance->description;
+    
+        return $this->description;
+
     }
 
 

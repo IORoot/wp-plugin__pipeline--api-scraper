@@ -9,14 +9,12 @@ class filter_group
 
     public $filter_group;
 
-    public $filter_layer;
-
-    public $item_collection;
+    public $collection;
 
     public function __construct()
     {
         return $this;
-    }
+    }   
 
     public function set_filter_group($filter_group)
     {
@@ -25,31 +23,34 @@ class filter_group
     }
 
 
-    public function set_item_collection($item_collection)
+    public function set_collection($collection)
     {
-        $this->item_collection = $item_collection;
+        $this->collection = $collection;
         return;
     }
 
 
     public function run()
     {
-        
-        foreach ($this->filter_group['yt_filter_layers'] as $this->filter_layer)
+
+        // iterate over each filter in the filter group
+        foreach ($this->filter_group['yt_filter_layers'] as $filter_layer)
         {
-            $this->filter_item();
+            $this->filter_item($filter_layer);
         }
 
-        return $this;
+        return $this->collection;
     }
 
 
-    public function filter_item()
+
+    public function filter_item($filter_layer)
     {
         $filter_item = new filter_layer;
-        $filter_item->set_item_collection($this->item_collection);
-        $filter_item->set_filter($this->filter_layer);
-        $filter_item->run();
+        $filter_item->set_collection($this->collection);
+        $filter_item->set_filter($filter_layer);
+
+        return $filter_item->run();
 
     }
 }

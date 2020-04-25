@@ -49,6 +49,7 @@ class yt_array_front implements filterInterface
 
 
 
+
     public function find_item_collection_within_input_array()
     {
         if (!is_array($this->config['location'])) {

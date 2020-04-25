@@ -1,10 +1,10 @@
 <?php
 
-namespace yt\filter;
+namespace yt\transform;
 
-use yt\interfaces\filterInterface;
+use yt\interfaces\transformInterface;
 
-class string_remove implements filterInterface
+class string_remove implements transformInterface
 {
 
     public $description = "Removes a string from a field.";
@@ -27,6 +27,7 @@ class string_remove implements filterInterface
 
     public function out()
     {
-        return;
+        
+        return $this->input;
     }
 }

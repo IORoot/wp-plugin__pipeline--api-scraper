@@ -3,8 +3,8 @@
 namespace yt;
 
 use \yt\api;
-use \yt\filter_group as filter;
-use \yt\mapper;
+use \yt\filter as filter;
+use \yt\mapper_collection as mapper;
 use \yt\import;
 use \yt\options;
 
@@ -35,9 +35,9 @@ class scraper
      */
     public $options;
 
-    private $api;
+    public $filter;
 
-    private $filter;
+    private $api;
 
     private $mapper;
 
@@ -96,7 +96,7 @@ class scraper
         $this->filter();
 
         // Map fields
-        $this->mapper_all_items();
+        // $this->mapper_all_items();
 
         // // Import results into CPT
         // $this->import_terms();
@@ -104,8 +104,18 @@ class scraper
         // // Import post into CPT
         // $this->import_all_posts_from_all_searches();
 
+        return;
     }
 
+
+    // ┌─────────────────────────────────────────────────────────────────────────┐ 
+    // │                                                                         │░
+    // │                                                                         │░
+    // │                                SCRAPING                                 │░
+    // │                                                                         │░
+    // │                                                                         │░
+    // └─────────────────────────────────────────────────────────────────────────┘░
+    // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
 
     public function scrape_api()
@@ -132,9 +142,19 @@ class scraper
     }
 
 
+    // ┌─────────────────────────────────────────────────────────────────────────┐ 
+    // │                                                                         │░
+    // │                                                                         │░
+    // │                                FILTERING                                │░
+    // │                                                                         │░
+    // │                                                                         │░
+    // └─────────────────────────────────────────────────────────────────────────┘░
+    // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+
 
     public function filter()
     {
+
         // This is the group of filters to
         // perform on the results of the API response.
         $this->filter->set_filter_group($this->options->scrape[$this->_scrape_key]['yt_scrape_filter']);
@@ -144,11 +164,23 @@ class scraper
         $this->filter->set_item_collection($this->options->scrape[$this->_scrape_key]['yt_scrape_response']);
 
         // once everything is set, run it.
-        $this->filter->run();
+        // Then add the respons of the filtering into the scrape
+        // object.
+        $this->options->scrape[$this->_scrape_key]['yt_scrape_filtered'] = $this->filter->run();
 
         return;
     }
 
+
+
+    // ┌─────────────────────────────────────────────────────────────────────────┐ 
+    // │                                                                         │░
+    // │                                                                         │░
+    // │                                 MAPPING                                 │░
+    // │                                                                         │░
+    // │                                                                         │░
+    // └─────────────────────────────────────────────────────────────────────────┘░
+    // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
 
     public function mapper_all_items()
@@ -161,51 +193,38 @@ class scraper
             throw new Exception('YouTube Response is empty or does not exist. Check $this->options->scrape['.$this->_scrape_key.'][yt_scrape_response]');
         }
 
+        // Give the mapper all filters
+        // This is because we'll need the parameters for
+        // every filter to be able to run it.
+        $this->mapper->set_filters($this->options->filter);
+
+
         // Give the mapper the mappings we want it to perform
         $this->mapper->set_mappings($this->options->scrape[$this->_scrape_key]['yt_scrape_mapper']['yt_mapper_row']);
 
-        // loop over all the items, performing
-        // the mappings on each one at a time.
-        foreach($this->options->scrape[$this->_scrape_key]['yt_scrape_response']->items as $this->_map_item)
-        {
-            // now the _map_item is set to the current item
-            // in a loop, use th e'mapper method to 
-            // perform the mapping.
-            $this->options->scrape[$this->_scrape_key]['yt_scrape_mapped'][] = $this->mapper();
 
-        }
+        // set the mapper to use the array collection
+        // returned from youtube.
+        $this->mapper->set_collection($this->options->scrape[$this->_scrape_key]['yt_scrape_filtered']->items);
+
+
+        // run it!
+        $this->options->scrape[$this->_scrape_key]['yt_scrape_mapped'] = $this->mapper->run();
+
 
         return;
     }
 
-    
 
 
-    public function mapper()
-    {
-
-        // Check that we have an item to perform the 
-        // mapping upon.
-        if ($this->_map_item == null) {
-            throw new Exception('There is no $this->_map_item to run the mapper on. Look at mapper_all_items().');
-        }
-
-        // Give the mapper the SINGLE source item to perform the mapping on.
-        $this->mapper->set_source($this->_map_item);
-
-        // Return the result of the mapping.
-        // This will be an $args type array to be used
-        // For the import process.
-        return $this->mapper->run();
-
-    }
-
-
-
-
-
-
-
+    // ┌─────────────────────────────────────────────────────────────────────────┐ 
+    // │                                                                         │░
+    // │                                                                         │░
+    // │                                IMPORTING                                │░
+    // │                                                                         │░
+    // │                                                                         │░
+    // └─────────────────────────────────────────────────────────────────────────┘░
+    //  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
     public function import_terms()
     {

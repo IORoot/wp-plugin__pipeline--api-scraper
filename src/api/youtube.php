@@ -86,6 +86,8 @@ class api
         try {
             $result = json_decode(wp_remote_fopen($this->request_url));
         } catch (Exception $e) {
+            var_dump($e->getMessage());
+            die;
             echo 'Caught \Exception calling YouTube: ',  $e->getMessage(), "\n";
         }
 

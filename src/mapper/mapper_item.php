@@ -2,13 +2,18 @@
 
 namespace yt;
 
-class mapper
+use yt\filter_group;
+
+class mapper_item
 {
+    public $all_filters;
+    
     public $mappings;
 
     public $source;
 
     public $current_mapping;
+
     public $source_mapping;
 
     public $mapped_result;
@@ -31,6 +36,12 @@ class mapper
         return $this;
     }
 
+    public function set_filters($filters)
+    {
+        $this->all_filters = $filters;
+        return $this;
+    }
+
     public function run()
     {
         $this->process_mappings();
@@ -40,8 +51,7 @@ class mapper
 
     public function process_mappings()
     {
-        foreach($this->mappings as $this->current_mapping)
-        {
+        foreach ($this->mappings as $this->current_mapping) {
             $this->process_mapping();
         }
         return;
@@ -49,41 +59,24 @@ class mapper
 
     public function process_mapping()
     {
-        
         $this->mapped_result[$this->destination()] = $this->source_value();
-
         return $this->mapped_result;
-
     }
 
 
-
-    /**
-     * This is a tricky one to figure out.
-     * Essentially, the loop will iterate down the tree
-     * setting the $value to a narrower part of the object on
-     * each loop, until it gets to it's destination.
-     * It will return the value of that final level.
-     */
     public function source_value()
     {
-        
         $this->explode_source();
 
         $value = $this->source;
-        foreach($this->source_mapping as $object_level)
-        {
+        foreach ($this->source_mapping as $object_level) {
             $value = $value->$object_level;
-        } 
-        return $value;
+        }
+
+        return $this->filter_value($value);
     }
 
 
-    /**
-     * Explode the source out into an array
-     * so we can traverse it within the source_value()
-     * method.
-     */
     public function explode_source()
     {
         $this->source_mapping = explode('->', $this->current_mapping['yt_mapper_source']);
@@ -97,8 +90,28 @@ class mapper
     }
 
 
-    public function filter_source_field()
+    public function filter_value($value)
     {
-        return;
+
+        // // filter to run
+        // $filter_group = $this->current_mapping['yt_mapper_filter'];
+
+        // foreach ($this->all_filters as $filter){
+        //     if ($filter['yt_filter_id'] == $filter_group)
+        //     {
+        //         $filter_layers = $filter['yt_filter_layers'];
+        //     }
+        // }
+
+
+
+        
+
+        // $filter_group = new filter_group;
+        // $filter_group->set_filter_group();
+        // $filter_group->set_item_collection();
+        // $filter_group->run();
+
+        return $value;
     }
 }
