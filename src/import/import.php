@@ -2,8 +2,8 @@
 
 namespace yt;
 
-use \yt\category;
-use \yt\post;
+use \yt\import\category;
+use \yt\import\post;
 
 class import
 {

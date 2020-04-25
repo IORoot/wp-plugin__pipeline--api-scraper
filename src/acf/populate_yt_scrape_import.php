@@ -1,19 +1,19 @@
 <?php
 
-function acf_load_filter_selection_field_choices( $field ) {
+function acf_populate_yt_scrape_import_choices( $field ) {
     
     // reset choices
     $field['choices'] = array();
     
     // get the textarea value from options page without any formatting
-    $choices = get_field('yt_filter_group', 'option', true);
+    $choices = get_field('yt_import_instance', 'option', true);
     
     // loop through array and add to field 'choices'
     if( is_array($choices) ) {
         
         foreach( $choices as $choice ) {
             
-            $choice_name = $choice['yt_filter_group_name'];
+            $choice_name = $choice['yt_import_id'];
             $field['choices'][ $choice_name ] = $choice_name;
             
         }
@@ -26,4 +26,4 @@ function acf_load_filter_selection_field_choices( $field ) {
     
 }
 
-add_filter('acf/load_field/name=yt_filter_selection', 'acf_load_filter_selection_field_choices');
+add_filter('acf/load_field/name=yt_scrape_import', 'acf_populate_yt_scrape_import_choices');

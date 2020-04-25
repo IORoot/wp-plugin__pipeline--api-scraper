@@ -27,31 +27,6 @@ require __DIR__.'/vendor/autoload.php';
 require __DIR__.'/src/cpt/youtube_cpt.php';
 
 //  ┌─────────────────────────────────────────────────────────────────────────┐
-//  │               The ACF Page for YouTube Scraper Settings                 │
+//  │                           The ACF Parts                                 │
 //  └─────────────────────────────────────────────────────────────────────────┘
-require __DIR__.'/src/acf/options_page.php';
-
-//  ┌─────────────────────────────────────────────────────────────────────────┐
-//  │               Only run when the UPDATE button is clicked                │
-//  └─────────────────────────────────────────────────────────────────────────┘
-require __DIR__.'/src/acf/on_update.php';
-
-//  ┌─────────────────────────────────────────────────────────────────────────┐
-//  │              UPDATE the filters selection box with choices              │
-//  └─────────────────────────────────────────────────────────────────────────┘
-require __DIR__.'/src/acf/populate_filter_choices.php';
-
-//  ┌─────────────────────────────────────────────────────────────────────────┐
-//  │                UPDATE the filter layer types with choices               │
-//  └─────────────────────────────────────────────────────────────────────────┘
-require __DIR__.'/src/acf/populate_filter_types.php';
-
-//  ┌─────────────────────────────────────────────────────────────────────────┐
-//  │             UPDATE the post types to list all possibilities             │
-//  └─────────────────────────────────────────────────────────────────────────┘
-require __DIR__.'/src/acf/populate_post_types.php';
-
-//  ┌─────────────────────────────────────────────────────────────────────────┐
-//  │          UPDATE the TAXONOMY types to list all possibilities            │
-//  └─────────────────────────────────────────────────────────────────────────┘
-require __DIR__.'/src/acf/populate_tax_types.php';
+require __DIR__.'/src/acf/acf_init.php';

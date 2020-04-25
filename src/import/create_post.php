@@ -1,6 +1,6 @@
 <?php
 
-namespace yt;
+namespace yt\import;
 
 class post
 {
@@ -25,7 +25,7 @@ class post
     }
 
 
-    
+
     public function set_postdata($post_data)
     {
         $this->post_data = $post_data;
@@ -37,7 +37,7 @@ class post
 
     public function process_postdata()
     {
-
+        
     }
     
 

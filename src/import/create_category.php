@@ -1,6 +1,6 @@
 <?php
 
-namespace yt;
+namespace yt\import;
 
 class category
 {
