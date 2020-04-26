@@ -2,7 +2,7 @@
 
 namespace yt;
 
-class filter_list {
+class transform_list {
 
 
     public $list = [];
@@ -15,14 +15,14 @@ class filter_list {
 
 
     public function __construct(){
-        $this->get_filter_list();
+        $this->get_transform_list();
         return;
     }
 
     
-    public function get_filter_list(){
+    public function get_transform_list(){
 
-        $files = scandir(__DIR__ . '/filters');
+        $files = scandir(__DIR__ . '/transforms');
 
         foreach ($files as $file){
             $file = str_replace('.php', '', $file);
@@ -38,10 +38,10 @@ class filter_list {
     }
 
 
-    public function get_all_filter_descriptions()
+    public function get_all_transform_descriptions()
     {
         
-        $files = scandir(__DIR__ . '/filters');
+        $files = scandir(__DIR__ . '/transforms');
         foreach ($files as $file){
 
             if ($file == '.' || $file == '..'){ continue; }
@@ -61,21 +61,6 @@ class filter_list {
         return $this->descriptions;
 
     }
-
-
-    public function get_filter_description($filter)
-    {
-        
-        include(__DIR__ . '/'.$filter . '.php');
-
-        $instance = new $filter;
-
-        $this->description = $instance->description;
-    
-        return $this->description;
-
-    }
-
 
     
 

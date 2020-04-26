@@ -25,7 +25,7 @@ class category
     public function set_type($taxonomy)
     {
         if ($taxonomy == null || $taxonomy == '') {
-            throw new Exception('No Taxonomy has been specified. Cannot set.');
+            throw new \Exception('No Taxonomy has been specified. Cannot set.');
         }
         $this->taxonomy_type = $taxonomy;
         return $this;
@@ -35,7 +35,7 @@ class category
     public function set_term($term)
     {
         if ($term == null || $term == '') {
-            throw new Exception('No Term has been specified. Cannot set.');
+            throw new \Exception('No Term has been specified. Cannot set.');
         }
         $this->taxonomy_term = $term;
         return $this;
@@ -57,10 +57,10 @@ class category
     public function add_term()
     {
         if ($this->taxonomy_type == null || $this->taxonomy_type == '') {
-            throw new Exception('No Taxonomy has been specified. Cannot create taxonomy.');
+            throw new \Exception('No Taxonomy has been specified. Cannot create taxonomy.');
         }
         if ($this->taxonomy_term == null || $this->taxonomy_term == '') {
-            throw new Exception('No Term has been specified. Cannot create taxonomy.');
+            throw new \Exception('No Term has been specified. Cannot create taxonomy.');
         }
         if (term_exists($this->taxonomy_term, $this->taxonomy_type)){
             return $this;
@@ -87,7 +87,7 @@ class category
                     'slug' => $this->taxonomy_slug
                 )
             );
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             echo 'Insert term : '.$this->taxonomy_term.' into taxonomy '.$this->taxonomy_type.' Failed: ',  $e->getMessage(), "\n";
         }
 

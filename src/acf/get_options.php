@@ -6,7 +6,7 @@ class options
 {
     public $scrape;
     public $filter;
-    public $transforms;
+    public $transform;
 
     protected $auth;
     protected $search;
@@ -136,7 +136,7 @@ class options
         unset($this->mapper);
         unset($this->import);
 
-        // Keep 'filter' because we need the parameters to use on the mapper filters.
+        // Keep 'filter' and 'transform' because we need the parameters to use on the mapper filters.
         // see the mapper_item->filter_mapping()
 
         return;

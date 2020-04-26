@@ -4,15 +4,29 @@ namespace yt;
 
 use yt\mapper_item;
 
+
+// ┌─────────────────────────────────────────────────────────────────────────┐ 
+// │                                                                         │░
+// │                            MAPPER_COLLECTION                            │░
+// │                                                                         │░
+// │                                                                         │░
+// │ Primary Purpose:                                                        │░
+// │                                                                         │░
+// │ 1. For a mapper_collection, split it up into separate mapper items.     │░
+// │                                                                         │░
+// │ 2. Pass each item to mapper_item to handle each instance.               │░
+// │                                                                         │░
+// └─────────────────────────────────────────────────────────────────────────┘░
+//  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+
+
 class mapper_collection
 {
-    public $filters;
+    public $transforms;
 
     public $mappings;
 
     public $collection;
-
-    public $item;
 
     public $mapped_result;
 
@@ -22,9 +36,9 @@ class mapper_collection
     }
 
 
-    public function set_mappings($mappings_array)
+    public function set_mappings($mappings)
     {
-        $this->mappings = $mappings_array;
+        $this->mappings = $mappings;
         return $this;
     }
 
@@ -37,32 +51,32 @@ class mapper_collection
 
 
     /**
-     * We need the filters because we need
-     * the parameters associated with each filter.
+     * We need the transforms because we need
+     * the parameters associated with each transform.
      */
-    public function set_filters($filters)
+    public function set_transforms($transforms)
     {
-        $this->filters = $filters;
+        $this->transforms = $transforms;
         return $this;
     }
 
 
     public function run()
     {
-        foreach ($this->collection as $this->item) {
-            $this->map_item();
+        foreach ($this->collection as $item) {
+            $this->map_item($item);
         }
 
         return $this->mapped_result;
     }
 
 
-    public function map_item()
+    public function map_item($item)
     {
         $mapper_item = new mapper_item;
-        $mapper_item->set_filters($this->filters);
+        $mapper_item->set_transforms($this->transforms);
         $mapper_item->set_mappings($this->mappings);
-        $mapper_item->set_source($this->item);
+        $mapper_item->set_source_item($item);
 
         $this->mapped_result[] = $mapper_item->run();
 

@@ -22,10 +22,14 @@ class ComposerStaticInit30fd7ec9b8e2598fd2f686f91346eea7
         'yt\\interfaces\\transformInterface' => __DIR__ . '/../..' . '/src/interfaces/transformInterface.php',
         'yt\\mapper_collection' => __DIR__ . '/../..' . '/src/mapper/mapper_collection.php',
         'yt\\mapper_item' => __DIR__ . '/../..' . '/src/mapper/mapper_item.php',
+        'yt\\option' => __DIR__ . '/../..' . '/src/acf/get_option.php',
         'yt\\options' => __DIR__ . '/../..' . '/src/acf/get_options.php',
         'yt\\scraper' => __DIR__ . '/../..' . '/src/scraper.php',
-        'yt\\transform' => __DIR__ . '/../..' . '/src/transform/transform.php',
+        'yt\\transform\\none' => __DIR__ . '/../..' . '/src/transform/transforms/none.php',
         'yt\\transform\\string_remove' => __DIR__ . '/../..' . '/src/transform/transforms/string_remove.php',
+        'yt\\transform_group' => __DIR__ . '/../..' . '/src/transform/transform_group.php',
+        'yt\\transform_layer' => __DIR__ . '/../..' . '/src/transform/transform_layer.php',
+        'yt\\transform_list' => __DIR__ . '/../..' . '/src/transform/transform_list.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

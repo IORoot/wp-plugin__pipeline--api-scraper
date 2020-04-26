@@ -21,8 +21,12 @@ return array(
     'yt\\interfaces\\transformInterface' => $baseDir . '/src/interfaces/transformInterface.php',
     'yt\\mapper_collection' => $baseDir . '/src/mapper/mapper_collection.php',
     'yt\\mapper_item' => $baseDir . '/src/mapper/mapper_item.php',
+    'yt\\option' => $baseDir . '/src/acf/get_option.php',
     'yt\\options' => $baseDir . '/src/acf/get_options.php',
     'yt\\scraper' => $baseDir . '/src/scraper.php',
-    'yt\\transform' => $baseDir . '/src/transform/transform.php',
+    'yt\\transform\\none' => $baseDir . '/src/transform/transforms/none.php',
     'yt\\transform\\string_remove' => $baseDir . '/src/transform/transforms/string_remove.php',
+    'yt\\transform_group' => $baseDir . '/src/transform/transform_group.php',
+    'yt\\transform_layer' => $baseDir . '/src/transform/transform_layer.php',
+    'yt\\transform_list' => $baseDir . '/src/transform/transform_list.php',
 );

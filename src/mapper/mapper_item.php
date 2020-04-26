@@ -2,116 +2,193 @@
 
 namespace yt;
 
-use yt\filter_group;
+use yt\transform_group;
+
+
+// ┌─────────────────────────────────────────────────────────────────────────┐ 
+// │                                                                         │░
+// │                               MAPPER_ITEM                               │░
+// │                                                                         │░
+// │                                                                         │░
+// │ Primary Purpose:                                                        │░
+// │                                                                         │░
+// │ 1. Get the value from the source field                                  │░
+// │ 2. Set that value to an array with the key as the destination field.    │░
+// │ 3. Send the value to be transformed.                                    │░
+// │                                                                         │░
+// │ Difficult bits solved:                                                  │░
+// │                                                                         │░
+// │ 1. The location of the source field is in a string like                 │░
+// │ 'snippet->title' and needs to be processed to get the value from that   │░
+// │ location. see source_value()                                            │░
+// │                                                                         │░
+// └─────────────────────────────────────────────────────────────────────────┘░
+//  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+
+
 
 class mapper_item
 {
-    public $all_filters;
+    public $all_transforms;
     
-    public $mappings;
+    public $mapping_group;
 
-    public $source;
+    public $wp_post_args;
 
-    public $current_mapping;
+    
+    /**
+     * $single_mapping
+     * 
+     * This is the single instance
+     * of each mapping to perform.
+     * Each one of these make up the
+     * $mapping_group
+     *
+     * @var undefined
+     */
+    public $single_mapping;
 
     public $source_mapping;
 
     public $mapped_result;
+
+
+
 
     public function __construct()
     {
         return $this;
     }
 
-
-    public function set_mappings($mappings_array)
+    public function set_transforms($all_transforms)
     {
-        $this->mappings = $mappings_array;
+        $this->all_transforms = $all_transforms;
         return $this;
     }
 
-    public function set_source($source)
+
+    public function set_mappings($mapping_group)
     {
-        $this->source = $source;
+        $this->mapping_group = $mapping_group;
         return $this;
     }
 
-    public function set_filters($filters)
+    public function set_source_item($source_item)
     {
-        $this->all_filters = $filters;
+        $this->source_item = $source_item;
         return $this;
     }
+
+
+
+
 
     public function run()
     {
         $this->process_mappings();
-        return $this->mapped_result;
+
+        return $this->wp_post_args;
     }
 
 
     public function process_mappings()
     {
-        foreach ($this->mappings as $this->current_mapping) {
-            $this->process_mapping();
+        foreach ($this->mapping_group as $this->single_mapping) {
+            $this->process_single_mapping();
         }
         return;
     }
 
-    public function process_mapping()
+
+    public function process_single_mapping()
     {
-        $this->mapped_result[$this->destination()] = $this->source_value();
-        return $this->mapped_result;
+        $destination_field = $this->destination_field();
+
+        $source_value = $this->source_value();
+
+        $transformed_value = $this->transform_value($source_value);
+
+        // Set the result array to have a key of the
+        // destination field and the value of the
+        // source field, after its had any transforms
+        // performed on it.
+        $this->wp_post_args[$destination_field] = $transformed_value;
+        
+        return;
     }
 
 
+    /**
+     * source_value
+     * 
+     * Traverse the source_item to get the specific
+     * value we want to map to the destination field.
+     * 
+     * The location is held in the array 'location_parts'
+     * broken down by each stage of the object,
+     * one level at a time.
+     *
+     * @return void
+     */
     public function source_value()
     {
-        $this->explode_source();
+        $location_parts = $this->explode_source_location();
 
-        $value = $this->source;
-        foreach ($this->source_mapping as $object_level) {
+        // location of the item within this object.
+        $value = $this->source_item;
+
+        // Loop over each location part until you get
+        // to the correct location in the item object.
+        foreach ($location_parts as $object_level) {
             $value = $value->$object_level;
         }
 
-        return $this->filter_value($value);
+        return $value;
     }
 
 
-    public function explode_source()
+    /**
+     * explode_source_location
+     * 
+     * The source field is a string, but to traverse
+     * the item, we need each part of the string
+     * so we we break it into an array.
+     *
+     * @return void
+     */
+    public function explode_source_location()
     {
-        $this->source_mapping = explode('->', $this->current_mapping['yt_mapper_source']);
-        return;
+        return explode('->', $this->single_mapping['yt_mapper_source']);
     }
     
 
-    public function destination()
+    /**
+     * destination_field
+     * 
+     * Where the result should go.
+     *
+     * @return void
+     */
+    public function destination_field()
     {
-        return $this->current_mapping['yt_mapper_destination'];
+        return $this->single_mapping['yt_mapper_destination'];
     }
 
 
-    public function filter_value($value)
+    /**
+     * transform_value
+     *
+     * @param mixed $value
+     * @return void
+     */
+    public function transform_value($source_value)
     {
 
-        // // filter to run
-        // $filter_group = $this->current_mapping['yt_mapper_filter'];
+        $transform_group = new transform_group;
+        $transform_group->set_field($source_value);
+        $transform_group->transform_group_to_run($this->single_mapping['yt_mapper_transform']);
+        $source_value = $transform_group->run();
 
-        // foreach ($this->all_filters as $filter){
-        //     if ($filter['yt_filter_id'] == $filter_group)
-        //     {
-        //         $filter_layers = $filter['yt_filter_layers'];
-        //     }
-        // }
-
-
-
-        
-
-        // $filter_group = new filter_group;
-        // $filter_group->set_filter_group();
-        // $filter_group->set_item_collection();
-        // $filter_group->run();
-
-        return $value;
+        return $source_value;
     }
 }
