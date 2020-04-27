@@ -50,7 +50,7 @@ class import
             throw new \Exception('No search_results has been specified. Cannot import->add_posts().');
         }
 
-        foreach ($collection->items as $item) {
+        foreach ($collection as $item) {
             $this->add_post($post_type, $item);
         }
 
@@ -60,9 +60,11 @@ class import
 
 
     public function add_post($post_type, $yt_result)
-    {
-        $this->post->set_posttype($post_type);
-        $this->post->set_postdata($yt_result);
+    {    
+        $this->post->set_postargs($yt_result);
+        $this->post->add_posttype($post_type);
+
+        $this->post->add();
 
         return $this;
     }

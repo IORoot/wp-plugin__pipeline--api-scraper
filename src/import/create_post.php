@@ -4,11 +4,7 @@ namespace yt\import;
 
 class post
 {
-
-    public $post_data;
-
-    public $post_type;
-
+    public $post_args;
 
     public function __construct()
     {
@@ -17,31 +13,34 @@ class post
 
 
 
-    public function set_posttype($post_type)
+    public function set_postargs($post_args)
     {
-        $this->post_type = $post_type;
+        $this->post_args = $post_args;
 
         return $this;
     }
 
 
-
-    public function set_postdata($post_data)
+    public function add_posttype($post_type)
     {
-        $this->post_data = $post_data;
-
+        $this->post_args['post_type'] = $post_type;
         return $this;
     }
 
-    
 
-
-    public function process_postdata()
+    public function add()
     {
-        
+        if (post_exists($this->post_args['post_title'])) {
+            (new \yt\e)->line('Post exists, skipping : ' . $this->post_args['post_title'], 2);
+            return;
+        } else {
+            (new \yt\e)->line('Inserting Post : ' . $this->args['post_title'], 2 );
+        }
+
+        wp_insert_post(
+            $this->post_args
+        );
+
+        return;
     }
-    
-
-
-
 }

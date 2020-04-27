@@ -8,6 +8,7 @@ class ComposerStaticInit30fd7ec9b8e2598fd2f686f91346eea7
 {
     public static $classMap = array (
         'yt\\api' => __DIR__ . '/../..' . '/src/api/youtube.php',
+        'yt\\e' => __DIR__ . '/../..' . '/src/error/e.php',
         'yt\\filter' => __DIR__ . '/../..' . '/src/filter/filter.php',
         'yt\\filter\\none' => __DIR__ . '/../..' . '/src/filter/filters/none.php',
         'yt\\filter\\remove_item_if_regex' => __DIR__ . '/../..' . '/src/filter/filters/remove_item_if_regex.php',

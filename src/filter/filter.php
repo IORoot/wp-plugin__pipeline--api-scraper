@@ -32,16 +32,40 @@ class filter
 
     public function run()
     {
-
+        if(!$this->check_filter()){return false;}
+        
         $filter_item = new filter_group;
         
         $filter_item->set_collection($this->item_collection);
         $filter_item->set_filter_group($this->filter_group);
 
         return $filter_item->run();
-
-        return $this->item_collection;
     }
 
+
+    // ┌─────────────────────────────────────────────────────────────────────────┐ 
+    // │                                                                         │░
+    // │                                                                         │░
+    // │                                 CHECKS                                  │░
+    // │                                                                         │░
+    // │                                                                         │░
+    // └─────────────────────────────────────────────────────────────────────────┘░
+    //  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+
+    public function check_filter(){
+
+        if ($this->filter_group == '') {
+            (new e)->line('- filter->filter_group is blank. Please set.',1);
+            return false;
+        }
+
+        if ($this->item_collection == '') {
+            (new e)->line('- filter->filter_group is blank. Please set.',1);
+            return false;
+        }
+
+        return true;
+
+    }
 
 }

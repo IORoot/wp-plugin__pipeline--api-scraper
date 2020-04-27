@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'yt\\api' => $baseDir . '/src/api/youtube.php',
+    'yt\\e' => $baseDir . '/src/error/e.php',
     'yt\\filter' => $baseDir . '/src/filter/filter.php',
     'yt\\filter\\none' => $baseDir . '/src/filter/filters/none.php',
     'yt\\filter\\remove_item_if_regex' => $baseDir . '/src/filter/filters/remove_item_if_regex.php',

@@ -32,6 +32,7 @@ class filter_layer
 
     public function run()
     {
+        (new e)->line('- filter_layer : '.$this->filter_layer['yt_filter'], 1);
         $this->check_filter_exists();
         return $this->instantiate_filter();
     }

@@ -57,12 +57,13 @@ class category
     public function add_term()
     {
         if ($this->taxonomy_type == null || $this->taxonomy_type == '') {
-            throw new \Exception('No Taxonomy has been specified. Cannot create taxonomy.');
+            (new \yt\e)->line('No Taxonomy has been specified. Cannot create taxonomy. : ' . $this->taxonomy_type, 2 );
         }
         if ($this->taxonomy_term == null || $this->taxonomy_term == '') {
-            throw new \Exception('No Term has been specified. Cannot create taxonomy.');
+            (new \yt\e)->line('No Term has been specified. Cannot create term. : '.$this->taxonomy_term .' in '. $this->taxonomy_type, 2 );
         }
         if (term_exists($this->taxonomy_term, $this->taxonomy_type)){
+            (new \yt\e)->line('Term already exists : '.$this->taxonomy_term .' in '. $this->taxonomy_type, 2 );
             return $this;
         }
 
@@ -78,6 +79,8 @@ class category
 
     private function insert()
     {
+        (new \yt\e)->line('Insert Term : '.$this->taxonomy_term . ' into '. $this->taxonomy_type, 2 );
+
         try {
             $this->result = wp_insert_term(
                 $this->taxonomy_term,
@@ -87,8 +90,12 @@ class category
                     'slug' => $this->taxonomy_slug
                 )
             );
+
+        
+
         } catch (\Exception $e) {
-            echo 'Insert term : '.$this->taxonomy_term.' into taxonomy '.$this->taxonomy_type.' Failed: ',  $e->getMessage(), "\n";
+            (new \yt\e)->line('FAILED Insert Term : '.$this->taxonomy_term . ' into '. $this->taxonomy_type, 2 );
+            return false;
         }
 
         return $this;

@@ -52,12 +52,13 @@ class scraper
     private $importer;
 
     // Temporary parameters
-    private $_scrape_instance;
     private $_scrape_key;
 
 
     public function __construct()
     {
+        (new e)->clear();
+
         $this->options = new options;
 
         $this->api = new api;
@@ -77,10 +78,10 @@ class scraper
     {
 
         // loop over each scrape instance.
-        foreach ($this->options->scrape as $this->_scrape_key => $this->_scrape_instance){
-
+        foreach ($this->options->scrape as $this->_scrape_key => $value){
+            
             // has this scrape been enabled?
-            if ($this->_scrape_instance['yt_scrape_enabled'] != true){ continue; }
+            if ($this->options->scrape[$this->_scrape_key]['yt_scrape_enabled'] != true){ continue; }
 
             // run it.
             $this->process_single_scrape();
@@ -94,6 +95,8 @@ class scraper
 
     public function process_single_scrape(){
 
+        (new e)->line('RUNNING scrape - '.$this->options->scrape[$this->_scrape_key]['yt_scrape_id'] );
+
         // Query API.
         $this->scrape_api();
 
@@ -105,9 +108,6 @@ class scraper
 
         // Import results into CPT
         $this->import();
-
-        // // Import post into CPT
-        // $this->import_all_posts_from_all_searches();
 
         return;
     }
@@ -125,20 +125,22 @@ class scraper
 
     public function scrape_api()
     {
+        (new e)->line('[ Auth ] : '.$this->options->scrape[$this->_scrape_key]['yt_scrape_auth']['yt_auth_id'] );
+        (new e)->line('[ Search ] : '.$this->options->scrape[$this->_scrape_key]['yt_scrape_search']['yt_search_id'] );
 
         // Set the API Key.
         //
         // Scrape Instance
         //   - auth array
         //     - api key  
-        $this->api->set_api_key($this->_scrape_instance['yt_scrape_auth']['yt_api_key']);
+        $this->api->set_api_key($this->options->scrape[$this->_scrape_key]['yt_scrape_auth']['yt_api_key']);
 
         // set the search string
         // 
         // Scrape Instance
         //   - search array
         //     - search string  
-        $this->api->set_query($this->_scrape_instance['yt_scrape_search']['yt_search_string']);
+        $this->api->set_query($this->options->scrape[$this->_scrape_key]['yt_scrape_search']['yt_search_string']);
 
         // Get the YouTube results and add to scrape array.
         $this->options->scrape[$this->_scrape_key]['yt_scrape_response'] = $this->api->run();
@@ -154,11 +156,14 @@ class scraper
     // │                                                                         │░
     // │                                                                         │░
     // └─────────────────────────────────────────────────────────────────────────┘░
-    // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+    // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░  ░░░░
 
 
     public function filter()
     {
+
+        (new e)->line('[ Filter ] : '.$this->options->scrape[$this->_scrape_key]['yt_scrape_filter']['yt_filter_id'] );
+
         // do some checks.
         $this->has_response();
 
@@ -192,6 +197,8 @@ class scraper
 
     public function mapper()
     {
+
+        (new e)->line('[ Mapper ] : '.$this->options->scrape[$this->_scrape_key]['yt_scrape_mapper']['yt_mapper_id'] );
 
         // Do some checks
         $this->has_response();
@@ -233,34 +240,37 @@ class scraper
 
     public function import()
     {
+        (new e)->line('[ Import ] : '.$this->options->scrape[$this->_scrape_key]['yt_scrape_import']['yt_import_id'] );
 
-        foreach($this->options->scrape as $scrape_instance)
-        {
-            $this->add_term($scrape_instance);
-            $this->add_posts($scrape_instance);
-        } 
-
+        $this->add_term();
+        $this->add_posts();
+        
         return $this;
     }
 
 
-    public function add_term($scrape_instance)
+    public function add_term()
     {
-        $term_name          = $scrape_instance['yt_scrape_search']['yt_search_id'];
-        $term_desc          = $scrape_instance['yt_scrape_search']['yt_search_description'];
-        $scrape_taxonomy    = $scrape_instance['yt_scrape_import']['yt_import_taxonomy_type'];
+        
+        $scrape_taxonomy    = $this->options->scrape[$this->_scrape_key]['yt_scrape_import']['yt_import_taxonomy_type'];
+        $term_name          = $this->options->scrape[$this->_scrape_key]['yt_scrape_search']['yt_search_id'];
+        $term_desc          = $this->options->scrape[$this->_scrape_key]['yt_scrape_search']['yt_search_description'];
+        
+        (new e)->line('- Add_Term : '.$scrape_taxonomy, 1 );
 
-        $this->import->add_term($scrape_taxonomy, $term_name, $term_desc);
+        $this->importer->add_term($scrape_taxonomy, $term_name, $term_desc);
 
         return;
     }
 
-    public function add_posts($scrape_instance)
+    public function add_posts()
     {
-        $collection = $scrape_instance['yt_scrape_mapped'];
-        $post_type  = $scrape_instance['yt_scrape_import']['yt_import_post_type'];
+        $post_type  = $this->options->scrape[$this->_scrape_key]['yt_scrape_import']['yt_import_post_type'];
+        $collection = $this->options->scrape[$this->_scrape_key]['yt_scrape_mapped'];
 
-        $this->import->add_posts($post_type, $collection);
+        (new e)->line('- Add_Posts : '.$post_type, 1 );
+        
+        $this->importer->add_posts($post_type, $collection);
     }
 
 

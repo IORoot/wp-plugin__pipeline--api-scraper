@@ -19,6 +19,7 @@ class filter_group
     public function set_filter_group($filter_group)
     {
         $this->filter_group = $filter_group;
+
         return;
     }
 
@@ -39,6 +40,8 @@ class filter_group
             $this->filter_item($filter_layer);
         }
 
+        (new e)->line('- Filtered Rows : ' . count($this->collection->items) ,1);
+
         return $this->collection;
     }
 
@@ -46,6 +49,7 @@ class filter_group
 
     public function filter_item($filter_layer)
     {
+
         $filter_item = new filter_layer;
         $filter_item->set_collection($this->collection);
         $filter_item->set_filter($filter_layer);

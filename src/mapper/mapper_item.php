@@ -107,6 +107,7 @@ class mapper_item
         $source_value = $this->source_value();
 
         $transformed_value = $this->transform_value($source_value);
+        
 
         // Set the result array to have a key of the
         // destination field and the value of the
@@ -132,6 +133,8 @@ class mapper_item
      */
     public function source_value()
     {
+        (new e)->line('- source : '. $this->single_mapping['yt_mapper_source'],2);
+
         $location_parts = $this->explode_source_location();
 
         // location of the item within this object.
@@ -142,6 +145,8 @@ class mapper_item
         foreach ($location_parts as $object_level) {
             $value = $value->$object_level;
         }
+
+        (new e)->line('- value : '. $value, 3);
 
         return $value;
     }
@@ -171,6 +176,7 @@ class mapper_item
      */
     public function destination_field()
     {
+        (new e)->line('- destination :'.$this->single_mapping['yt_mapper_destination'],2);
         return $this->single_mapping['yt_mapper_destination'];
     }
 
@@ -188,6 +194,8 @@ class mapper_item
         $transform_group->set_field($source_value);
         $transform_group->transform_group_to_run($this->single_mapping['yt_mapper_transform']);
         $source_value = $transform_group->run();
+
+        (new e)->line('- transformed : '. $source_value, 3);
 
         return $source_value;
     }
