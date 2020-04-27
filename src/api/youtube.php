@@ -6,6 +6,8 @@ class api
 {
     public $key;
 
+    public $cost;
+
     public $domain = "https://www.googleapis.com/youtube/v3";
 
     public $query_string;
@@ -35,6 +37,12 @@ class api
         return $this;
     }
 
+    public function set_cost($cost = 0)
+    {
+        $this->cost = $cost;
+        return $this;
+    }
+
     public function run()
     {
         $this->create_url();
@@ -43,7 +51,7 @@ class api
 
     public function create_url()
     {
-        if(!$this->check_url()){return false;}
+        if(!$this->check_url()){return false;}  
         $this->request_url = $this->domain . '/search?' . $this->query_string . "&key=" . $this->key;
         return $this;
     }
@@ -52,19 +60,28 @@ class api
     {
         if(!$this->check_request()){return false;}
 
-        try {
-            (new e)->line('- Calling API.',1);
+        (new e)->line('- Calling API.',1);
 
+        try {
             $result = json_decode(wp_remote_fopen($this->request_url));
-            
-            (new e)->line('- OK Response : ' . $result->kind,2);
-            (new e)->line('- Retrieved Rows : ' . $result->pageInfo->resultsPerPage,2);
         } catch (\Exception $e) {
-            (new e)->line('- BAD Response. \Exception calling YouTube' . $e->getMessage(),1);
+            (new e)->line('- \Exception calling YouTube' . $e->getMessage(),1);
             return false;
         }
 
-        return $result;
+        return $this->check_result($result);
+    }
+
+
+
+    public function update_quota()
+    {
+        while( have_rows('yt_auth_instance', 'option') ): $row = the_row(true);
+            $new_quota = $row['yt_api_quota'] - $this->cost;
+            update_sub_field('yt_api_quota', $new_quota, 'option');
+        endwhile;
+
+        return;
     }
 
     
@@ -77,6 +94,23 @@ class api
     // └─────────────────────────────────────────────────────────────────────────┘░
     //  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
+
+    public function check_result($result){
+
+        if (isset($result->error)){
+            (new e)->line('- ERROR Code : ' . $result->error->code ,2);
+            (new e)->line('- ERROR Reason : ' . $result->error->errors[0]->reason,2);
+            (new e)->line('- ERROR Message : ' . $result->error->message,2);
+            return false;
+        }
+
+        $this->update_quota();
+        (new e)->line('- OK Response : ' . $result->kind,2);
+        (new e)->line('- Retrieved Rows : ' . $result->pageInfo->resultsPerPage,2);
+        (new e)->line('- Quota Cost : 100',2);
+
+        return $result;
+    }
 
     public function check_query($string){
 

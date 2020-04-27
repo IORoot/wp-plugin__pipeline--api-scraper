@@ -34,13 +34,13 @@ class post
             (new \yt\e)->line('Post exists, skipping : ' . $this->post_args['post_title'], 2);
             return;
         } else {
-            (new \yt\e)->line('Inserting Post : ' . $this->args['post_title'], 2 );
+            (new \yt\e)->line('Inserting Post : ' . $this->post_args['post_title'], 2 );
         }
 
-        wp_insert_post(
+        $postID = wp_insert_post(
             $this->post_args
         );
 
-        return;
+        return $postID;
     }
 }

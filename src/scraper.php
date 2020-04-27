@@ -126,6 +126,7 @@ class scraper
     public function scrape_api()
     {
         (new e)->line('[ Auth ] : '.$this->options->scrape[$this->_scrape_key]['yt_scrape_auth']['yt_auth_id'] );
+        (new e)->line('- Quota : '. $this->options->scrape[$this->_scrape_key]['yt_scrape_auth']['yt_api_quota'],1);
         (new e)->line('[ Search ] : '.$this->options->scrape[$this->_scrape_key]['yt_scrape_search']['yt_search_id'] );
 
         // Set the API Key.
@@ -141,6 +142,9 @@ class scraper
         //   - search array
         //     - search string  
         $this->api->set_query($this->options->scrape[$this->_scrape_key]['yt_scrape_search']['yt_search_string']);
+
+        // How much does this cost?
+        $this->api->set_cost($this->options->scrape[$this->_scrape_key]['yt_scrape_search']['yt_search_cost']);
 
         // Get the YouTube results and add to scrape array.
         $this->options->scrape[$this->_scrape_key]['yt_scrape_response'] = $this->api->run();
@@ -275,6 +279,8 @@ class scraper
 
 
 
+
+
     // ┌─────────────────────────────────────────────────────────────────────────┐ 
     // │                                                                         │░
     // │                                                                         │░
@@ -288,7 +294,7 @@ class scraper
     public function has_response()
     {
         if ($this->options->scrape[$this->_scrape_key]['yt_scrape_response'] == null) {
-            throw new \Exception('YouTube Response is empty or does not exist. Check $this->options->scrape['.$this->_scrape_key.'][yt_scrape_response]');
+            (new e)->line('- There is no response from YouTube.', 1 );
         }
         return;
     }
@@ -297,7 +303,7 @@ class scraper
     public function has_filtered()
     {
         if ($this->options->scrape[$this->_scrape_key]['yt_scrape_filtered'] == null) {
-            throw new \Exception('There is no filtered array. Check that the filtering is working in Scraper.php->filter().');
+            (new e)->line('- There is no filtered array results to map and import.', 1 );
         }
         return;
     }
