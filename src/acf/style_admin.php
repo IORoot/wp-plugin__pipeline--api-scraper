@@ -28,7 +28,7 @@ function my_acf_admin_head() {
         }
 
         .acf-table>tbody>tr:nth-child(odd) td {background: #fafafa } 
-        .acf-table>tbody>tr:nth-child(even) td {background: #DAEFFF } 
+        .acf-table>tbody>tr:nth-child(even) td {background: #F2F9FF } 
         
         .-collapsed .-collapsed-target {
             width: 100% !important;

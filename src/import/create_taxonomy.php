@@ -2,7 +2,7 @@
 
 namespace yt\import;
 
-class category
+class taxonomy
 {
     public $taxonomy_type;
 
