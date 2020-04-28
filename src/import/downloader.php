@@ -9,6 +9,11 @@ class downloader
     {
         if ( !$url ) return new \WP_Error('missing', "Need a valid URL to download image.");
 
+        // Does the image exist already?
+        if ($image_id = $this->does_image_exist($filename)) { 
+            return $image_id;  
+        }
+
         require_once( ABSPATH . 'wp-admin/includes/file.php' );
         $tmp = download_url( $url );
 
@@ -22,7 +27,7 @@ class downloader
         preg_match('/[^\?]+\.(jpg|JPG|jpe|JPE|jpeg|JPEG|gif|GIF|png|PNG)/', $url, $matches);    // fix file filename for query strings
         $url_filename = basename($matches[0]);                                                  // extract filename from url for title
         $url_type = wp_check_filetype($url_filename);                                           // determine file type (ext and mime/type)
-
+        
         // override filename if given, reconstruct server path
         if ( !empty( $filename ) ) {
             $filename = sanitize_file_name($filename);
@@ -52,12 +57,6 @@ class downloader
         require_once(ABSPATH . 'wp-admin/includes/image.php');
 
 
-        // Does the image exist already?
-        if ($image_id = $this->does_image_exist($file_array['name']))
-        {
-            return $image_id;
-        }
-
         // do the validation and storage stuff
         // $post_data can override the items saved to wp_posts table, like post_mime_type, guid, post_parent, post_title, post_content, post_status
         //
@@ -82,7 +81,7 @@ class downloader
     public function does_image_exist($filename)
     {
         global $wpdb;
-        return intval( $wpdb->get_var( "SELECT post_id FROM {$wpdb->postmeta} WHERE meta_value LIKE '%/$filename'" ) );
+        return intval( $wpdb->get_var( "SELECT post_id FROM {$wpdb->postmeta} WHERE meta_value LIKE '%/$filename%'" ) );
     }
 
 }

@@ -31,6 +31,7 @@ class ComposerStaticInit30fd7ec9b8e2598fd2f686f91346eea7
         'yt\\options' => __DIR__ . '/../..' . '/src/acf/get_options.php',
         'yt\\r' => __DIR__ . '/../..' . '/src/error/r.php',
         'yt\\scraper' => __DIR__ . '/../..' . '/src/scraper.php',
+        'yt\\transform\\field_as_string' => __DIR__ . '/../..' . '/src/transform/transforms/field_as_string.php',
         'yt\\transform\\none' => __DIR__ . '/../..' . '/src/transform/transforms/none.php',
         'yt\\transform\\regex_remove' => __DIR__ . '/../..' . '/src/transform/transforms/regex_remove.php',
         'yt\\transform\\string_remove' => __DIR__ . '/../..' . '/src/transform/transforms/string_remove.php',

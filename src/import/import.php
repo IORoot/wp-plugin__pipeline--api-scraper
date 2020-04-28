@@ -6,6 +6,7 @@ use \yt\import\taxonomy;
 use \yt\import\post;
 use \yt\import\image;
 use \yt\import\meta;
+use \yt\import\attach;
 
 class import
 {
@@ -20,6 +21,8 @@ class import
 
     public $returned_ids;
 
+    public $attach;
+
 
 
 
@@ -32,6 +35,8 @@ class import
         $this->image = new image;
 
         $this->meta = new meta;
+
+        $this->attach = new attach;
 
         return $this;
     }
@@ -71,13 +76,20 @@ class import
             $this->returned_ids[$target_object] = $this->$target_object->result();
         }
 
-        //$this->set_post_taxonomy($postID);
+        $this->combine();
 
         return $this;
     }
 
 
+    public function combine()
+    {
+        $this->attach->image_to_post($this->returned_ids['image'], $this->returned_ids['post']);
+        $this->attach->meta_to_post($this->meta->args, $this->returned_ids['post']);
+        $this->attach->tax_to_post($this->taxonomy->taxonomy_type, $this->taxonomy->taxonomy_term, $this->returned_ids['post']);
 
+        return;
+    }
 
 
 
@@ -102,14 +114,4 @@ class import
     }
 
 
-    public function set_post_taxonomy($postID)
-    {
-        if (isset($this->taxonomy->taxonomy_term) && isset($this->taxonomy->taxonomy_type)) {
-            $cat = $this->taxonomy->taxonomy_type;
-            $term = $this->taxonomy->taxonomy_term;
-            $result = wp_set_object_terms($postID, $term, $cat);
-        }
-
-        return;
-    }
 }

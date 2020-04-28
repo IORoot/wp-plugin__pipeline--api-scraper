@@ -7,7 +7,7 @@ class meta
 
     public $args;
 
-    public $result;
+    public $result = 0;
 
 
     public function __construct()
@@ -30,7 +30,10 @@ class meta
     
     public function result()
     {
-        return $this->result;
+
+        return;
     }
     
+
+
 }

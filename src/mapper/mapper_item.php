@@ -182,6 +182,13 @@ class mapper_item
     public function transform_value($source_value)
     {
 
+        /**
+         * Special case - use source as string, not reference.
+         */
+        if ($this->single_mapping['yt_mapper_transform'] == 'field_as_string'){
+            return $this->single_mapping['yt_mapper_source'];
+        }
+
         $transform_group = new transform_group;
         $transform_group->set_field($source_value);
         $transform_group->transform_group_to_run($this->single_mapping['yt_mapper_transform']);
@@ -191,6 +198,8 @@ class mapper_item
 
         return $source_value;
     }
+
+
 
 
 }

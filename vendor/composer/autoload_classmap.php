@@ -30,6 +30,7 @@ return array(
     'yt\\options' => $baseDir . '/src/acf/get_options.php',
     'yt\\r' => $baseDir . '/src/error/r.php',
     'yt\\scraper' => $baseDir . '/src/scraper.php',
+    'yt\\transform\\field_as_string' => $baseDir . '/src/transform/transforms/field_as_string.php',
     'yt\\transform\\none' => $baseDir . '/src/transform/transforms/none.php',
     'yt\\transform\\regex_remove' => $baseDir . '/src/transform/transforms/regex_remove.php',
     'yt\\transform\\string_remove' => $baseDir . '/src/transform/transforms/string_remove.php',
