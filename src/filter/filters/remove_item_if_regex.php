@@ -7,7 +7,20 @@ use yt\interfaces\filterInterface;
 class remove_item_if_regex implements filterInterface
 {
 
-    public $description = "Removes an item in the array if the REGEX is true.";
+    public $description = "
+    Removes an item in the array if the REGEX is true.
+        'item_field' is the field you wish to perform the REGEX on.
+        'regex' is the REGEX string to preg_match() on.
+    
+    If the REGEX is true, the item in the collection will be removed.
+    ";
+
+    public $parameters = "
+    (array) 
+    [
+        'item_field' => 'snippet->title', 
+        'regex' => '/Roblox|GTA/' 
+    ]";
 
     public $collection;
 

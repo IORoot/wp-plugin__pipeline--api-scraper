@@ -7,15 +7,12 @@ class transform_list {
 
     public $list = [];
 
-
-    public $description = [];
-
-
-    public $descriptions = [];
+    public $catalog = [];
 
 
     public function __construct(){
         $this->get_transform_list();
+        $this->catalog();
         return;
     }
 
@@ -38,27 +35,30 @@ class transform_list {
     }
 
 
-    public function get_all_transform_descriptions()
+    public function catalog()
     {
         
         $files = scandir(__DIR__ . '/transforms');
+
         foreach ($files as $file){
 
             if ($file == '.' || $file == '..'){ continue; }
 
             include(__DIR__ . '/'.$file);
 
-            $classname = '\\yt\\filter\\'.str_replace('.php', '', $file);
-
+            $classname = '\\yt\\transform\\'.str_replace('.php', '', $file);
+            $name = str_replace('.php', '', $file);
             $instance = new $classname;
 
-            $description_array["${file}"] = $instance->description;
+            $this->catalog["${name}"]['name'] = $name;
+            $this->catalog["${name}"]['classname'] = $classname;
+            $this->catalog["${name}"]['file'] = $file;
+            $this->catalog["${name}"]['description'] = $instance->description;
+            $this->catalog["${name}"]['parameters'] = $instance->parameters;
+
         }
 
-
-        $this->descriptions = $description_array;
-
-        return $this->descriptions;
+        return;
 
     }
 

@@ -29,6 +29,7 @@ use yt\transform_group;
 
 class mapper_item
 {
+    
     public $all_transforms;
     
     public $mapping_group;
@@ -113,7 +114,7 @@ class mapper_item
         // destination field and the value of the
         // source field, after its had any transforms
         // performed on it.
-        $this->wp_post_args[$destination_field] = $transformed_value;
+        $this->wp_post_args[$this->single_mapping['yt_mapper_destination_object']][$destination_field] = $transformed_value;
         
         return;
     }
@@ -140,6 +141,10 @@ class mapper_item
         // location of the item within this object.
         $value = $this->source_item;
 
+        if ($location_parts[0] == ''){ 
+            (new e)->line('ERROR : No source given in mapping.',2);
+            return; 
+        }
         // Loop over each location part until you get
         // to the correct location in the item object.
         foreach ($location_parts as $object_level) {
@@ -167,13 +172,6 @@ class mapper_item
     }
     
 
-    /**
-     * destination_field
-     * 
-     * Where the result should go.
-     *
-     * @return void
-     */
     public function destination_field()
     {
         (new e)->line('- destination :'.$this->single_mapping['yt_mapper_destination'],2);
@@ -181,12 +179,6 @@ class mapper_item
     }
 
 
-    /**
-     * transform_value
-     *
-     * @param mixed $value
-     * @return void
-     */
     public function transform_value($source_value)
     {
 
@@ -199,4 +191,6 @@ class mapper_item
 
         return $source_value;
     }
+
+
 }

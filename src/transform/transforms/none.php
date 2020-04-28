@@ -9,6 +9,8 @@ class none implements transformInterface
     
     public $description = "Does nothing.";
 
+    public $parameters = 'None';
+
     public $input;
     
     public function config($config)

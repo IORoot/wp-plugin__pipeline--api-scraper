@@ -14,6 +14,11 @@ function my_acf_admin_head() {
         [data-key="field_5ea6b0d0570f2"] { background-color: #E34F65 !important; color: #242424 !important;}
 
         /* debug textbox */
+        /* Last Response Textareas */
+        #acf-field_5ea6ef88f95e5,
+        #acf-field_5ea6effff95e6,
+        #acf-field_5ea6f034f95e7,
+        #acf-field_5ea6f062f95e8,
         #acf-field_5ea6b0e2570f3 {
             background-color: #424242;
             color: #38EF7D;
@@ -22,8 +27,17 @@ function my_acf_admin_head() {
             font-family: monospace;
         }
 
-        .acf-table>tbody>tr:nth-child(even) td {background: #F5F5F5 } 
+        .acf-table>tbody>tr:nth-child(odd) td {background: #fafafa } 
+        .acf-table>tbody>tr:nth-child(even) td {background: #DAEFFF } 
         
+        .-collapsed .-collapsed-target {
+            width: 100% !important;
+        }
+        .-collapsed .-collapsed-target input {
+            text-align: center;
+            border: 0px;
+            background: transparent;
+        }
     </style>
     <?php
 }

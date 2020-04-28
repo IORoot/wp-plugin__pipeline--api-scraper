@@ -8,6 +8,8 @@ class yt_array_front implements filterInterface
 {
     public $description = "Returns the first X number of entries of the Youtube search array. Specifically the 'items' collection of results. ";
 
+    public $parameters = "(int) 5.";
+
     public $input;
 
     public $item_collection;
@@ -59,7 +61,7 @@ class yt_array_front implements filterInterface
         }
 
         $value = $this->input;
-        foreach ($config['location'] as $level) {
+        foreach ($this->config['location'] as $level) {
             $value = $value->$level;
         }
 

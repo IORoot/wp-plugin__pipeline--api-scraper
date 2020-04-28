@@ -18,6 +18,8 @@ require __DIR__.'/on_update.php';
 //  ┌─────────────────────────────────────────────────────────────────────────┐
 //  │            Populate all of the 'select' types automatically             │
 //  └─────────────────────────────────────────────────────────────────────────┘
+require __DIR__.'/populate_yt_filter_catalog.php';
+
 require __DIR__.'/populate_yt_filter.php';
 
 require __DIR__.'/populate_yt_import_post_type.php';
@@ -35,5 +37,7 @@ require __DIR__.'/populate_yt_scrape_import.php';
 require __DIR__.'/populate_yt_scrape_mapper.php';
 
 require __DIR__.'/populate_yt_scrape_search.php';
+
+require __DIR__.'/populate_yt_transform_catalog.php';
 
 require __DIR__.'/populate_yt_transform.php';

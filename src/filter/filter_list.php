@@ -7,15 +7,12 @@ class filter_list {
 
     public $list = [];
 
-
-    public $description = [];
-
-
-    public $descriptions = [];
+    public $catalog = [];
 
 
     public function __construct(){
         $this->get_filter_list();
+        $this->catalog();
         return;
     }
 
@@ -38,10 +35,11 @@ class filter_list {
     }
 
 
-    public function get_all_filter_descriptions()
+    public function catalog()
     {
         
         $files = scandir(__DIR__ . '/filters');
+
         foreach ($files as $file){
 
             if ($file == '.' || $file == '..'){ continue; }
@@ -49,34 +47,21 @@ class filter_list {
             include(__DIR__ . '/'.$file);
 
             $classname = '\\yt\\filter\\'.str_replace('.php', '', $file);
-
+            $name = str_replace('.php', '', $file);
             $instance = new $classname;
 
-            $description_array["${file}"] = $instance->description;
+            $this->catalog["${name}"]['name'] = $name;
+            $this->catalog["${name}"]['classname'] = $classname;
+            $this->catalog["${name}"]['file'] = $file;
+            $this->catalog["${name}"]['description'] = $instance->description;
+            $this->catalog["${name}"]['parameters'] = $instance->parameters;
+
         }
 
-
-        $this->descriptions = $description_array;
-
-        return $this->descriptions;
+        return;
 
     }
 
 
-    public function get_filter_description($filter)
-    {
-        
-        include(__DIR__ . '/'.$filter . '.php');
-
-        $instance = new $filter;
-
-        $this->description = $instance->description;
-    
-        return $this->description;
-
-    }
-
-
-    
 
 }

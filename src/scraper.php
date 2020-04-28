@@ -149,6 +149,9 @@ class scraper
         // Get the YouTube results and add to scrape array.
         $this->options->scrape[$this->_scrape_key]['yt_scrape_response'] = $this->api->run();
 
+        // Report last response.
+        (new r)->last('search',$this->options->scrape[$this->_scrape_key]['yt_scrape_response']); 
+
         return;
     }
 
@@ -183,6 +186,9 @@ class scraper
         // Then add the respons of the filtering into the scrape
         // object.
         $this->options->scrape[$this->_scrape_key]['yt_scrape_filtered'] = $this->filter->run();
+
+        // Report last response.
+        (new r)->last('filter',$this->options->scrape[$this->_scrape_key]['yt_scrape_filtered']->items); 
 
         return;
     }
@@ -225,6 +231,9 @@ class scraper
         // run it and set to the next array entry 
         // of the scrape.
         $this->options->scrape[$this->_scrape_key]['yt_scrape_mapped'] = $this->mapper->run();
+
+        // Report last response.
+        (new r)->last('mapper',$this->options->scrape[$this->_scrape_key]['yt_scrape_mapped']); 
 
 
         return;

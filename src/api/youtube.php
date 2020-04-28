@@ -16,6 +16,8 @@ class api
 
     public $results;
     
+
+    
     public function __construct()
     {
         return $this;

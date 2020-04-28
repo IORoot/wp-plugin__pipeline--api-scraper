@@ -4,12 +4,12 @@ namespace yt\transform;
 
 use yt\interfaces\transformInterface;
 
-class string_remove implements transformInterface
+class regex_remove implements transformInterface
 {
 
-    public $description = "Removes a string from a field using str_replace()";
+    public $description = "Perform a REGEX on the string and remove the matches. preg_replace()";
 
-    public $parameters = '(string) Fortnite';
+    public $parameters = '(string) /^[\S].*/';
 
     public $input;
 
@@ -29,6 +29,6 @@ class string_remove implements transformInterface
 
     public function out()
     {
-        return str_replace($this->config, '', $this->input);
+        return preg_replace($this->config, '', $this->input);
     }
 }

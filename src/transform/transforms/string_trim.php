@@ -4,12 +4,12 @@ namespace yt\transform;
 
 use yt\interfaces\transformInterface;
 
-class string_remove implements transformInterface
+class string_trim implements transformInterface
 {
 
-    public $description = "Removes a string from a field using str_replace()";
+    public $description = "Trim a string to the desired length.";
 
-    public $parameters = '(string) Fortnite';
+    public $parameters = '(int) 55';
 
     public $input;
 
@@ -29,6 +29,6 @@ class string_remove implements transformInterface
 
     public function out()
     {
-        return str_replace($this->config, '', $this->input);
+        return substr($this->input, 0, $this->config);
     }
 }
