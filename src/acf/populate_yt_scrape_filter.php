@@ -17,6 +17,8 @@ function acf_populate_yt_scrape_filter_choices($field)
         }
     }
     
+    // Add 'none'
+    $field['choices']['none'] = 'none';
 
     // return the field
     return $field;

@@ -57,6 +57,8 @@ class scraper
 
     public function __construct()
     {
+        set_time_limit (600);
+
         (new e)->clear();
 
         $this->options = new options;
@@ -120,7 +122,7 @@ class scraper
     // │                                                                         │░
     // │                                                                         │░
     // └─────────────────────────────────────────────────────────────────────────┘░
-    // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+    //  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
 
     public function scrape_api()
@@ -130,22 +132,23 @@ class scraper
         (new e)->line('[ Search ] : '.$this->options->scrape[$this->_scrape_key]['yt_scrape_search']['yt_search_id'] );
 
         // Set the API Key.
-        //
-        // Scrape Instance
-        //   - auth array
-        //     - api key  
+        // Scrape Instance -> auth array -> api key  
         $this->api->set_api_key($this->options->scrape[$this->_scrape_key]['yt_scrape_auth']['yt_api_key']);
 
+        // Pass all of the available substitutions into 
+        // the class so we can do some swapping.
+        $this->api->set_substitutions($this->options->substitutions);
+
         // set the search string
-        // 
-        // Scrape Instance
-        //   - search array
-        //     - search string  
+        // Scrape Instance -> search array -> search string  
         $this->api->set_query($this->options->scrape[$this->_scrape_key]['yt_scrape_search']['yt_search_string']);
 
-        // How much does this cost?
-        $this->api->set_cost($this->options->scrape[$this->_scrape_key]['yt_scrape_search']['yt_search_cost']);
+        // What type of request is this?
+        $this->api->set_request_type($this->options->scrape[$this->_scrape_key]['yt_scrape_search']['yt_search_type']);
 
+        // Add any extra parameters passed through.
+        $this->api->set_extra_parameters($this->options->scrape[$this->_scrape_key]['yt_scrape_search']['yt_search_parameters']);
+        
         // Get the YouTube results and add to scrape array.
         $this->options->scrape[$this->_scrape_key]['yt_scrape_response'] = $this->api->run();
 
@@ -163,7 +166,7 @@ class scraper
     // │                                                                         │░
     // │                                                                         │░
     // └─────────────────────────────────────────────────────────────────────────┘░
-    // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░  ░░░░
+    //  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
 
     public function filter()
@@ -202,7 +205,7 @@ class scraper
     // │                                                                         │░
     // │                                                                         │░
     // └─────────────────────────────────────────────────────────────────────────┘░
-    // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+    //  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
 
     public function mapper()

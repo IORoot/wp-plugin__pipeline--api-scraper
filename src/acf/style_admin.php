@@ -35,8 +35,6 @@ function my_acf_admin_head() {
         }
         .-collapsed .-collapsed-target input {
             text-align: center;
-            border: 0px;
-            background: transparent;
         }
     </style>
     <?php

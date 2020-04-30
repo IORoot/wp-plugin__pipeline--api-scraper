@@ -151,7 +151,7 @@ class mapper_item
             $value = $value->$object_level;
         }
 
-        (new e)->line('- value : '. $value, 3);
+        (new e)->line('- value : '. substr($value,0, 20) .'...', 3);
 
         return $value;
     }
@@ -194,7 +194,7 @@ class mapper_item
         $transform_group->transform_group_to_run($this->single_mapping['yt_mapper_transform']);
         $source_value = $transform_group->run();
 
-        (new e)->line('- transformed : '. $source_value, 3);
+        (new e)->line('- transformed : '. substr($source_value,0, 20) . '...', 3);
 
         return $source_value;
     }

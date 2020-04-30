@@ -63,6 +63,8 @@ class mapper_collection
 
     public function run()
     {
+        $this->mapped_result = '';
+        
         foreach ($this->collection as $key => $item) {
             (new e)->line('- item : '.$key,1);
             $this->map_item($item);
