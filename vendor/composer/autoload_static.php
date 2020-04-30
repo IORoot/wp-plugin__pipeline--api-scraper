@@ -35,6 +35,7 @@ class ComposerStaticInit30fd7ec9b8e2598fd2f686f91346eea7
         'yt\\r' => __DIR__ . '/../..' . '/src/error/r.php',
         'yt\\request\\multichannel' => __DIR__ . '/../..' . '/src/api/requests/multichannel.php',
         'yt\\request\\playlistitems' => __DIR__ . '/../..' . '/src/api/requests/playlistitems.php',
+        'yt\\request\\playlists' => __DIR__ . '/../..' . '/src/api/requests/playlists.php',
         'yt\\request\\search' => __DIR__ . '/../..' . '/src/api/requests/search.php',
         'yt\\schedules' => __DIR__ . '/../..' . '/src/cron/schedules.php',
         'yt\\scraper' => __DIR__ . '/../..' . '/src/scraper.php',

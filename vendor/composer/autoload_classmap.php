@@ -34,6 +34,7 @@ return array(
     'yt\\r' => $baseDir . '/src/error/r.php',
     'yt\\request\\multichannel' => $baseDir . '/src/api/requests/multichannel.php',
     'yt\\request\\playlistitems' => $baseDir . '/src/api/requests/playlistitems.php',
+    'yt\\request\\playlists' => $baseDir . '/src/api/requests/playlists.php',
     'yt\\request\\search' => $baseDir . '/src/api/requests/search.php',
     'yt\\schedules' => $baseDir . '/src/cron/schedules.php',
     'yt\\scraper' => $baseDir . '/src/scraper.php',
