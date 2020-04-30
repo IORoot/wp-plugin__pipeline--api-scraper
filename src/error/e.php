@@ -2,6 +2,7 @@
 
 namespace yt;
 
+// errors
 class e
 {
 

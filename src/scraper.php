@@ -58,7 +58,7 @@ class scraper
 
     public function __construct()
     {
-        set_time_limit (600);
+        set_time_limit (600); // 10 mins - apache Timeout = 300 (5 mins)
 
         (new e)->clear();
 
@@ -154,7 +154,8 @@ class scraper
         $this->options->scrape[$this->_scrape_key]['yt_scrape_response'] = $this->api->run();
 
         // Report last response.
-        (new r)->last('search',$this->options->scrape[$this->_scrape_key]['yt_scrape_response']); 
+        (new \yt\r)->clear('search');
+        (new \yt\r)->last('search',$this->options->scrape[$this->_scrape_key]['yt_scrape_response']); 
 
         return;
     }
@@ -192,7 +193,8 @@ class scraper
         $this->options->scrape[$this->_scrape_key]['yt_scrape_filtered'] = $this->filter->run();
 
         // Report last response.
-        (new r)->last('filter',$this->options->scrape[$this->_scrape_key]['yt_scrape_filtered']->items); 
+        (new \yt\r)->clear('filter');
+        (new \yt\r)->last('filter',$this->options->scrape[$this->_scrape_key]['yt_scrape_filtered']->items); 
 
         return;
     }
@@ -237,7 +239,8 @@ class scraper
         $this->options->scrape[$this->_scrape_key]['yt_scrape_mapped'] = $this->mapper->run();
 
         // Report last response.
-        (new r)->last('mapper',$this->options->scrape[$this->_scrape_key]['yt_scrape_mapped']); 
+        (new \yt\r)->clear('mapper');
+        (new \yt\r)->last('mapper',$this->options->scrape[$this->_scrape_key]['yt_scrape_mapped']); 
 
 
         return;

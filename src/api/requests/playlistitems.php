@@ -18,11 +18,19 @@ class playlistitems implements requestInterface
         'api_key' => null,
         'query_string' => null,
         'extra_parameters' => null,
+        'page_token' => null,
     ];
 
     public $built_request_url;
 
     public $response;
+
+    // Nest limit is to stop nested looping beyond 5 times.
+    // with a page limit of 50 items this means a max
+    // of 250 items can be returned. More than enough for most
+    // things.
+    public $nest_level = 0;
+    public $nest_limit = 5;
 
     public function config($config)
     {
@@ -32,7 +40,7 @@ class playlistitems implements requestInterface
 
     public function response()
     {
-        return $this->response;
+        return $this->response[0];
     }
 
     public function get_cost()
@@ -43,16 +51,22 @@ class playlistitems implements requestInterface
 
     public function request()
     {
+        $this->nest_level++;
+
         $this->build_request_url();
 
         (new \yt\e)->line('- Calling API.', 1);
 
         try {
-            $this->response = json_decode(wp_remote_fopen($this->built_request_url));
+            $this->response[] = json_decode(wp_remote_fopen($this->built_request_url));
         } catch (\Exception $e) {
             (new \yt\e)->line('- \Exception calling YouTube' . $e->getMessage(), 1);
             return false;
         }
+
+        $this->iterate_all_pages();
+
+        $this->combine_results();
 
         $this->check_result();
 
@@ -72,10 +86,40 @@ class playlistitems implements requestInterface
 
     private function build_request_url()
     {
-        if(!$this->check_url()){return false;}  
-        $this->built_request_url = $this->domain . '/playlistItems?' . $this->config['query_string'] . "&key=" . $this->config['api_key'];
+        $pageToken = '';
+        if (!$this->check_url()) {
+            return false;
+        }
+        if ($this->config['page_token'] != null) {
+            $pageToken = '&pageToken='.$this->config['page_token'];
+        }
+        $this->built_request_url = $this->domain . '/playlistItems?' . $this->config['query_string'] . "&key=" . $this->config['api_key'] . $pageToken;
+    }
 
-        
+
+    private function iterate_all_pages()
+    {
+        // safety feature to not infinitely loop
+        if ($this->nest_level >= $this->nest_limit){ return; }
+
+        $last_entry = end($this->response);
+        if ($last_entry->nextPageToken != '') {
+            $this->config['page_token'] = $last_entry->nextPageToken;
+            $this->request();
+        }
+
+        return;
+    }
+
+
+    private function combine_results()
+    {
+        foreach($this->response as $key => $response)
+        {
+            if ($key == 0){ continue; }
+            $this->response[0]->items = array_merge($this->response[0]->items, $response->items);
+            unset($this->response[$key]);
+        }
     }
 
     // ┌─────────────────────────────────────────────────────────────────────────┐

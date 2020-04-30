@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'yt\\api' => $baseDir . '/src/api/api.php',
+    'yt\\cron' => $baseDir . '/src/cron/cron.php',
     'yt\\e' => $baseDir . '/src/error/e.php',
     'yt\\filter' => $baseDir . '/src/filter/filter.php',
     'yt\\filter\\none' => $baseDir . '/src/filter/filters/none.php',
@@ -34,6 +35,7 @@ return array(
     'yt\\request\\multichannel' => $baseDir . '/src/api/requests/multichannel.php',
     'yt\\request\\playlistitems' => $baseDir . '/src/api/requests/playlistitems.php',
     'yt\\request\\search' => $baseDir . '/src/api/requests/search.php',
+    'yt\\schedules' => $baseDir . '/src/cron/schedules.php',
     'yt\\scraper' => $baseDir . '/src/scraper.php',
     'yt\\token\\date' => $baseDir . '/src/api/tokens/date.php',
     'yt\\transform\\best_image' => $baseDir . '/src/transform/transforms/best_image.php',

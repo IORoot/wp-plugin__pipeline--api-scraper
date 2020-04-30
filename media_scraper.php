@@ -31,3 +31,14 @@ require __DIR__.'/src/cpt/youtube_cpt.php';
 //  └─────────────────────────────────────────────────────────────────────────┘
 require __DIR__.'/src/acf/acf_init.php';
 
+
+
+//  ┌─────────────────────────────────────────────────────────────────────────┐
+//  │                           Add schedules                                 │
+//  └─────────────────────────────────────────────────────────────────────────┘
+function start_yt_schedules(){
+    $sched = new \yt\schedules;
+    $sched->run();
+}
+
+add_action( 'init', 'start_yt_schedules' );
