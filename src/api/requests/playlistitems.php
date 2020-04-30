@@ -10,7 +10,7 @@ class playlistitems implements requestInterface
 
     public $parameters = 'none';
 
-    public $cost = 100;
+    public $cost = 1;
 
     public $domain = 'https://www.googleapis.com/youtube/v3';
 
@@ -73,7 +73,7 @@ class playlistitems implements requestInterface
     private function build_request_url()
     {
         if(!$this->check_url()){return false;}  
-        $this->built_request_url = $this->domain . '/search?' . $this->config['query_string'] . "&key=" . $this->config['api_key'];
+        $this->built_request_url = $this->domain . '/playlistItems?' . $this->config['query_string'] . "&key=" . $this->config['api_key'];
 
         
     }

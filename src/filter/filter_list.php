@@ -44,8 +44,6 @@ class filter_list {
 
             if ($file == '.' || $file == '..'){ continue; }
 
-            include(__DIR__ . '/filters/'.$file);
-
             $classname = '\\yt\\filter\\'.str_replace('.php', '', $file);
             $name = str_replace('.php', '', $file);
             $instance = new $classname;
