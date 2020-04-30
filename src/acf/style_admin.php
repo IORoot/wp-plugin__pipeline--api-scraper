@@ -15,6 +15,8 @@ function my_acf_admin_head() {
 
         /* debug textbox */
         /* Last Response Textareas */
+        #acf-field_5eaa7abce8e7c-field_5ea6ef88f95e5,
+        #acf-field_5eaa7976b69ac,
         #acf-field_5ea6ef88f95e5,
         #acf-field_5ea6effff95e6,
         #acf-field_5ea6f034f95e7,

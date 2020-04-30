@@ -2,6 +2,7 @@
 
 namespace yt;
 
+use \yt\e;
 use \yt\api;
 use \yt\filter as filter;
 use \yt\mapper_collection as mapper;

@@ -86,6 +86,8 @@ class mapper_item
 
     public function run()
     {
+
+        
         $this->process_mappings();
 
         return $this->wp_post_args;
@@ -109,6 +111,7 @@ class mapper_item
 
         $transformed_value = $this->transform_value($source_value);
         
+        (new e)->line('source value : '. substr($source_value,0,20) .' | Destination field: '. substr($destination_field,0,20) . ' | Transformed : '. substr($transformed_value,0,20) ,2);
 
         // Set the result array to have a key of the
         // destination field and the value of the
@@ -134,7 +137,7 @@ class mapper_item
      */
     public function source_value()
     {
-        (new e)->line('- source : '. $this->single_mapping['yt_mapper_source'],2);
+        
 
         $location_parts = $this->explode_source_location();
 
@@ -150,8 +153,6 @@ class mapper_item
         foreach ($location_parts as $object_level) {
             $value = $value->$object_level;
         }
-
-        (new e)->line('- value : '. substr($value,0, 20) .'...', 3);
 
         return $value;
     }
@@ -174,7 +175,6 @@ class mapper_item
 
     public function destination_field()
     {
-        (new e)->line('- destination :'.$this->single_mapping['yt_mapper_destination'],2);
         return $this->single_mapping['yt_mapper_destination'];
     }
 
@@ -193,8 +193,6 @@ class mapper_item
         $transform_group->set_field($source_value);
         $transform_group->transform_group_to_run($this->single_mapping['yt_mapper_transform']);
         $source_value = $transform_group->run();
-
-        (new e)->line('- transformed : '. substr($source_value,0, 20) . '...', 3);
 
         return $source_value;
     }
