@@ -44,7 +44,7 @@ class transform_list {
 
             if ($file == '.' || $file == '..'){ continue; }
 
-            include(__DIR__ . '/'.$file);
+            include(__DIR__ . '/transforms/'.$file);
 
             $classname = '\\yt\\transform\\'.str_replace('.php', '', $file);
             $name = str_replace('.php', '', $file);

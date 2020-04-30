@@ -32,6 +32,7 @@ return array(
     'yt\\options' => $baseDir . '/src/acf/get_options.php',
     'yt\\r' => $baseDir . '/src/error/r.php',
     'yt\\request\\multichannel' => $baseDir . '/src/api/requests/multichannel.php',
+    'yt\\request\\playlistitems' => $baseDir . '/src/api/requests/playlistitems.php',
     'yt\\request\\search' => $baseDir . '/src/api/requests/search.php',
     'yt\\scraper' => $baseDir . '/src/scraper.php',
     'yt\\token\\date' => $baseDir . '/src/api/tokens/date.php',
