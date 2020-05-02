@@ -60,8 +60,9 @@ class image
 
     public function set_filename_unset()
     {
-        // create a unique filename.
-        $this->filename = uniqid();
+        // create a unique filename based off url
+        // e.g. https://i.ytimg.com/vi/Q02DIy2az2k/default_live.jpg
+        $this->filename = md5($this->args['url']);
 
         // override with optional supplied filename
         if (isset($this->args['filename'])){

@@ -138,7 +138,6 @@ class mapper_item
      */
     public function source_value()
     {
-        
 
         $location_parts = $this->explode_source_location();
 
