@@ -8,6 +8,7 @@ class options
     public $search;
     public $filter;
     public $transform;
+    public $schedule;
 
     public $auth;
     public $mapper;
@@ -49,6 +50,9 @@ class options
 
         // transforms
         $this->get_repeater_options('yt_transform_instance', 'transform');
+
+        // schedule
+        $this->get_repeater_options('yt_schedule_instance', 'schedule');
         
         return $this;
     }

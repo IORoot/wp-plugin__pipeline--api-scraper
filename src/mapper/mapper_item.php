@@ -86,8 +86,6 @@ class mapper_item
 
     public function run()
     {
-
-        
         $this->process_mappings();
 
         return $this->wp_post_args;
@@ -111,7 +109,10 @@ class mapper_item
 
         $transformed_value = $this->transform_value($source_value);
         
-        (new e)->line('source value : '. substr($source_value,0,20) .' | Destination field: '. substr($destination_field,0,20) . ' | Transformed : '. substr($transformed_value,0,20) ,2);
+        (new e)->line(
+            'source value : '. substr(serialize($source_value),0,20) .
+            ' | Destination field: '. substr($destination_field,0,20) . 
+            ' | Transformed : '. substr($transformed_value,0,20) ,2);
 
         // Set the result array to have a key of the
         // destination field and the value of the
@@ -140,6 +141,13 @@ class mapper_item
         
 
         $location_parts = $this->explode_source_location();
+
+        /**
+         * Special case - use source as string, not reference.
+         */
+        if ($this->single_mapping['yt_mapper_transform'] == 'field_as_string'){
+            return $this->single_mapping['yt_mapper_source'];
+        }
 
         // location of the item within this object.
         $value = $this->source_item;

@@ -1,6 +1,6 @@
 <?php
 
-function acf_populate_yt_transform_catalog_choices($value, $post_id, $field)
+function acf_populate_yt_transform_catalog_choices($value)
 {
 
     $value = [];

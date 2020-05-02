@@ -9,7 +9,7 @@ class image
 
     public $url;
 
-    public $alt;
+    public $alt = 'ParkourPulse';
 
     public $filename;
 
@@ -77,11 +77,11 @@ class image
     {
         $this->alt = $this->args['post_title'];
 
-        if ($this->args['alt'])
+        if (isset($this->args['alt']))
         {
             $this->alt = $this->args['alt'];
             unset($this->args['alt']);
-        }
+        } 
 
         return;
     }

@@ -7,6 +7,7 @@ use \yt\api;
 use \yt\filter as filter;
 use \yt\mapper_collection as mapper;
 use \yt\import;
+use \yt\scheduler;
 use \yt\options;
 
 // ┌─────────────────────────────────────────────────────────────────────────┐ 
@@ -52,6 +53,8 @@ class scraper
 
     private $importer;
 
+    private $scheduler;
+
     // Temporary parameters
     private $_scrape_key;
 
@@ -71,6 +74,8 @@ class scraper
         $this->mapper = new mapper;
 
         $this->importer = new import;
+
+        $this->scheduler = new scheduler;
 
         return;
     }
@@ -94,10 +99,31 @@ class scraper
         return;
     }
 
+    public function run_scrape_instance($scrape_id)
+    {
+
+        // loop over each scrape instance.
+        foreach ($this->options->scrape as $this->_scrape_key => $value){
+            
+            // Does this match the scrape_id given?
+            if ($this->options->scrape[$this->_scrape_key]['yt_scrape_id'] != $scrape_id){ continue; }
+
+            // has this scrape been enabled?
+            if ($this->options->scrape[$this->_scrape_key]['yt_scrape_enabled'] != true){ continue; }
+
+            // run it.
+            $this->process_single_scrape();
+
+        }
+
+        return;
+    }
+
+
 
 
     public function process_single_scrape(){
-
+        
         (new e)->line('RUNNING scrape - '.$this->options->scrape[$this->_scrape_key]['yt_scrape_id'] );
 
         // Query API.
@@ -111,6 +137,9 @@ class scraper
 
         // Import results into CPT
         $this->import();
+
+        // Add new schedule into WP_CRON
+        $this->schedule();
 
         return;
     }
@@ -291,6 +320,24 @@ class scraper
         (new e)->line('- Add_Posts : '.$post_type, 1 );
         
         $this->importer->add_posts($post_type, $collection);
+    }
+
+
+
+
+    // ┌─────────────────────────────────────────────────────────────────────────┐ 
+    // │                                                                         │░
+    // │                                                                         │░
+    // │                                SCHEDULER                                │░
+    // │                                                                         │░
+    // │                                                                         │░
+    // └─────────────────────────────────────────────────────────────────────────┘░
+    //  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+
+    public function schedule()
+    {
+        
+        return;
     }
 
 

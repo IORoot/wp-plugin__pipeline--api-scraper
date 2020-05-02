@@ -10,6 +10,8 @@ class post
 
     public function __construct()
     {
+        $this->include_for_cron();
+
         (new \yt\r)->clear('import'); 
         return $this;
     }
@@ -46,5 +48,12 @@ class post
     public function result()
     {
         return $this->result;
+    }
+
+    public function include_for_cron()
+    {
+        if ( ! function_exists( 'post_exists' ) ) {
+            require_once( ABSPATH . 'wp-admin/includes/post.php' );
+        }
     }
 }

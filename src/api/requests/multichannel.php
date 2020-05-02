@@ -51,9 +51,8 @@ class multichannel implements requestInterface
             (new \yt\e)->line('- Calling API for Channel_ID : '.$channel_id, 1);
             $this->build_request_url($channel_id);
             $this->call_api();
+            $this->check_result();
         }
-
-        $this->check_result();
 
         $this->combine_results();
 
@@ -98,7 +97,8 @@ class multichannel implements requestInterface
     {
 
         try {
-            $this->response[] = json_decode(wp_remote_fopen($this->built_request_url));
+            $this->last_response = json_decode(wp_remote_fopen($this->built_request_url));
+            $this->response[] = $this->last_response;
         } catch (\Exception $e) {
             (new \yt\e)->line('- \Exception calling YouTube' . $e->getMessage(), 1);
             return false;
@@ -131,16 +131,15 @@ class multichannel implements requestInterface
 
     public function check_result()
     {
-        if (isset($this->response->error)) {
-            (new \yt\e)->line('- ERROR Code : ' . $this->response->error->code, 2);
-            (new \yt\e)->line('- ERROR Reason : ' . $this->response->error->errors[0]->reason, 2);
-            (new \yt\e)->line('- ERROR Message : ' . $this->response->error->message, 2);
+        if (isset($this->last_response->error)) {
+            (new \yt\e)->line('- ERROR Code : ' . $this->last_response->error->code, 2);
+            (new \yt\e)->line('- ERROR Reason : ' . $this->last_response->error->errors[0]->reason, 2);
+            (new \yt\e)->line('- ERROR Message : ' . $this->last_response->error->message, 2);
             return false;
         }
 
-        (new \yt\e)->line('- OK Response : ' . $this->response->kind, 2);
-        (new \yt\e)->line('- Retrieved Rows : ' . $this->response->pageInfo->resultsPerPage, 2);
-        (new \yt\e)->line('- Quota Cost : '.$this->cost, 2);
+        (new \yt\e)->line('- OK Response : ' . $this->last_response->kind, 2);
+        (new \yt\e)->line('- Retrieved Rows : ' . $this->last_response->pageInfo->resultsPerPage, 2);
 
         return true;
     }

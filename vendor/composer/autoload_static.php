@@ -8,7 +8,6 @@ class ComposerStaticInit30fd7ec9b8e2598fd2f686f91346eea7
 {
     public static $classMap = array (
         'yt\\api' => __DIR__ . '/../..' . '/src/api/api.php',
-        'yt\\cron' => __DIR__ . '/../..' . '/src/cron/cron.php',
         'yt\\e' => __DIR__ . '/../..' . '/src/error/e.php',
         'yt\\filter' => __DIR__ . '/../..' . '/src/filter/filter.php',
         'yt\\filter\\none' => __DIR__ . '/../..' . '/src/filter/filters/none.php',
@@ -37,7 +36,7 @@ class ComposerStaticInit30fd7ec9b8e2598fd2f686f91346eea7
         'yt\\request\\playlistitems' => __DIR__ . '/../..' . '/src/api/requests/playlistitems.php',
         'yt\\request\\playlists' => __DIR__ . '/../..' . '/src/api/requests/playlists.php',
         'yt\\request\\search' => __DIR__ . '/../..' . '/src/api/requests/search.php',
-        'yt\\schedules' => __DIR__ . '/../..' . '/src/cron/schedules.php',
+        'yt\\scheduler' => __DIR__ . '/../..' . '/src/scheduler/scheduler.php',
         'yt\\scraper' => __DIR__ . '/../..' . '/src/scraper.php',
         'yt\\token\\date' => __DIR__ . '/../..' . '/src/api/tokens/date.php',
         'yt\\transform\\best_image' => __DIR__ . '/../..' . '/src/transform/transforms/best_image.php',
