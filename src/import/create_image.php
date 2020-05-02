@@ -62,7 +62,7 @@ class image
     {
         // create a unique filename based off url
         // e.g. https://i.ytimg.com/vi/Q02DIy2az2k/default_live.jpg
-        $this->filename = md5($this->args['url']);
+        $this->filename = md5($this->url);
 
         // override with optional supplied filename
         if (isset($this->args['filename'])){

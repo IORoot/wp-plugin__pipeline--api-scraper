@@ -55,12 +55,16 @@ class scheduler
 
         $args = array( 'scrape_instance' => $this->scrape_id );
 
-        // remove old instance
-        wp_clear_scheduled_hook( 'yt_run_scraper', $args );
+        if (!wp_next_scheduled('yt_run_scraper', $args)) {
 
-        //update with new one.      
-        // NOTE: $args MUST be an array.
-        wp_schedule_event($this->schedule_time, $this->schedule_repeat, 'yt_run_scraper', $args);
+            // remove old instance
+            wp_clear_scheduled_hook('yt_run_scraper', $args);
+
+            // update with new one.
+            // NOTE: $args MUST be an array.
+            wp_schedule_event($this->schedule_time, $this->schedule_repeat, 'yt_run_scraper', $args);
+
+        }
     
     }
 
@@ -69,6 +73,5 @@ class scheduler
         $args = array( 'scrape_instance' => $this->scrape_id );
         wp_clear_scheduled_hook( 'yt_run_scraper', $args );
     }
-
 
 }

@@ -212,7 +212,7 @@ class scraper
         (new \yt\e)->line('[ Filter ] : '.$this->options->scrape[$this->_scrape_key]['yt_scrape_filter']['yt_filter_id'] );
 
         // do some checks.
-        $this->has_response();
+        if ($this->has_response() == false){ return; }
 
         // This is the group of filters to
         // perform on the results of the API response.
@@ -252,8 +252,8 @@ class scraper
         (new \yt\e)->line('[ Mapper ] : '.$this->options->scrape[$this->_scrape_key]['yt_scrape_mapper']['yt_mapper_id'] );
 
         // Do some checks
-        $this->has_response();
-        $this->has_filtered();
+        if ($this->has_response() == false){ return; }
+        if ($this->has_filtered() == false){ return; }
 
         // Give the mapper all transforms
         // This is because we'll need the parameters for
@@ -295,6 +295,8 @@ class scraper
 
     public function import()
     {
+        if ($this->has_response() == false){ return; }
+
         (new \yt\e)->line('[ Import ] : '.$this->options->scrape[$this->_scrape_key]['yt_scrape_import']['yt_import_id'] );
 
         $this->add_term();
@@ -379,19 +381,30 @@ class scraper
 
         // loop EVERY scrape instance.
         foreach ($this->options->scrape as $this->_scrape_key => $value){
-            
             $this->remove_any_schedules_for_disabled_scrapes();
+            $this->remove_any_schedules_for_disabled_schedules();
+        }
+
+        return;
+    }
+
+    public function remove_any_schedules_for_disabled_scrapes()
+    {
+        // has this scrape been disabled?
+        if ($this->options->scrape[$this->_scrape_key]['yt_scrape_enabled'] != true)
+        {
+            $this->scheduler->set_scrape_id($this->options->scrape[$this->_scrape_key]['yt_scrape_id']);
+            $this->scheduler->remove_schedule();
         }
 
         return;
     }
 
 
-
-    public function remove_any_schedules_for_disabled_scrapes()
+    public function remove_any_schedules_for_disabled_schedules()
     {
         // has this scrape been disabled?
-        if ($this->options->scrape[$this->_scrape_key]['yt_scrape_enabled'] != true)
+        if ($this->options->scrape[$this->_scrape_key]['yt_scrape_schedule']['yt_schedule_id'] == 'none')
         {
             $this->scheduler->set_scrape_id($this->options->scrape[$this->_scrape_key]['yt_scrape_id']);
             $this->scheduler->remove_schedule();
@@ -413,10 +426,11 @@ class scraper
 
     public function has_response()
     {
-        if ($this->options->scrape[$this->_scrape_key]['yt_scrape_response'] == null) {
+        if (isset($this->options->scrape[$this->_scrape_key]['yt_scrape_response']->error)) {
             (new \yt\e)->line('- There is no response from YouTube.', 1 );
+            return false;
         }
-        return;
+        return true;
     }
 
 
@@ -424,8 +438,10 @@ class scraper
     {
         if ($this->options->scrape[$this->_scrape_key]['yt_scrape_filtered'] == null) {
             (new \yt\e)->line('- There is no filtered array results to map and import.', 1 );
+            return false;
         }
-        return;
+
+        return true;
     }
 
 }
