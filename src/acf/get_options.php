@@ -142,6 +142,7 @@ class options
         unset($this->search);
         unset($this->mapper);
         unset($this->import);
+        unset($this->schedule);
 
         // Keep 'filter' and 'transform' because we need the parameters to use on the mapper filters.
         // see the mapper_item->filter_mapping()

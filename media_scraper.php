@@ -16,6 +16,8 @@
  * Domain Path:       /languages
  */
 
+date_default_timezone_set('Europe/London'); // make sure the Scheduler is correct with time picker.
+
 // ┌─────────────────────────────────────────────────────────────────────────┐
 // │                         Use composer autoloader                         │
 // └─────────────────────────────────────────────────────────────────────────┘

@@ -1,6 +1,6 @@
 <?php
 
-function acf_populate_yt_schedule_repeats_choices($field)
+function acf_populate_yt_schedule_repeat_choices($field)
 {
 
     // reset choices
@@ -15,9 +15,9 @@ function acf_populate_yt_schedule_repeats_choices($field)
     $field['choices']['none'] = 'None';
 
     if (is_array($schedules)) {
-        foreach ($schedules as $schedule) {
-            $schedule_name = $schedule['display'];
-            $field['choices'][ $schedule_name ] = $schedule_name;
+        foreach ($schedules as $key => $schedule) {
+            $display_name = $schedule['display'];
+            $field['choices'][ $key ] = $display_name;
         }
     }
 
@@ -27,4 +27,4 @@ function acf_populate_yt_schedule_repeats_choices($field)
 
 }
 
-add_filter('acf/load_field/name=yt_schedule_repeats', 'acf_populate_yt_schedule_repeats_choices');
+add_filter('acf/load_field/name=yt_schedule_repeat', 'acf_populate_yt_schedule_repeat_choices');

@@ -9,6 +9,7 @@ function yt_create_schedules($schedules){
         '5mins'   => [ 'interval' => 300,     'display' => '5 Minutes' ],
         '10mins'  => [ 'interval' => 600,     'display' => '10 Minutes' ],
         '30mins'  => [ 'interval' => 1800,    'display' => '30 Minutes' ],
+        '1hour'   => [ 'interval' => 7200,    'display' => '1 Hour' ],
         '2hours'  => [ 'interval' => 7200,    'display' => '2 Hours' ],
         '3hours'  => [ 'interval' => 10800,   'display' => '3 Hours' ],
         '4hours'  => [ 'interval' => 14400,   'display' => '4 Hours' ],
