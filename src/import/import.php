@@ -2,6 +2,7 @@
 
 namespace yt;
 
+use \yt\import\exists;
 use \yt\import\taxonomy;
 use \yt\import\post;
 use \yt\import\image;
@@ -22,8 +23,6 @@ class import
     public $returned_ids;
 
     public $attach;
-
-
 
 
     public function __construct()
@@ -47,6 +46,7 @@ class import
 
     public function add_posts($post_type, $collection)
     {
+
         if ($post_type == null || $post_type == '') {
             (new e)->line('- No post_type has been set. Cannot import->add_posts().', 1);
             return false;
@@ -57,8 +57,13 @@ class import
         }
 
         foreach ($collection as $item) {
+
+            if ($this->does_post_exist($item)){ continue; }
+
             $item['post']['post_type'] = $post_type;
-            $this->add_post($item);
+            $item = $this->append_taxonomy_to_image_content($item);
+
+            $this->add_post_and_combine($item);
         }
 
         return $this;
@@ -66,7 +71,7 @@ class import
 
 
     
-    public function add_post($item)
+    public function add_post_and_combine($item)
     {
         
         foreach ($item as $target_object => $post_args)
@@ -113,5 +118,38 @@ class import
         return $this;
     }
 
+
+
+    public function does_post_exist($item)
+    {
+        $does_it_exist = false;
+
+        $exist = new exists;
+        $does_it_exist = $exist->post_by_title($item['post']['post_title']);
+
+
+
+        return $does_it_exist;
+    }
+
+
+    
+
+
+
+
+    public function append_taxonomy_to_image_content($item)
+    {
+        if (isset($item['image']['post_content']))
+        {
+            $item['image']['post_content'] = $item['image']['post_content'] . ' ' . $this->taxonomy->taxonomy_term;
+            return $item;
+        } 
+
+        $item['image']['post_content'] = $this->taxonomy->taxonomy_term;
+
+        return $item;
+
+    }
 
 }

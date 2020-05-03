@@ -51,6 +51,17 @@ class downloader
             $post_data['post_title'] = basename($url_filename, "." . $url_type['ext']);         // just use the original filename (no extension)
         }
 
+    
+        // To distinguish between a post and it's image,
+        // add on the word 'image' to the title at the end.
+        // otherwise when we're checking for an existing
+        // post, it'll see the image as a post with the same
+        // title and say it exists!
+        // By adding the word 'title' it'll be different
+        // to the post title slightly.
+        $post_data['post_title'] = $post_data['post_title'] . ' image';
+        
+
         // required libraries for media_handle_sideload
         require_once(ABSPATH . 'wp-admin/includes/file.php');
         require_once(ABSPATH . 'wp-admin/includes/media.php');

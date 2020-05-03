@@ -2,7 +2,6 @@
 
 namespace yt;
 
-use \yt\e;
 use \yt\api;
 use \yt\filter as filter;
 use \yt\mapper_collection as mapper;
@@ -10,7 +9,7 @@ use \yt\import;
 use \yt\scheduler;
 use \yt\options;
 
-// ┌─────────────────────────────────────────────────────────────────────────┐ 
+// ┌─────────────────────────────────────────────────────────────────────────┐
 // │                                                                         │░
 // │                                 SCRAPER                                 │░
 // │                                                                         │░
@@ -42,7 +41,6 @@ use \yt\options;
 
 class scraper
 {
-
     public $options;
 
     public $filter;
@@ -61,21 +59,11 @@ class scraper
 
     public function __construct()
     {
-        set_time_limit (600); // 10 mins - apache Timeout = 300 (5 mins)
+        set_time_limit(600); // 10 mins - apache Timeout = 300 (5 mins)
 
         (new \yt\e)->clear();
 
         $this->options = new options;
-
-        $this->api = new api;
-
-        $this->filter = new filter;
-
-        $this->mapper = new mapper;
-
-        $this->importer = new import;
-
-        $this->scheduler = new scheduler;
 
         return;
     }
@@ -86,51 +74,65 @@ class scraper
     {
 
         // loop over each scrape instance.
-        foreach ($this->options->scrape as $this->_scrape_key => $value){
+        foreach ($this->options->scrape as $this->_scrape_key => $value) {
             
             // has this scrape been enabled?
-            if ($this->options->scrape[$this->_scrape_key]['yt_scrape_enabled'] != true){ continue; }
+            if ($this->options->scrape[$this->_scrape_key]['yt_scrape_enabled'] != true) {
+                continue;
+            }
 
             // run it.
             $this->process_single_scrape();
-
         }
 
-        $this->houseclean();
+        $this->housekeep();
 
         return;
     }
+
+
+
 
     public function run_scrape_instance($scrape_id)
     {
-
         error_log('Scheduled scrape instance running - ' . $scrape_id);
 
         // loop over each scrape instance.
-        foreach ($this->options->scrape as $this->_scrape_key => $value){
+        foreach ($this->options->scrape as $this->_scrape_key => $value) {
             
             // Does this match the scrape_id given?
-            if ($this->options->scrape[$this->_scrape_key]['yt_scrape_id'] != $scrape_id){ continue; }
+            if ($this->options->scrape[$this->_scrape_key]['yt_scrape_id'] != $scrape_id) {
+                continue;
+            }
 
             // has this scrape been enabled?
-            if ($this->options->scrape[$this->_scrape_key]['yt_scrape_enabled'] != true){ continue; }
+            if ($this->options->scrape[$this->_scrape_key]['yt_scrape_enabled'] != true) {
+                continue;
+            }
 
             // run it.
             $this->process_single_scrape();
-
         }
 
-        $this->houseclean();
+        $this->housekeep();
 
         return;
     }
 
 
 
+    // ┌─────────────────────────────────────────────────────────────────────────┐
+    // │                                                                         │░
+    // │                                                                         │░
+    // │                                 PRIVATE                                 │░
+    // │                                                                         │░
+    // │                                                                         │░
+    // └─────────────────────────────────────────────────────────────────────────┘░
+    // ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-    public function process_single_scrape(){
-        
-        (new \yt\e)->line(date("M,d,Y h:i:s A") .' RUNNING scrape - '.$this->options->scrape[$this->_scrape_key]['yt_scrape_id'] );
+    public function process_single_scrape()
+    {
+        (new \yt\e)->line(date("M,d,Y h:i:s A") .' RUNNING scrape - '.$this->options->scrape[$this->_scrape_key]['yt_scrape_id']);
 
         // Query API.
         $this->scrape_api();
@@ -151,7 +153,7 @@ class scraper
     }
 
 
-    // ┌─────────────────────────────────────────────────────────────────────────┐ 
+    // ┌─────────────────────────────────────────────────────────────────────────┐
     // │                                                                         │░
     // │                                                                         │░
     // │                                SCRAPING                                 │░
@@ -163,20 +165,24 @@ class scraper
 
     public function scrape_api()
     {
-        (new \yt\e)->line('[ Auth ] : '.$this->options->scrape[$this->_scrape_key]['yt_scrape_auth']['yt_auth_id'] );
-        (new \yt\e)->line('- Quota : '. $this->options->scrape[$this->_scrape_key]['yt_scrape_auth']['yt_api_quota'],1);
-        (new \yt\e)->line('[ Search ] : '.$this->options->scrape[$this->_scrape_key]['yt_scrape_search']['yt_search_id'] );
+
+        // Create new object.
+        $this->api = new api;
+
+        (new \yt\e)->line('[ Auth ] : '.$this->options->scrape[$this->_scrape_key]['yt_scrape_auth']['yt_auth_id']);
+        (new \yt\e)->line('- Quota : '. $this->options->scrape[$this->_scrape_key]['yt_scrape_auth']['yt_api_quota'], 1);
+        (new \yt\e)->line('[ Search ] : '.$this->options->scrape[$this->_scrape_key]['yt_scrape_search']['yt_search_id']);
 
         // Set the API Key.
-        // Scrape Instance -> auth array -> api key  
+        // Scrape Instance -> auth array -> api key
         $this->api->set_api_key($this->options->scrape[$this->_scrape_key]['yt_scrape_auth']['yt_api_key']);
 
-        // Pass all of the available substitutions into 
+        // Pass all of the available substitutions into
         // the class so we can do some swapping.
         $this->api->set_substitutions($this->options->substitutions);
 
         // set the search string
-        // Scrape Instance -> search array -> search string  
+        // Scrape Instance -> search array -> search string
         $this->api->set_query($this->options->scrape[$this->_scrape_key]['yt_scrape_search']['yt_search_string']);
 
         // What type of request is this?
@@ -190,13 +196,15 @@ class scraper
 
         // Report last response.
         (new \yt\r)->clear('search');
-        (new \yt\r)->last('search',$this->options->scrape[$this->_scrape_key]['yt_scrape_response']); 
+        (new \yt\r)->last('search', $this->options->scrape[$this->_scrape_key]['yt_scrape_response']);
+
+        unset($this->api);
 
         return;
     }
 
 
-    // ┌─────────────────────────────────────────────────────────────────────────┐ 
+    // ┌─────────────────────────────────────────────────────────────────────────┐
     // │                                                                         │░
     // │                                                                         │░
     // │                                FILTERING                                │░
@@ -208,11 +216,14 @@ class scraper
 
     public function filter()
     {
+        $this->filter = new filter;
 
-        (new \yt\e)->line('[ Filter ] : '.$this->options->scrape[$this->_scrape_key]['yt_scrape_filter']['yt_filter_id'] );
+        (new \yt\e)->line('[ Filter ] : '.$this->options->scrape[$this->_scrape_key]['yt_scrape_filter']['yt_filter_id']);
 
         // do some checks.
-        if ($this->has_response() == false){ return; }
+        if ($this->has_response() == false) {
+            return;
+        }
 
         // This is the group of filters to
         // perform on the results of the API response.
@@ -229,14 +240,16 @@ class scraper
 
         // Report last response.
         (new \yt\r)->clear('filter');
-        (new \yt\r)->last('filter',$this->options->scrape[$this->_scrape_key]['yt_scrape_filtered']->items); 
+        (new \yt\r)->last('filter', $this->options->scrape[$this->_scrape_key]['yt_scrape_filtered']->items);
+
+        unset($this->filter);
 
         return;
     }
 
 
 
-    // ┌─────────────────────────────────────────────────────────────────────────┐ 
+    // ┌─────────────────────────────────────────────────────────────────────────┐
     // │                                                                         │░
     // │                                                                         │░
     // │                                 MAPPING                                 │░
@@ -248,12 +261,17 @@ class scraper
 
     public function mapper()
     {
+        $this->mapper = new mapper;
 
-        (new \yt\e)->line('[ Mapper ] : '.$this->options->scrape[$this->_scrape_key]['yt_scrape_mapper']['yt_mapper_id'] );
+        (new \yt\e)->line('[ Mapper ] : '.$this->options->scrape[$this->_scrape_key]['yt_scrape_mapper']['yt_mapper_id']);
 
         // Do some checks
-        if ($this->has_response() == false){ return; }
-        if ($this->has_filtered() == false){ return; }
+        if ($this->has_response() == false) {
+            return;
+        }
+        if ($this->has_filtered() == false) {
+            return;
+        }
 
         // Give the mapper all transforms
         // This is because we'll need the parameters for
@@ -269,21 +287,22 @@ class scraper
         // returned from youtube.
         $this->mapper->set_collection($this->options->scrape[$this->_scrape_key]['yt_scrape_filtered']->items);
 
-        // run it and set to the next array entry 
+        // run it and set to the next array entry
         // of the scrape.
         $this->options->scrape[$this->_scrape_key]['yt_scrape_mapped'] = $this->mapper->run();
 
         // Report last response.
         (new \yt\r)->clear('mapper');
-        (new \yt\r)->last('mapper',$this->options->scrape[$this->_scrape_key]['yt_scrape_mapped']); 
+        (new \yt\r)->last('mapper', $this->options->scrape[$this->_scrape_key]['yt_scrape_mapped']);
 
+        unset($this->mapper);
 
         return;
     }
 
 
 
-    // ┌─────────────────────────────────────────────────────────────────────────┐ 
+    // ┌─────────────────────────────────────────────────────────────────────────┐
     // │                                                                         │░
     // │                                                                         │░
     // │                                IMPORTING                                │░
@@ -295,12 +314,18 @@ class scraper
 
     public function import()
     {
-        if ($this->has_response() == false){ return; }
+        $this->importer = new import;
 
-        (new \yt\e)->line('[ Import ] : '.$this->options->scrape[$this->_scrape_key]['yt_scrape_import']['yt_import_id'] );
+        if ($this->has_response() == false) {
+            return;
+        }
+
+        (new \yt\e)->line('[ Import ] : '.$this->options->scrape[$this->_scrape_key]['yt_scrape_import']['yt_import_id']);
 
         $this->add_term();
         $this->add_posts();
+
+        unset($this->importer);
         
         return $this;
     }
@@ -308,12 +333,11 @@ class scraper
 
     public function add_term()
     {
-        
         $scrape_taxonomy    = $this->options->scrape[$this->_scrape_key]['yt_scrape_import']['yt_import_taxonomy_type'];
         $term_name          = $this->options->scrape[$this->_scrape_key]['yt_scrape_search']['yt_search_id'];
         $term_desc          = $this->options->scrape[$this->_scrape_key]['yt_scrape_search']['yt_search_description'];
         
-        (new \yt\e)->line('- Add_Term : '.$scrape_taxonomy, 1 );
+        (new \yt\e)->line('- Add_Term : '.$scrape_taxonomy, 1);
 
         $this->importer->add_term($scrape_taxonomy, $term_name, $term_desc);
 
@@ -325,7 +349,7 @@ class scraper
         $post_type  = $this->options->scrape[$this->_scrape_key]['yt_scrape_import']['yt_import_post_type'];
         $collection = $this->options->scrape[$this->_scrape_key]['yt_scrape_mapped'];
 
-        (new \yt\e)->line('- Add_Posts : '.$post_type, 1 );
+        (new \yt\e)->line('- Add_Posts : '.$post_type, 1);
         
         $this->importer->add_posts($post_type, $collection);
     }
@@ -333,7 +357,7 @@ class scraper
 
 
 
-    // ┌─────────────────────────────────────────────────────────────────────────┐ 
+    // ┌─────────────────────────────────────────────────────────────────────────┐
     // │                                                                         │░
     // │                                                                         │░
     // │                                SCHEDULER                                │░
@@ -344,7 +368,10 @@ class scraper
 
     public function schedule()
     {
-        (new \yt\e)->line('[ Scheduler ] : '.$this->options->scrape[$this->_scrape_key]['yt_scrape_schedule']['yt_schedule_id'] );
+
+        $this->scheduler = new scheduler;
+
+        (new \yt\e)->line('[ Scheduler ] : '.$this->options->scrape[$this->_scrape_key]['yt_scrape_schedule']['yt_schedule_id']);
 
         $this->scheduler->set_scrape_id($this->options->scrape[$this->_scrape_key]['yt_scrape_id']);
 
@@ -360,39 +387,46 @@ class scraper
     }
 
 
-    // ┌─────────────────────────────────────────────────────────────────────────┐ 
+    // ┌─────────────────────────────────────────────────────────────────────────┐
     // │                                                                         │░
     // │                                                                         │░
-    // │                                HOUSECLEAN                               │░
+    // │                                HOUSEKEEP                                │░
     // │                                                                         │░
     // │                                                                         │░
     // └─────────────────────────────────────────────────────────────────────────┘░
     //  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-    public function houseclean()
+    public function housekeep()
     {
-        // Need to do some housecleaning here.
+
+        $this->scheduler_housekeeping();
+        $this->post_housekeeping();
+
+        return;
+    }
+
+
+
+    
+    public function scheduler_housekeeping()
+    {
+        $this->scheduler = new scheduler;
+
+        // Need to do some housekeeping here.
         // These must run every time, because nothing will run if the ENABLED
         // is off on the scrape.
-        //
-        // 1. Stop any scheduled jobs if they've been disabled.
-        // 2. Remove any older posts.
-        // 3. Remove any older images.
-
-        // loop EVERY scrape instance.
-        foreach ($this->options->scrape as $this->_scrape_key => $value){
+        foreach ($this->options->scrape as $this->_scrape_key => $value) {
             $this->remove_any_schedules_for_disabled_scrapes();
             $this->remove_any_schedules_for_disabled_schedules();
         }
-
-        return;
+        
+        unset($this->scheduler);
     }
 
     public function remove_any_schedules_for_disabled_scrapes()
     {
         // has this scrape been disabled?
-        if ($this->options->scrape[$this->_scrape_key]['yt_scrape_enabled'] != true)
-        {
+        if ($this->options->scrape[$this->_scrape_key]['yt_scrape_enabled'] != true) {
             $this->scheduler->set_scrape_id($this->options->scrape[$this->_scrape_key]['yt_scrape_id']);
             $this->scheduler->remove_schedule();
         }
@@ -404,8 +438,7 @@ class scraper
     public function remove_any_schedules_for_disabled_schedules()
     {
         // has this scrape been disabled?
-        if ($this->options->scrape[$this->_scrape_key]['yt_scrape_schedule']['yt_schedule_id'] == 'none')
-        {
+        if ($this->options->scrape[$this->_scrape_key]['yt_scrape_schedule']['yt_schedule_id'] == 'none') {
             $this->scheduler->set_scrape_id($this->options->scrape[$this->_scrape_key]['yt_scrape_id']);
             $this->scheduler->remove_schedule();
         }
@@ -413,21 +446,28 @@ class scraper
         return;
     }
 
+    public function post_housekeeping()
+    {
+        $this->housekeep_posts = new housekeep_posts;
 
-    // ┌─────────────────────────────────────────────────────────────────────────┐ 
+        
+    }
+
+
+    // ┌─────────────────────────────────────────────────────────────────────────┐
     // │                                                                         │░
     // │                                                                         │░
     // │                                 CHECKING                                │░
     // │                                                                         │░
     // │                                                                         │░
     // └─────────────────────────────────────────────────────────────────────────┘░
-    //  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 
+    //  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
 
     public function has_response()
     {
         if (isset($this->options->scrape[$this->_scrape_key]['yt_scrape_response']->error)) {
-            (new \yt\e)->line('- There is no response from YouTube.', 1 );
+            (new \yt\e)->line('- There is no response from YouTube.', 1);
             return false;
         }
         return true;
@@ -437,11 +477,10 @@ class scraper
     public function has_filtered()
     {
         if ($this->options->scrape[$this->_scrape_key]['yt_scrape_filtered'] == null) {
-            (new \yt\e)->line('- There is no filtered array results to map and import.', 1 );
+            (new \yt\e)->line('- There is no filtered array results to map and import.', 1);
             return false;
         }
 
         return true;
     }
-
 }

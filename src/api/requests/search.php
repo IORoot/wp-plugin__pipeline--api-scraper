@@ -4,6 +4,8 @@ namespace yt\request;
 
 use yt\interfaces\requestInterface;
 
+use yt\response;
+
 class search implements requestInterface
 {
     public $description = "Performs a search on the youtube search:list endpoint.";
@@ -54,7 +56,7 @@ class search implements requestInterface
             return false;
         }
 
-        $this->check_result();
+        if((new response)->is_ok($this->response)){ return false; }
 
         return true;
     }
@@ -86,22 +88,6 @@ class search implements requestInterface
     // │                                                                         │░
     // └─────────────────────────────────────────────────────────────────────────┘░
     //  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-
-    public function check_result()
-    {
-        if (isset($this->response->error)) {
-            (new \yt\e)->line('- ERROR Code : ' . $this->response->error->code, 2);
-            (new \yt\e)->line('- ERROR Reason : ' . $this->response->error->errors[0]->reason, 2);
-            (new \yt\e)->line('- ERROR Message : ' . $this->response->error->message, 2);
-            return false;
-        }
-
-        (new \yt\e)->line('- OK Response : ' . $this->response->kind, 2);
-        (new \yt\e)->line('- Retrieved Rows : ' . $this->response->pageInfo->resultsPerPage, 2);
-        (new \yt\e)->line('- Quota Cost : '.$this->cost, 2);
-
-        return true;
-    }
 
     public function check_url()
     {

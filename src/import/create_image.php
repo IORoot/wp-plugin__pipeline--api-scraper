@@ -70,6 +70,8 @@ class image
             unset($this->args['filename']);
         }
 
+        $this->add_word_onto_end_of_title($this->filename);
+
         return;
     }
 
@@ -84,7 +86,28 @@ class image
             unset($this->args['alt']);
         } 
 
+        $this->add_word_onto_end_of_title($this->alt);
+
         return;
+    }
+
+    // To distinguish between a post and it's image,
+    // add on the word 'image' to the title at the end.
+    // otherwise when we're checking for an existing
+    // post, it'll see the image as a post with the same
+    // title and say it exists!
+    // By adding the word 'title' it'll be different
+    // to the post title slightly.
+    public function add_word_onto_end_of_title($title)
+    {
+        $title = $title . ' image';
+        return;
+    }
+
+
+    public function add_taxonomy_to_content()
+    {
+        
     }
 
 }
