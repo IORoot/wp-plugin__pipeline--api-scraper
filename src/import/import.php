@@ -58,7 +58,7 @@ class import
 
         foreach ($collection as $item) {
 
-            if ($this->does_post_exist($item)){ continue; }
+            if ($this->does_post_exist($item, $post_type)){ continue; }
 
             $item['post']['post_type'] = $post_type;
             $item = $this->append_taxonomy_to_image_content($item);
@@ -120,14 +120,12 @@ class import
 
 
 
-    public function does_post_exist($item)
+    public function does_post_exist($item, $post_type)
     {
         $does_it_exist = false;
 
         $exist = new exists;
-        $does_it_exist = $exist->post_by_title($item['post']['post_title']);
-
-
+        $does_it_exist = $exist->post_by_title($item['post']['post_title'], $post_type);
 
         return $does_it_exist;
     }

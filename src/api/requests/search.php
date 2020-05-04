@@ -56,7 +56,11 @@ class search implements requestInterface
             return false;
         }
 
-        if((new response)->is_ok($this->response)){ return false; }
+        (new \yt\r)->last('search', 'RESPONSE:'. json_encode($this->response, JSON_PRETTY_PRINT));
+        
+        if (!(new response)->is_errored($this->response)) {
+            return false;
+        }
 
         return true;
     }
@@ -76,7 +80,7 @@ class search implements requestInterface
     {
         if(!$this->check_url()){return false;}  
         $this->built_request_url = $this->domain . '/search?' . $this->config['query_string'] . "&key=" . $this->config['api_key'];
-
+        (new \yt\r)->last('search', 'QUERSTRING = '. $this->built_request_url);
         
     }
 

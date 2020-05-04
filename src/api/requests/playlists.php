@@ -55,8 +55,12 @@ class playlists implements requestInterface
             (new \yt\e)->line('- \Exception calling YouTube' . $e->getMessage(), 1);
             return false;
         }
+        
+        (new \yt\r)->last('search', 'RESPONSE:'. json_encode($this->response, JSON_PRETTY_PRINT));
 
-        if((new response)->is_ok($this->response)){ return false; }
+        if (!(new response)->is_errored($this->response)) {
+            return false;
+        }
 
         return true;
     }

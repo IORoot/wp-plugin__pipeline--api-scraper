@@ -27,6 +27,8 @@ class playlistitems implements requestInterface
 
     public $response;
 
+    public $last_response;
+
     // Nest limit is to stop nested looping beyond 5 times.
     // with a page limit of 50 items this means a max
     // of 250 items can be returned. More than enough for most
@@ -60,13 +62,18 @@ class playlistitems implements requestInterface
         (new \yt\e)->line('- Calling API.', 1);
 
         try {
-            $this->response[] = json_decode(wp_remote_fopen($this->built_request_url));
+            $this->last_response = json_decode(wp_remote_fopen($this->built_request_url));
+            $this->response[] = $this->last_response;
         } catch (\Exception $e) {
             (new \yt\e)->line('- \Exception calling YouTube' . $e->getMessage(), 1);
             return false;
         }
+        
+        (new \yt\r)->last('search', 'RESPONSE:'. json_encode($this->response, JSON_PRETTY_PRINT));
 
-        if((new response)->is_ok($this->response)){ return false; }
+        if (!(new response)->is_errored($this->last_response)) {
+            return false;
+        }
 
         $this->iterate_all_pages();
 
@@ -92,7 +99,7 @@ class playlistitems implements requestInterface
         if (!$this->check_url()) {
             return false;
         }
-        if ($this->config['page_token'] != null) {
+        if (isset($this->config['page_token'])) {
             $pageToken = '&pageToken='.$this->config['page_token'];
         }
         $this->built_request_url = $this->domain . '/playlistItems?' . $this->config['query_string'] . "&key=" . $this->config['api_key'] . $pageToken;
@@ -105,7 +112,8 @@ class playlistitems implements requestInterface
         if ($this->nest_level >= $this->nest_limit){ return; }
 
         $last_entry = end($this->response);
-        if ($last_entry->nextPageToken != '') {
+
+        if (isset($last_entry->nextPageToken)) {
             $this->config['page_token'] = $last_entry->nextPageToken;
             $this->request();
         }

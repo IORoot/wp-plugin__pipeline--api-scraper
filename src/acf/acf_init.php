@@ -22,6 +22,8 @@ require __DIR__.'/populate_yt_filter_catalog.php';
 
 require __DIR__.'/populate_yt_filter.php';
 
+require __DIR__.'/populate_yt_housekeep_schedule.php';
+
 require __DIR__.'/populate_yt_import_post_type.php';
 
 require __DIR__.'/populate_yt_import_taxonomy_type.php';

@@ -194,10 +194,6 @@ class scraper
         // Get the YouTube results and add to scrape array.
         $this->options->scrape[$this->_scrape_key]['yt_scrape_response'] = $this->api->run();
 
-        // Report last response.
-        (new \yt\r)->clear('search');
-        (new \yt\r)->last('search', $this->options->scrape[$this->_scrape_key]['yt_scrape_response']);
-
         unset($this->api);
 
         return;
@@ -448,7 +444,7 @@ class scraper
 
     public function post_housekeeping()
     {
-        $this->housekeep_posts = new housekeep_posts;
+        $housekeep = new housekeep;
 
         
     }

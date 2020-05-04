@@ -22,12 +22,15 @@ class r
     
     public function last($field, $value)
     {
-        
+        if (is_array($value)){
+            $value = json_encode($value, JSON_PRETTY_PRINT);
+        }
+
         $field = 'yt_'.$field.'_last_result';
         $old_value = get_field( $field, 'options' ). '
         ';
 
-        $value = json_encode($value, JSON_PRETTY_PRINT);
+        
         
         update_field($field, $old_value.$value, 'option');
     }

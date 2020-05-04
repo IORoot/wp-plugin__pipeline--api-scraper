@@ -38,6 +38,7 @@ class image
         $this->set_url_unset();
         $this->set_alt_unset();
         $this->set_filename_unset();
+        $this->is_this_a_live_video();
         
         $this->result_id = (new downloader)->download($this->url, $this->args, $this->alt, $this->filename);
 
@@ -105,9 +106,10 @@ class image
     }
 
 
-    public function add_taxonomy_to_content()
+    public function is_this_a_live_video()
     {
-        
+        $this->url = str_replace('_live', '', $this->url);
+        return;
     }
 
 }

@@ -21,7 +21,8 @@ function my_acf_admin_head() {
         #acf-field_5ea6effff95e6,
         #acf-field_5ea6f034f95e7,
         #acf-field_5ea6f062f95e8,
-        #acf-field_5ea6b0e2570f3 {
+        #acf-field_5ea6b0e2570f3,
+        #acf-field_5eaede8dcb4a1 {
             background-color: #424242;
             color: #38EF7D;
             white-space: nowrap;

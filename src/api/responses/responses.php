@@ -16,7 +16,7 @@ class response
         return $this;
     }
 
-    public function is_ok($response)
+    public function is_errored($response)
     {
 
         $this->response = $response;

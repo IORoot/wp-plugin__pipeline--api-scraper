@@ -4,7 +4,6 @@ namespace yt;
 
 class api
 {
-
     public $substitutions;
 
     public $request_type;
@@ -18,6 +17,7 @@ class api
 
     public function __construct()
     {
+        (new \yt\r)->clear('search');
         return $this;
     }
 
@@ -111,17 +111,14 @@ class api
 
     public function replace_any_substitutions($string)
     {
-
         preg_match_all('/\[\[(.*?)\]\]/', $string, $matches, PREG_SET_ORDER);
         (new e)->line('- Found '.count($matches) . ' substitution matches in string '.$string, 1);
 
         foreach ($matches as $match) {
-
             $word = $match[1];
 
-            foreach ($this->substitutions as $sub)
-            {
-                if ($word == $sub["yt_search_substitutions_word"]){
+            foreach ($this->substitutions as $sub) {
+                if ($word == $sub["yt_search_substitutions_word"]) {
                     $string = str_replace($match[0], $sub['yt_search_substitutions_replace'], $string);
                 }
             }

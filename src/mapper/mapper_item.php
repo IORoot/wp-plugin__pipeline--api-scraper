@@ -155,7 +155,11 @@ class mapper_item
         // Loop over each location part until you get
         // to the correct location in the item object.
         foreach ($location_parts as $object_level) {
-            $value = $value->$object_level;
+            if (isset($value->$object_level)){
+                $value = $value->$object_level;
+            } else {
+                $value = 'MAPPING DOES NOT EXISTS';
+            }
         }
 
         return $value;
