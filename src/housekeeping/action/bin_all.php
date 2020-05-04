@@ -4,7 +4,7 @@ namespace yt\housekeep;
 
 use yt\interfaces\housekeepInterface;
 
-class delete_all implements housekeepInterface{
+class bin_all implements housekeepInterface{
 
 
     public $query;
@@ -33,8 +33,8 @@ class delete_all implements housekeepInterface{
     {
         foreach($this->post_list as $post)
         {
-            $this->delete_image($post->ID);
-            $this->delete_post($post->ID);
+            $this->bin_image($post->ID);
+            $this->bin_post($post->ID);
         }
 
         return;
@@ -46,8 +46,8 @@ class delete_all implements housekeepInterface{
     public function result()
     {
         (new \yt\r)->clear('housekeep');
-        (new \yt\r)->last('housekeep', 'Will delete ' . count($this->post_list) . ' posts (and attachments).'); 
-        (new \yt\r)->last('housekeep', 'Response : ' . count($this->response) . ' deleted. (Post objects and Image objects).'); 
+        (new \yt\r)->last('housekeep', 'Will bin ' . count($this->post_list) . ' post (and image attachments).'); 
+        (new \yt\r)->last('housekeep', 'Response : ' . count($this->response) . ' were placed in the bin.'); 
         return ;
     }
 
@@ -59,17 +59,18 @@ class delete_all implements housekeepInterface{
 
 
 
-    public function delete_post($post_id)
+    public function bin_post($post_id)
     {
-        $this->response[] = wp_delete_post( $post_id, true);
+        $this->response[] = wp_trash_post( $post_id, false);
     }
 
     
-    public function delete_image($post_id)
+    
+    public function bin_image($post_id)
     {
         $attachment_id = get_post_thumbnail_id($post_id);
         if ($attachment_id != ''){
-            $this->response[] = wp_delete_attachment($attachment_id, true);
+            $this->response[] = wp_delete_attachment($attachment_id, false);
         }
         
     }

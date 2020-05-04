@@ -3,7 +3,7 @@
 namespace yt\request;
 
 use yt\interfaces\requestInterface;
-
+use yt\quota;
 use yt\response;
 
 class search implements requestInterface
@@ -62,6 +62,10 @@ class search implements requestInterface
             return false;
         }
 
+
+        (new quota)->update_quota_by_api_key($this->cost, $this->config['api_key']);
+
+
         return true;
     }
 
@@ -80,9 +84,9 @@ class search implements requestInterface
     {
         if(!$this->check_url()){return false;}  
         $this->built_request_url = $this->domain . '/search?' . $this->config['query_string'] . "&key=" . $this->config['api_key'];
-        (new \yt\r)->last('search', 'QUERSTRING = '. $this->built_request_url);
-        
+        (new \yt\r)->last('search', 'QUERSTRING = '. $this->built_request_url); 
     }
+
 
     // ┌─────────────────────────────────────────────────────────────────────────┐
     // │                                                                         │░

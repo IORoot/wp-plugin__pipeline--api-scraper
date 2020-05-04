@@ -89,7 +89,10 @@ class import
 
     public function combine()
     {
-        $this->attach->image_to_post($this->returned_ids['image'], $this->returned_ids['post']);
+        if (isset($this->returned_ids['image']) && isset($this->returned_ids['post'])){
+            $this->attach->image_to_post($this->returned_ids['image'], $this->returned_ids['post']);
+        }
+        
         $this->attach->meta_to_post($this->meta->args, $this->returned_ids['post']);
         $this->attach->tax_to_post($this->taxonomy->taxonomy_type, $this->taxonomy->taxonomy_term, $this->returned_ids['post']);
 

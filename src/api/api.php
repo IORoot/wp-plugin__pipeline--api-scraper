@@ -81,21 +81,9 @@ class api
 
         $request->request();
 
-        $this->update_quota($request->get_cost());
-
         return $request->response();
     }
 
-
-    public function update_quota($cost)
-    {
-        while (have_rows('yt_auth_instance', 'option')): $row = the_row(true);
-        $new_quota = $row['yt_api_quota'] - $cost;
-        update_sub_field('yt_api_quota', $new_quota, 'option');
-        endwhile;
-
-        return;
-    }
 
 
     public function string_to_array($parameters)

@@ -3,7 +3,7 @@
 namespace yt\request;
 
 use yt\interfaces\requestInterface;
-
+use yt\quota;
 use yt\response;
 
 class multichannel implements requestInterface
@@ -14,7 +14,8 @@ class multichannel implements requestInterface
     (array) [ \'channels\' => \'channelid1,channelid2\']
     ';
 
-    public $cost = 4;
+    public $cost = 1;
+    public $cost_per_result = 4; // snippet + contentParts
 
     public $domain = 'https://www.googleapis.com/youtube/v3';
 
@@ -54,6 +55,8 @@ class multichannel implements requestInterface
     {
         $this->create_channel_list_from_csv();
 
+        (new quota)->update_quota_by_api_key($this->cost, $this->config['api_key']);
+
         foreach ($this->channel_list as $channel_id) {
             (new \yt\e)->line('- Calling API for Channel_ID : '.$channel_id, 1);
             $this->build_request_url($channel_id);
@@ -62,6 +65,8 @@ class multichannel implements requestInterface
             if (!(new response)->is_errored($this->last_response)) {
                 return false;
             }
+
+            (new quota)->update_quota_by_api_key($this->cost_per_result, $this->config['api_key']);
         }
 
         $this->combine_results();
@@ -93,6 +98,8 @@ class multichannel implements requestInterface
         }
     }
 
+
+
     public function filter_for_uploads_only()
     {
         foreach ($this->response[0]->items as $key => $item) {
@@ -101,6 +108,8 @@ class multichannel implements requestInterface
             }
         }
     }
+
+
 
     private function call_api()
     {
@@ -114,12 +123,15 @@ class multichannel implements requestInterface
         (new \yt\r)->last('search', 'RESPONSE:'. json_encode($this->last_response, JSON_PRETTY_PRINT));
     }
 
+
+
     private function create_channel_list_from_csv()
     {
         str_replace(' ', '', $this->config['extra_parameters']['channels']);
         $this->channel_list = explode(',', $this->config['extra_parameters']['channels']);
         return;
     }
+
 
 
     private function build_request_url($channel_id)

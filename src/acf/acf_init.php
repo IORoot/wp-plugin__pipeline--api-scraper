@@ -30,8 +30,6 @@ require __DIR__.'/populate_yt_import_taxonomy_type.php';
 
 require __DIR__.'/populate_yt_mapper_transform.php';
 
-require __DIR__.'/populate_yt_schedule_repeats.php';
-
 require __DIR__.'/populate_yt_scrape_auth.php';
 
 require __DIR__.'/populate_yt_scrape_filter.php';

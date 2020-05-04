@@ -4,14 +4,14 @@ namespace yt\housekeep;
 
 use yt\interfaces\housekeepInterface;
 
-class none implements housekeepInterface{
+class none implements housekeepInterface {
 
     public function __construct()
     {
         return $this;
     }
 
-    public function config($config)
+    public function wp_query($config)
     {
     }
 

@@ -3,7 +3,7 @@
 namespace yt\request;
 
 use yt\interfaces\requestInterface;
-
+use yt\quota;
 use yt\response;
 
 class playlistitems implements requestInterface
@@ -13,6 +13,7 @@ class playlistitems implements requestInterface
     public $parameters = 'none';
 
     public $cost = 1;
+    public $cost_per_result = 2; // snippet
 
     public $domain = 'https://www.googleapis.com/youtube/v3';
 
@@ -56,7 +57,7 @@ class playlistitems implements requestInterface
     public function request()
     {
         $this->nest_level++;
-
+        (new quota)->update_quota_by_api_key($this->cost, $this->config['api_key']);
         $this->build_request_url();
 
         (new \yt\e)->line('- Calling API.', 1);
@@ -78,6 +79,8 @@ class playlistitems implements requestInterface
         $this->iterate_all_pages();
 
         $this->combine_results();
+
+        $this->cost_of_items();
         
         return true;
     }
@@ -130,6 +133,12 @@ class playlistitems implements requestInterface
             $this->response[0]->items = array_merge($this->response[0]->items, $response->items);
             unset($this->response[$key]);
         }
+    }
+
+    private function cost_of_items()
+    {
+        $item_count = count($this->response[0]->items);
+        (new quota)->update_quota_by_api_key(($this->cost_per_result * $item_count), $this->config['api_key']);
     }
 
     // ┌─────────────────────────────────────────────────────────────────────────┐
