@@ -12,7 +12,7 @@ if (function_exists('acf_add_options_page')) {
         'menu_title' => 'YouTube Settings',
         'menu_slug' => 'youtube_scraper',
         'capability' => 'manage_options',
-        'position' => '100.1',
+        'position' => '100',
         'parent_slug' => 'edit.php?post_type=youtube',
         'icon_url' => 'dashicons-screenoptions',
         'redirect' => true,
