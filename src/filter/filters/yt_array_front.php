@@ -8,7 +8,11 @@ class yt_array_front implements filterInterface
 {
     public $description = "Returns the first X number of entries of the Youtube search array. Specifically the 'items' collection of results. ";
 
-    public $parameters = "(int) 5.";
+    public $parameters = "
+    [
+        'length' => '10',
+        'location' => 'items'
+   ]";
 
     public $input;
 
