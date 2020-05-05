@@ -15,7 +15,7 @@ class r
 
     public function clear($field)
     {
-        $field = 'yt_'.$field.'_last_result';
+        $field = 'yt_debug_'.$field;
         update_field($field, '', 'option');
     }
 
@@ -26,12 +26,10 @@ class r
             $value = json_encode($value, JSON_PRETTY_PRINT);
         }
 
-        $field = 'yt_'.$field.'_last_result';
+        $field = 'yt_debug_'.$field;
         $old_value = get_field( $field, 'options' ). '
         ';
 
-        
-        
         update_field($field, $old_value.$value, 'option');
     }
 
