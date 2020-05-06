@@ -57,4 +57,5 @@ return array(
     'yt\\transform_group' => $baseDir . '/src/transform/transform_group.php',
     'yt\\transform_layer' => $baseDir . '/src/transform/transform_layer.php',
     'yt\\transform_list' => $baseDir . '/src/transform/transform_list.php',
+    'yt_import_export' => $baseDir . '/src/acf/import_export_page.php',
 );

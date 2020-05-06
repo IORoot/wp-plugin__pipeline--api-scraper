@@ -58,6 +58,7 @@ class ComposerStaticInit30fd7ec9b8e2598fd2f686f91346eea7
         'yt\\transform_group' => __DIR__ . '/../..' . '/src/transform/transform_group.php',
         'yt\\transform_layer' => __DIR__ . '/../..' . '/src/transform/transform_layer.php',
         'yt\\transform_list' => __DIR__ . '/../..' . '/src/transform/transform_list.php',
+        'yt_import_export' => __DIR__ . '/../..' . '/src/acf/import_export_page.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
