@@ -6,7 +6,7 @@ use yt\interfaces\requestInterface;
 use yt\quota;
 use yt\response;
 
-class multichannel implements requestInterface
+class yt_multichannel implements requestInterface
 {
     public $description = "Returns list of video uploads from each channel supplied.";
 

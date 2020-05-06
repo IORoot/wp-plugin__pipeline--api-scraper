@@ -61,11 +61,9 @@ class transformNoneTest extends WP_UnitTestCase {
 		$this->class_instance->in("This is test for the output");
 
 		$expected = "This is test for the output";
-		$got = $this->class_instance->output;
+		$got = $this->class_instance->out();
 
 		$this->assertEquals($expected, $got);
 	}
 
-
-	
 }
