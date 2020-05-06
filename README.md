@@ -1,4 +1,3 @@
-# wp-plugin__api-scraper
 API Scraper Wordpress plugin that will allow you to get data from YouTube and output the results as you like.
 
 ## Dependencies
@@ -51,5 +50,4 @@ There are two error / reporting classes.
 
 1. `\yt\e` class. This will output to the debug window.
 2. `\yt\r` class. This will output to the individual reporting windows.
-
 
