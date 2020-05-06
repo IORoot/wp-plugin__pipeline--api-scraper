@@ -4,215 +4,67 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit12f9fc82306d01ef5aa8a8f84bcfb6ea
+class ComposerStaticInit30fd7ec9b8e2598fd2f686f91346eea7
 {
-    public static $files = array (
-        'ad155f8f1cf0d418fe49e248db8c661b' => __DIR__ . '/..' . '/react/promise/src/functions_include.php',
-        '972fda704d680a3a53c68e34e193cb22' => __DIR__ . '/..' . '/react/promise-timer/src/functions_include.php',
-        '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
-        'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
-        'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
-        'ebf8799635f67b5d7248946fe2154f4a' => __DIR__ . '/..' . '/ringcentral/psr7/src/functions_include.php',
-        '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
-    );
-
-    public static $prefixLengthsPsr4 = array (
-        'W' => 
-        array (
-            'Winbox\\' => 7,
-        ),
-        'S' => 
-        array (
-            'Symfony\\Component\\Process\\' => 26,
-        ),
-        'R' => 
-        array (
-            'RingCentral\\Psr7\\' => 17,
-            'React\\Stream\\' => 13,
-            'React\\Socket\\' => 13,
-            'React\\Promise\\Timer\\' => 20,
-            'React\\Promise\\' => 14,
-            'React\\EventLoop\\' => 16,
-            'React\\Dns\\' => 10,
-            'React\\Cache\\' => 12,
-        ),
-        'P' => 
-        array (
-            'Psr\\Log\\' => 8,
-            'Psr\\Http\\Message\\' => 17,
-        ),
-        'L' => 
-        array (
-            'LazyJsonMapper\\' => 15,
-        ),
-        'I' => 
-        array (
-            'InstagramAPI\\' => 13,
-        ),
-        'G' => 
-        array (
-            'GuzzleHttp\\Psr7\\' => 16,
-            'GuzzleHttp\\Promise\\' => 19,
-            'GuzzleHttp\\' => 11,
-            'GetOptionKit\\' => 13,
-        ),
-        'F' => 
-        array (
-            'Fbns\\Client\\' => 12,
-        ),
-        'C' => 
-        array (
-            'Clue\\React\\Socks\\' => 17,
-            'Clue\\React\\HttpProxy\\' => 21,
-        ),
-        'B' => 
-        array (
-            'BinSoul\\Net\\Mqtt\\Client\\React\\' => 30,
-            'BinSoul\\Net\\Mqtt\\' => 17,
-        ),
-    );
-
-    public static $prefixDirsPsr4 = array (
-        'Winbox\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/winbox/args/src',
-        ),
-        'Symfony\\Component\\Process\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/process',
-        ),
-        'RingCentral\\Psr7\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/ringcentral/psr7/src',
-        ),
-        'React\\Stream\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/react/stream/src',
-        ),
-        'React\\Socket\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/react/socket/src',
-        ),
-        'React\\Promise\\Timer\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/react/promise-timer/src',
-        ),
-        'React\\Promise\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/react/promise/src',
-        ),
-        'React\\EventLoop\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/react/event-loop/src',
-        ),
-        'React\\Dns\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/react/dns/src',
-        ),
-        'React\\Cache\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/react/cache/src',
-        ),
-        'Psr\\Log\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
-        ),
-        'Psr\\Http\\Message\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-        ),
-        'LazyJsonMapper\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/lazyjsonmapper/lazyjsonmapper/src',
-        ),
-        'InstagramAPI\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/mgp25/instagram-php/src',
-        ),
-        'GuzzleHttp\\Psr7\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/guzzlehttp/psr7/src',
-        ),
-        'GuzzleHttp\\Promise\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/guzzlehttp/promises/src',
-        ),
-        'GuzzleHttp\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
-        ),
-        'GetOptionKit\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/corneltek/getoptionkit/src',
-        ),
-        'Fbns\\Client\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/valga/fbns-react/src',
-        ),
-        'Clue\\React\\Socks\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/clue/socks-react/src',
-        ),
-        'Clue\\React\\HttpProxy\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/clue/http-proxy-react/src',
-        ),
-        'BinSoul\\Net\\Mqtt\\Client\\React\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/binsoul/net-mqtt-client-react/src',
-        ),
-        'BinSoul\\Net\\Mqtt\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/binsoul/net-mqtt/src',
-        ),
-    );
-
-    public static $prefixesPsr0 = array (
-        'E' => 
-        array (
-            'Evenement' => 
-            array (
-                0 => __DIR__ . '/..' . '/evenement/evenement/src',
-            ),
-        ),
-    );
-
     public static $classMap = array (
-        'by_field' => __DIR__ . '/../..' . '/src/filters/sort/by_field.php',
-        'cache' => __DIR__ . '/../..' . '/src/helpers/cache.php',
-        'date_to_timeago' => __DIR__ . '/../..' . '/src/filters/date_to_timeago.php',
-        'getPlaylists' => __DIR__ . '/../..' . '/src/getters/youtube/requests/getPlaylists.php',
-        'getUserFeed' => __DIR__ . '/../..' . '/src/getters/instagram/requests/getUserFeed.php',
-        'getUserID' => __DIR__ . '/../..' . '/src/getters/instagram/requests/getUserID.php',
-        'getVideo' => __DIR__ . '/../..' . '/src/getters/youtube/requests/getVideo.php',
-        'getVideosFromPlaylist' => __DIR__ . '/../..' . '/src/getters/youtube/requests/getVideosFromPlaylist.php',
-        'helpers' => __DIR__ . '/../..' . '/src/helpers/helpers.php',
-        'instagram' => __DIR__ . '/../..' . '/src/getters/instagram/instagram.php',
-        'instagramItems' => __DIR__ . '/../..' . '/src/getters/instagram/models/instagramItems.php',
-        'mediaScraperCrontab' => __DIR__ . '/../..' . '/src/admin/acf_crontab.php',
-        'retrieveOptions' => __DIR__ . '/../..' . '/src/admin/retrieveOptions.php',
-        'shortcodes' => __DIR__ . '/../..' . '/src/shortcodes/shortcodes.php',
-        'textreplacement' => __DIR__ . '/../..' . '/src/helpers/textreplacement.php',
-        'transients' => __DIR__ . '/../..' . '/src/helpers/transients.php',
-        'youtube' => __DIR__ . '/../..' . '/src/getters/youtube/youtube.php',
-        'youtubePlaylists' => __DIR__ . '/../..' . '/src/getters/youtube/models/youtubePlaylists.php',
-        'youtubeVideo' => __DIR__ . '/../..' . '/src/getters/youtube/models/youtubeVideo.php',
-        'youtubeVideos' => __DIR__ . '/../..' . '/src/getters/youtube/models/youtubeVideos.php',
-        'youtube_colour_hashtag' => __DIR__ . '/../..' . '/src/filters/youtube_colour_hashtag.php',
-        'youtube_description_hashtag' => __DIR__ . '/../..' . '/src/filters/youtube_description_hashtag.php',
-        'youtube_id_to_playlist_page' => __DIR__ . '/../..' . '/src/filters/youtube_id_to_playlist_page.php',
-        'youtube_id_to_video_page' => __DIR__ . '/../..' . '/src/filters/youtube_id_to_video_page.php',
-        'youtube_title_subtitle_split' => __DIR__ . '/../..' . '/src/filters/youtube_title_subtitle_split.php',
-        'youtube_tutorials_title_only' => __DIR__ . '/../..' . '/src/filters/youtube_tutorials_title_only.php',
+        'yt\\api' => __DIR__ . '/../..' . '/src/api/api.php',
+        'yt\\e' => __DIR__ . '/../..' . '/src/error/e.php',
+        'yt\\filter' => __DIR__ . '/../..' . '/src/filter/filter.php',
+        'yt\\filter\\none' => __DIR__ . '/../..' . '/src/filter/filters/none.php',
+        'yt\\filter\\remove_item_if_regex' => __DIR__ . '/../..' . '/src/filter/filters/remove_item_if_regex.php',
+        'yt\\filter\\yt_array_front' => __DIR__ . '/../..' . '/src/filter/filters/yt_array_front.php',
+        'yt\\filter_group' => __DIR__ . '/../..' . '/src/filter/filter_group.php',
+        'yt\\filter_layer' => __DIR__ . '/../..' . '/src/filter/filter_layer.php',
+        'yt\\filter_list' => __DIR__ . '/../..' . '/src/filter/filter_list.php',
+        'yt\\housekeep' => __DIR__ . '/../..' . '/src/housekeeping/housekeep.php',
+        'yt\\housekeep\\bin_all' => __DIR__ . '/../..' . '/src/housekeeping/action/bin_all.php',
+        'yt\\housekeep\\bin_posts' => __DIR__ . '/../..' . '/src/housekeeping/action/bin_posts.php',
+        'yt\\housekeep\\delete_all' => __DIR__ . '/../..' . '/src/housekeeping/action/delete_all.php',
+        'yt\\housekeep\\delete_posts' => __DIR__ . '/../..' . '/src/housekeeping/action/delete_posts.php',
+        'yt\\housekeep\\none' => __DIR__ . '/../..' . '/src/housekeeping/action/none.php',
+        'yt\\import' => __DIR__ . '/../..' . '/src/import/import.php',
+        'yt\\import\\attach' => __DIR__ . '/../..' . '/src/import/attach.php',
+        'yt\\import\\downloader' => __DIR__ . '/../..' . '/src/import/downloader.php',
+        'yt\\import\\exists' => __DIR__ . '/../..' . '/src/import/exists.php',
+        'yt\\import\\image' => __DIR__ . '/../..' . '/src/import/create_image.php',
+        'yt\\import\\meta' => __DIR__ . '/../..' . '/src/import/create_meta.php',
+        'yt\\import\\post' => __DIR__ . '/../..' . '/src/import/create_post.php',
+        'yt\\import\\taxonomy' => __DIR__ . '/../..' . '/src/import/create_taxonomy.php',
+        'yt\\interfaces\\filterInterface' => __DIR__ . '/../..' . '/src/interfaces/filterInterface.php',
+        'yt\\interfaces\\housekeepInterface' => __DIR__ . '/../..' . '/src/interfaces/housekeepInterface.php',
+        'yt\\interfaces\\requestInterface' => __DIR__ . '/../..' . '/src/interfaces/requestInterface.php',
+        'yt\\interfaces\\tokenInterface' => __DIR__ . '/../..' . '/src/interfaces/tokenInterface.php',
+        'yt\\interfaces\\transformInterface' => __DIR__ . '/../..' . '/src/interfaces/transformInterface.php',
+        'yt\\mapper_collection' => __DIR__ . '/../..' . '/src/mapper/mapper_collection.php',
+        'yt\\mapper_item' => __DIR__ . '/../..' . '/src/mapper/mapper_item.php',
+        'yt\\option' => __DIR__ . '/../..' . '/src/acf/get_option.php',
+        'yt\\options' => __DIR__ . '/../..' . '/src/acf/get_options.php',
+        'yt\\quota' => __DIR__ . '/../..' . '/src/quota/quota.php',
+        'yt\\r' => __DIR__ . '/../..' . '/src/error/r.php',
+        'yt\\request\\multichannel' => __DIR__ . '/../..' . '/src/api/requests/multichannel.php',
+        'yt\\request\\playlistitems' => __DIR__ . '/../..' . '/src/api/requests/playlistitems.php',
+        'yt\\request\\playlists' => __DIR__ . '/../..' . '/src/api/requests/playlists.php',
+        'yt\\request\\search' => __DIR__ . '/../..' . '/src/api/requests/search.php',
+        'yt\\response' => __DIR__ . '/../..' . '/src/api/responses/responses.php',
+        'yt\\scheduler' => __DIR__ . '/../..' . '/src/scheduler/scheduler.php',
+        'yt\\scraper' => __DIR__ . '/../..' . '/src/scraper.php',
+        'yt\\token\\date' => __DIR__ . '/../..' . '/src/api/tokens/date.php',
+        'yt\\transform\\best_image' => __DIR__ . '/../..' . '/src/transform/transforms/best_image.php',
+        'yt\\transform\\field_as_string' => __DIR__ . '/../..' . '/src/transform/transforms/field_as_string.php',
+        'yt\\transform\\none' => __DIR__ . '/../..' . '/src/transform/transforms/none.php',
+        'yt\\transform\\regex_remove' => __DIR__ . '/../..' . '/src/transform/transforms/regex_remove.php',
+        'yt\\transform\\string_remove' => __DIR__ . '/../..' . '/src/transform/transforms/string_remove.php',
+        'yt\\transform\\string_trim' => __DIR__ . '/../..' . '/src/transform/transforms/string_trim.php',
+        'yt\\transform_group' => __DIR__ . '/../..' . '/src/transform/transform_group.php',
+        'yt\\transform_layer' => __DIR__ . '/../..' . '/src/transform/transform_layer.php',
+        'yt\\transform_list' => __DIR__ . '/../..' . '/src/transform/transform_list.php',
+        'yt_import_export' => __DIR__ . '/../..' . '/src/acf/import_export_page.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit12f9fc82306d01ef5aa8a8f84bcfb6ea::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit12f9fc82306d01ef5aa8a8f84bcfb6ea::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit12f9fc82306d01ef5aa8a8f84bcfb6ea::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit12f9fc82306d01ef5aa8a8f84bcfb6ea::$classMap;
+            $loader->classMap = ComposerStaticInit30fd7ec9b8e2598fd2f686f91346eea7::$classMap;
 
         }, null, ClassLoader::class);
     }
