@@ -51,6 +51,8 @@ return array(
     'yt\\transform\\field_as_string' => $baseDir . '/src/transform/transforms/field_as_string.php',
     'yt\\transform\\none' => $baseDir . '/src/transform/transforms/none.php',
     'yt\\transform\\regex_remove' => $baseDir . '/src/transform/transforms/regex_remove.php',
+    'yt\\transform\\string_append' => $baseDir . '/src/transform/transforms/string_append.php',
+    'yt\\transform\\string_prepend' => $baseDir . '/src/transform/transforms/string_prepend.php',
     'yt\\transform\\string_remove' => $baseDir . '/src/transform/transforms/string_remove.php',
     'yt\\transform\\string_trim' => $baseDir . '/src/transform/transforms/string_trim.php',
     'yt\\transform_group' => $baseDir . '/src/transform/transform_group.php',

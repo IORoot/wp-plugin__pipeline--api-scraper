@@ -161,17 +161,37 @@ class mapper_item
             /**
              * Is it a class?
              */
-            if (isset($value->$object_level)){
-                $value = $value->$object_level;
+            $type = gettype($value);
 
-            /** 
-             * Maybe an associative Array?
-             */
-            } elseif (isset($value[$object_level])) {
-                $value = $value[$object_level];
+            
+            if ($type == "NULL" || $type == null)
+            {
+                return 'MAPPING DOES NOT EXIST';
+            }
 
-            }else {
-                $value = 'MAPPING DOES NOT EXISTS';
+
+            if ($type == "string" || $type == 'integer' || $type == 'boolean' || $type == "double")
+            {
+                return $value->$object_level;
+            }
+
+
+            if ($type == "object")
+            {
+                if (isset($value->$object_level)) {
+                    $value = $value->$object_level;
+                    continue;
+                }
+                return '';
+            }
+
+            if ($type == "array")
+            {
+                if (isset($value[$object_level])) {
+                    $value = $value[$object_level];
+                    continue;
+                }
+                return '';
             }
 
         }

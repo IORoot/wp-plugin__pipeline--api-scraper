@@ -3,7 +3,6 @@
 namespace yt\instagram\request;
 
 use yt\interfaces\requestInterface;
-use yt\quota;
 use yt\instagram\response;
 
 
