@@ -1,6 +1,6 @@
 <?php
 
-namespace yt;
+namespace yt\youtube;
 
 class response
 {
@@ -25,8 +25,6 @@ class response
 
         return $this->result;
     }
-
-
 
 
     // ┌─────────────────────────────────────────────────────────────────────────┐

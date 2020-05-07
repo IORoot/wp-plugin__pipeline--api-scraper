@@ -1,21 +1,21 @@
 <?php
 
-namespace yt\request;
+namespace yt\instagram\request;
 
 use yt\interfaces\requestInterface;
 use yt\quota;
-use yt\response;
+use yt\instagram\response;
 
-class yt_subscriptions implements requestInterface
+
+class account_info implements requestInterface
 {
-    public $description = "Performs a search of subscriptions for a channel.";
+    public $description = "Performs a search on a single instagram account.";
 
-    public $parameters = 'None';
+    public $parameters = 'none';
 
-    public $cost = 1;
-    public $cost_per_result = 2;
+    public $cost = 0;
 
-    public $domain = 'https://www.googleapis.com/youtube/v3';
+    public $domain = 'https://www.instagram.com/';
 
     public $config = [
         'api_key' => null,
@@ -48,24 +48,20 @@ class yt_subscriptions implements requestInterface
     {
         $this->build_request_url();
 
-        (new quota)->update_quota_by_api_key($this->cost, $this->config['api_key']);
-
         (new \yt\e)->line('- Calling API.', 1);
 
         try {
             $this->response = json_decode(wp_remote_fopen($this->built_request_url));
         } catch (\Exception $e) {
-            (new \yt\e)->line('- \Exception calling YouTube' . $e->getMessage(), 1);
+            (new \yt\e)->line('- \Exception calling API' . $e->getMessage(), 1);
             return false;
         }
-        
-        (new \yt\r)->last('search', 'RESPONSE:'. json_encode($this->response, JSON_PRETTY_PRINT));
 
+        (new \yt\r)->last('search', 'RESPONSE:'. json_encode($this->response, JSON_PRETTY_PRINT));
+        
         if (!(new response)->is_errored($this->response)) {
             return false;
         }
-
-        $this->cost_of_items();
 
         return true;
     }
@@ -84,14 +80,10 @@ class yt_subscriptions implements requestInterface
     private function build_request_url()
     {
         if(!$this->check_url()){return false;}  
-        $this->built_request_url = $this->domain . '/subscriptions?' . $this->config['query_string'] . "&key=" . $this->config['api_key'];
-    }
 
+        $this->built_request_url = $this->domain . $this->config['query_string'] . "/?__a=1";
 
-    private function cost_of_items()
-    {
-        $item_count = count($this->response->items);
-        (new quota)->update_quota_by_api_key(($this->cost_per_result * $item_count), $this->config['api_key']);
+        (new \yt\r)->last('search', 'QUERSTRING = '. $this->built_request_url); 
     }
 
 
@@ -112,10 +104,6 @@ class yt_subscriptions implements requestInterface
         }
         if ($this->config['query_string'] == '') {
             (new \yt\e)->line('- $this->config[query_string] is blank. Please set.', 1);
-            return false;
-        }
-        if ($this->config['api_key'] == '') {
-            (new \yt\e)->line('- $this->config[api_key] is blank. Please set.', 1);
             return false;
         }
 

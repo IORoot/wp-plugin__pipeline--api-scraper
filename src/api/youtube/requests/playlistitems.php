@@ -1,21 +1,19 @@
 <?php
 
-namespace yt\request;
+namespace yt\youtube\request;
 
 use yt\interfaces\requestInterface;
 use yt\quota;
-use yt\response;
+use yt\youtube\response;
 
-class yt_multichannel implements requestInterface
+class playlistitems implements requestInterface
 {
-    public $description = "Returns list of video uploads from each channel supplied.";
+    public $description = "Performs a search on the youtube search:list endpoint.";
 
-    public $parameters = '
-    (array) [ \'channels\' => \'channelid1,channelid2\']
-    ';
+    public $parameters = 'none';
 
     public $cost = 1;
-    public $cost_per_result = 4; // snippet + contentParts
+    public $cost_per_result = 2; // snippet
 
     public $domain = 'https://www.googleapis.com/youtube/v3';
 
@@ -23,16 +21,21 @@ class yt_multichannel implements requestInterface
         'api_key' => null,
         'query_string' => null,
         'extra_parameters' => null,
+        'page_token' => null,
     ];
 
     public $built_request_url;
 
     public $response;
 
-    public $channel_list;
-
     public $last_response;
 
+    // Nest limit is to stop nested looping beyond 5 times.
+    // with a page limit of 50 items this means a max
+    // of 250 items can be returned. More than enough for most
+    // things.
+    public $nest_level = 0;
+    public $nest_limit = 5;
 
     public function config($config)
     {
@@ -53,28 +56,35 @@ class yt_multichannel implements requestInterface
 
     public function request()
     {
-        $this->create_channel_list_from_csv();
-
+        $this->nest_level++;
         (new quota)->update_quota_by_api_key($this->cost, $this->config['api_key']);
+        $this->build_request_url();
 
-        foreach ($this->channel_list as $channel_id) {
-            (new \yt\e)->line('- Calling API for Channel_ID : '.$channel_id, 1);
-            $this->build_request_url($channel_id);
-            $this->call_api();
+        (new \yt\e)->line('- Calling API.', 1);
 
-            if (!(new response)->is_errored($this->last_response)) {
-                return false;
-            }
-
-            (new quota)->update_quota_by_api_key($this->cost_per_result, $this->config['api_key']);
+        try {
+            $this->last_response = json_decode(wp_remote_fopen($this->built_request_url));
+            $this->response[] = $this->last_response;
+        } catch (\Exception $e) {
+            (new \yt\e)->line('- \Exception calling YouTube' . $e->getMessage(), 1);
+            return false;
         }
+        
+        (new \yt\r)->last('search', 'RESPONSE:'. json_encode($this->response, JSON_PRETTY_PRINT));
+
+        if (!(new response)->is_errored($this->last_response)) {
+            return false;
+        }
+
+        $this->iterate_all_pages();
 
         $this->combine_results();
 
-        $this->filter_for_uploads_only();
-
+        $this->cost_of_items();
+        
         return true;
     }
+
 
 
     // ┌─────────────────────────────────────────────────────────────────────────┐
@@ -86,64 +96,49 @@ class yt_multichannel implements requestInterface
     // └─────────────────────────────────────────────────────────────────────────┘░
     //  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
+    private function build_request_url()
+    {
+        $pageToken = '';
+        if (!$this->check_url()) {
+            return false;
+        }
+        if (isset($this->config['page_token'])) {
+            $pageToken = '&pageToken='.$this->config['page_token'];
+        }
+        $this->built_request_url = $this->domain . '/playlistItems?' . $this->config['query_string'] . "&key=" . $this->config['api_key'] . $pageToken;
+    }
+
+
+    private function iterate_all_pages()
+    {
+        // safety feature to not infinitely loop
+        if ($this->nest_level >= $this->nest_limit){ return; }
+
+        $last_entry = end($this->response);
+
+        if (isset($last_entry->nextPageToken)) {
+            $this->config['page_token'] = $last_entry->nextPageToken;
+            $this->request();
+        }
+
+        return;
+    }
+
 
     private function combine_results()
     {
-        foreach ($this->response as $key => $response) {
-            if ($key == 0) {
-                continue;
-            }
+        foreach($this->response as $key => $response)
+        {
+            if ($key == 0){ continue; }
             $this->response[0]->items = array_merge($this->response[0]->items, $response->items);
             unset($this->response[$key]);
         }
     }
 
-
-
-    public function filter_for_uploads_only()
+    private function cost_of_items()
     {
-        foreach ($this->response[0]->items as $key => $item) {
-            if (!isset($item->contentDetails->upload)) {
-                unset($this->response[0]->items[$key]);
-            }
-        }
-    }
-
-
-
-    private function call_api()
-    {
-        try {
-            $this->last_response = json_decode(wp_remote_fopen($this->built_request_url));
-            $this->response[] = $this->last_response;
-        } catch (\Exception $e) {
-            (new \yt\e)->line('- \Exception calling YouTube' . $e->getMessage(), 1);
-            return false;
-        }
-        (new \yt\r)->last('search', 'RESPONSE:'. json_encode($this->last_response, JSON_PRETTY_PRINT));
-    }
-
-
-
-    private function create_channel_list_from_csv()
-    {
-        str_replace(' ', '', $this->config['extra_parameters']['channels']);
-        $this->channel_list = explode(',', $this->config['extra_parameters']['channels']);
-        return;
-    }
-
-
-
-    private function build_request_url($channel_id)
-    {
-        if (!$this->check_url()) {
-            return false;
-        }
-        if (!$channel_id) {
-            return false;
-        }
-        $this->built_request_url = $this->domain . '/activities?part=snippet%2CcontentDetails&channelId='.$channel_id.'&' . $this->config['query_string'] . "&key=" . $this->config['api_key'];
-        (new \yt\r)->last('search', 'QUERSTRING = '. $this->built_request_url);
+        $item_count = count($this->response[0]->items);
+        (new quota)->update_quota_by_api_key(($this->cost_per_result * $item_count), $this->config['api_key']);
     }
 
     // ┌─────────────────────────────────────────────────────────────────────────┐
@@ -154,7 +149,6 @@ class yt_multichannel implements requestInterface
     // │                                                                         │░
     // └─────────────────────────────────────────────────────────────────────────┘░
     //  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-
 
     public function check_url()
     {

@@ -40,7 +40,7 @@ class filter_group
             $this->filter_item($filter_layer);
         }
 
-        (new e)->line('- Filtered Rows : ' . count($this->collection->items) ,1);
+        (new e)->line('- Filtered Rows : ' . count($this->collection) ,1);
 
         return $this->collection;
     }
@@ -54,7 +54,9 @@ class filter_group
         $filter_item->set_collection($this->collection);
         $filter_item->set_filter($filter_layer);
 
-        return $filter_item->run();
+        $this->collection = $filter_item->run();
+
+        return;
 
     }
 }

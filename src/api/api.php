@@ -6,13 +6,13 @@ class api
 {
     public $substitutions;
 
-    public $request_type;
-
     public $config = [
         'api_key' => '',
         'query_string' => '',
         'extra_parameters' => '',
     ];
+
+    public $search_config;
     
 
     public function __construct()
@@ -21,16 +21,6 @@ class api
         return $this;
     }
 
-
-    public function set_request_type($request_type)
-    {
-        if (!$this->check_request_type($request_type)) {
-            return false;
-        }
-        $this->request_type = $request_type;
-        return $this;
-    }
-    
 
     public function set_api_key($api_key)
     {
@@ -41,32 +31,38 @@ class api
         return true;
     }
 
-
-    public function set_query($string)
+    public function set_substitutions($substitutions)
     {
-        if (!$this->check_query($string)) {
-            return false;
-        }
+        $this->substitutions = $substitutions;
+        return $this;
+    }
 
-        $string = $this->replace_any_substitutions($string);
+    public function set_search_config($search_config = array())
+    {
+        $this->search_config = $search_config;
+        return;
+    }
+
+
+
+
+
+
+    public function config_extra_parameters()
+    {
+        $this->config['extra_parameters'] = $this->string_to_array($this->search_config['yt_search_parameters']);
+        return $this;
+    }
+
+    public function config_query()
+    {
+        $string = $this->replace_any_substitutions($this->search_config['yt_search_string']);
         $string = $this->replace_any_tokens($string);
         (new e)->line('- Final Query string = '.$string, 1);
         $this->config['query_string'] = $string;
         return $this;
     }
 
-    
-    public function set_extra_parameters($extra_parameters)
-    {
-        $this->config['extra_parameters'] = $this->string_to_array($extra_parameters);
-        return $this;
-    }
-
-    public function set_substitutions($substitutions)
-    {
-        $this->substitutions = $substitutions;
-        return $this;
-    }
 
 
 
@@ -74,7 +70,11 @@ class api
 
     public function run()
     {
-        $request_type = '\\yt\\request\\'.$this->request_type;
+        $this->config_extra_parameters();
+        $this->config_query();
+
+        $request_type = '\\yt\\'.$this->search_config['yt_search_api'].'\\request\\'.$this->search_config['yt_search_type'];
+        
         $request = new $request_type;
 
         $request->config($this->config);
@@ -93,10 +93,6 @@ class api
     }
 
 
-
-
-    
-
     public function replace_any_substitutions($string)
     {
         preg_match_all('/\[\[(.*?)\]\]/', $string, $matches, PREG_SET_ORDER);
@@ -114,7 +110,6 @@ class api
 
         return $string;
     }
-
 
 
     public function replace_any_tokens($string)
@@ -147,34 +142,6 @@ class api
     // │                                                                         │░
     // └─────────────────────────────────────────────────────────────────────────┘░
     //  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-
-
-
-    public function check_query($string)
-    {
-        if (!$string) {
-            (new e)->line('- No search string has been supplied. Please supply query_string().', 1);
-            return false;
-        }
-        if ($string == '') {
-            (new e)->line('- Search string is blank. Please supply query_string.().', 1);
-        }
-
-        return true;
-    }
-
-    public function check_request_type($string)
-    {
-        if (!$string) {
-            (new e)->line('- No request_type has been supplied.', 1);
-            return false;
-        }
-        if ($string == '') {
-            (new e)->line('- request_type is blank.', 1);
-        }
-
-        return true;
-    }
 
 
     public function check_key($api_key)

@@ -145,6 +145,8 @@ class mapper_item
             return $this->single_mapping['yt_mapper_source'];
         }
 
+
+
         // location of the item within this object.
         $value = $this->source_item;
 
@@ -155,15 +157,28 @@ class mapper_item
         // Loop over each location part until you get
         // to the correct location in the item object.
         foreach ($location_parts as $object_level) {
+
+            /**
+             * Is it a class?
+             */
             if (isset($value->$object_level)){
                 $value = $value->$object_level;
-            } else {
+
+            /** 
+             * Maybe an associative Array?
+             */
+            } elseif (isset($value[$object_level])) {
+                $value = $value[$object_level];
+
+            }else {
                 $value = 'MAPPING DOES NOT EXISTS';
             }
+
         }
 
         return $value;
     }
+
 
 
     /**
