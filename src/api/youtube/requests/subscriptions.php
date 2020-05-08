@@ -8,6 +8,8 @@ use yt\youtube\response;
 
 class subscriptions implements requestInterface
 {
+    public $nice_name = "YouTube Channel Subscriptions";
+
     public $description = "Performs a search of subscriptions for a channel.";
 
     public $parameters = 'None';

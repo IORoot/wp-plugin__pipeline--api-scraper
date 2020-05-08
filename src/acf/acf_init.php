@@ -52,6 +52,8 @@ require __DIR__.'/populate_yt_scrape_schedule.php';
 
 require __DIR__.'/populate_yt_scrape_search.php';
 
+require __DIR__.'/populate_yt_search_type.php';
+
 require __DIR__.'/populate_yt_transform_catalog.php';
 
 require __DIR__.'/populate_yt_transform.php';

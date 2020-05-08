@@ -3,11 +3,12 @@
 namespace yt\filter;
 
 use yt\interfaces\filterInterface;
+use yt\filter\format\instagram;
 
-class format_instagram_results implements filterInterface
+class ig_account_convert implements filterInterface
 {
     
-    public $description = "Converts Instagram Results to expected input for mapper";
+    public $description = "Converts Instagram Account Results to expected input for mapper";
 
     public $parameters = "None";
 
@@ -26,24 +27,10 @@ class format_instagram_results implements filterInterface
 
     public function out()
     {
-
         // convert it to a class object with an items array.
-        $items = new ig($this->input->graphql->user->edge_owner_to_timeline_media->edges);
+        $items = new instagram($this->input->graphql->user->edge_owner_to_timeline_media->edges);
 
         return $items;
     }
 
-}
-
-
-
-class ig 
-{
-    public $items;
-
-    public function __construct($items)
-    {
-        $this->items = $items;
-        return $this;
-    }
 }

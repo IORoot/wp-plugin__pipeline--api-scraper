@@ -8,6 +8,8 @@ use yt\youtube\response;
 
 class playlists implements requestInterface
 {
+    public $nice_name = "YouTube Channel Playlists";
+
     public $description = "Performs a search on youtube channel for all playlists.";
 
     public $parameters = 'None';

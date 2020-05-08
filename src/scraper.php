@@ -215,8 +215,8 @@ class scraper
         if ($this->has_response() == false) {
             return;
         }
-        if ($this->options->scrape[$this->_scrape_key]['yt_scrape_filter']['yt_filter_id'] == 'none')
-        {
+        // if not enabled, skip.
+        if ($this->options->scrape[$this->_scrape_key]['yt_scrape_filter']['yt_filter_id'] == 'none') {
             $this->options->scrape[$this->_scrape_key]['yt_scrape_filtered'] = $this->options->scrape[$this->_scrape_key]['yt_scrape_response'];
             return;
         }
@@ -268,8 +268,7 @@ class scraper
         if ($this->has_filtered() == false) {
             return;
         }
-        if ($this->options->scrape[$this->_scrape_key]['yt_scrape_mapper']['yt_mapper_id'] == 'none')
-        {
+        if ($this->options->scrape[$this->_scrape_key]['yt_scrape_mapper']['yt_mapper_id'] == 'none') {
             return;
         }
 
@@ -319,8 +318,7 @@ class scraper
         if ($this->has_response() == false) {
             return;
         }
-        if ($this->options->scrape[$this->_scrape_key]['yt_scrape_import'] == 'none')
-        {
+        if ($this->options->scrape[$this->_scrape_key]['yt_scrape_import'] == 'none') {
             return;
         }
 
@@ -372,13 +370,11 @@ class scraper
 
     public function schedule()
     {
-
         $this->scheduler = new scheduler;
 
         (new \yt\e)->line('[ Scheduler ] : '.$this->options->scrape[$this->_scrape_key]['yt_scrape_schedule']['yt_schedule_id']);
 
-        if ($this->options->scrape[$this->_scrape_key]['yt_scrape_schedule']['yt_schedule_id'] == 'none')
-        {
+        if ($this->options->scrape[$this->_scrape_key]['yt_scrape_schedule']['yt_schedule_id'] == 'none') {
             return;
         }
 
@@ -407,7 +403,6 @@ class scraper
 
     public function housekeep()
     {
-
         $this->scheduler_housekeeping();
         $this->post_housekeeping();
 
@@ -458,8 +453,6 @@ class scraper
     public function post_housekeeping()
     {
         $housekeep = new housekeep;
-
-        
     }
 
 

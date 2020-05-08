@@ -8,6 +8,8 @@ use yt\youtube\response;
 
 class multichannel implements requestInterface
 {
+    public $nice_name = "YouTube Multi-channel Search";
+
     public $description = "Returns list of video uploads from each channel supplied.";
 
     public $parameters = '

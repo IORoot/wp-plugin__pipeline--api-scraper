@@ -8,6 +8,8 @@ use yt\youtube\response;
 
 class search implements requestInterface
 {
+    public $nice_name = "YouTube Search";
+
     public $description = "Performs a search on the youtube search:list endpoint.";
 
     public $parameters = 'none';

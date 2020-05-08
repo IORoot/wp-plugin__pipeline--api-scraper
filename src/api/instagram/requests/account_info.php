@@ -8,6 +8,9 @@ use yt\instagram\response;
 
 class account_info implements requestInterface
 {
+
+    public $nice_name = "IG Account Info";
+
     public $description = "Performs a search on a single instagram account.";
 
     public $parameters = 'none';
