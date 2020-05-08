@@ -168,7 +168,7 @@ class scraper
 
         // Create new object.
         $this->api = new api;
-
+        
         (new \yt\e)->line('[ Auth ] : '.$this->options->scrape[$this->_scrape_key]['yt_scrape_auth']['yt_auth_id']);
         (new \yt\e)->line('- Quota : '. $this->options->scrape[$this->_scrape_key]['yt_scrape_auth']['yt_api_quota'], 1);
         (new \yt\e)->line('[ Search ] : '.$this->options->scrape[$this->_scrape_key]['yt_scrape_search']['yt_search_id']);

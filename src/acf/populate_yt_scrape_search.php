@@ -6,7 +6,7 @@ function acf_populate_yt_scrape_search_choices( $field ) {
     $field['choices'] = array();
     
     // get the textarea value from options page without any formatting
-    $choices = get_field('yt_search_instance', 'option', true);
+    $choices = get_field('yt_search_group_yt_search_instance', 'option', true);
     
     // loop through array and add to field 'choices'
     if( is_array($choices) ) {
