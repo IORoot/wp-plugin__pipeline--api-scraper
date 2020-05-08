@@ -37,7 +37,7 @@ class options
         $this->get_repeater_options('yt_search_instance', 'search');
 
         // search substitutions
-        $this->get_repeater_options('yt_search_substitutions', 'substitutions');
+        $this->get_repeater_options('yt_search_group_yt_search_substitutions', 'substitutions');
 
         // mapper
         $this->get_repeater_options('yt_mapper_instance', 'mapper');

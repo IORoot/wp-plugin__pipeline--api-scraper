@@ -12,7 +12,7 @@ class yt_array_front implements filterInterface
     [
         'length' => '10',
         'location' => 'items'
-   ]";
+    ]";
 
     public $input;
 

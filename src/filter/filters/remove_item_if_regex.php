@@ -46,7 +46,7 @@ class remove_item_if_regex implements filterInterface
     {
         $this->loop_collection();
 
-        return ;
+        return $this->collection;
     }
 
 
