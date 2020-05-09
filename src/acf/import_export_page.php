@@ -134,17 +134,19 @@ class yt_import_export
     {
         $sql_statement = "SELECT option_name, option_value FROM $wpdb->options WHERE ";
 
-
         $numItems = count($this->wp_options_search);
         $i = 0;
 
         foreach ($this->wp_options_search as $item) {
+
             $sql_statement .= " option_name LIKE %s";
+            $sql_statement .= " AND option_name NOT LIKE '%yt_debug%'";
+
             if (++$i !== $numItems) {
                 $sql_statement .= " OR ";
             }
+            
         }
-        
 
         return $sql_statement;
     }

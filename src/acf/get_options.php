@@ -49,7 +49,7 @@ class options
         $this->get_repeater_options('yt_mapper_group_yt_transform_instance', 'transform');
 
         // import
-        $this->get_repeater_options('yt_import_instance', 'import');
+        $this->get_repeater_options('yt_import_group_yt_import_instance', 'import');
 
         // schedule
         $this->get_repeater_options('yt_schedule_instance', 'schedule');

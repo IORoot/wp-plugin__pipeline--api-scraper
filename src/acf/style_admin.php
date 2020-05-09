@@ -11,10 +11,13 @@ function my_acf_admin_head() {
         [data-key="field_5ea487e0ea984"] { background-color: #53A5E3 !important; color: #242424 !important;}
 
         /* Schedules tab button */
-        [data-key="field_5ead15bd2b61f"] { background-color: #53A5E3 !important; color: #242424 !important;}
+        /* [data-key="field_5ead15bd2b61f"] { background-color: #53A5E3 !important; color: #242424 !important;} */
         
         /* debug tab button */
         [data-key="field_5ea6b0d0570f2"] { background-color: #E34F65 !important; color: #242424 !important;}
+        
+        /* housekeep tab button */
+        [data-key="field_5eaed53f25def"] { background-color: #E86546 !important; color: #242424 !important;}
 
         /* debug textbox */
         #acf-field_5ea6b0e2570f3{

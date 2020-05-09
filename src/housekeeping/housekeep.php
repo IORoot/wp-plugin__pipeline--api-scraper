@@ -14,6 +14,7 @@ class housekeep {
 
     public function __construct()
     {
+        (new \yt\r)->clear('housekeep');
         $this->get_options();
         $this->run();
 
@@ -23,7 +24,7 @@ class housekeep {
     public function get_options()
     {
         $op = new option;
-        $op->get_all('yt_housekeep_instance');
+        $op->get_all('yt_housekeep_group_yt_housekeep_instance');
         $this->options = $op->returned;
     }
 

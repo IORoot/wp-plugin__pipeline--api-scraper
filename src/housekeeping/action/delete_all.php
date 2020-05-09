@@ -45,7 +45,6 @@ class delete_all implements housekeepInterface{
      */
     public function result()
     {
-        (new \yt\r)->clear('housekeep');
         (new \yt\r)->last('housekeep', 'Will delete ' . count($this->post_list) . ' posts (and attachments).'); 
         (new \yt\r)->last('housekeep', 'Response : ' . count($this->response) . ' deleted. (Post objects and Image objects).'); 
         return ;
