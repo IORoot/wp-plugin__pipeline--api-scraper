@@ -235,7 +235,7 @@ class scraper
         $this->options->scrape[$this->_scrape_key]['yt_scrape_filtered'] = $this->filter->run();
 
         // Report last response.
-        // (new \yt\r)->clear('filter');
+        (new \yt\r)->clear('filter');
         (new \yt\r)->last('filter', $this->options->scrape[$this->_scrape_key]['yt_scrape_filtered']->items);
 
         unset($this->filter);
