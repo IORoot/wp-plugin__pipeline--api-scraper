@@ -8,6 +8,7 @@ class ComposerStaticInit30fd7ec9b8e2598fd2f686f91346eea7
 {
     public static $classMap = array (
         'yt\\api' => __DIR__ . '/../..' . '/src/api/api.php',
+        'yt\\api_list' => __DIR__ . '/../..' . '/src/api/api_list.php',
         'yt\\e' => __DIR__ . '/../..' . '/src/error/e.php',
         'yt\\filter' => __DIR__ . '/../..' . '/src/filter/filter.php',
         'yt\\filter\\format\\instagram' => __DIR__ . '/../..' . '/src/filter/formats/instagram.php',
@@ -42,6 +43,9 @@ class ComposerStaticInit30fd7ec9b8e2598fd2f686f91346eea7
         'yt\\interfaces\\requestInterface' => __DIR__ . '/../..' . '/src/interfaces/requestInterface.php',
         'yt\\interfaces\\tokenInterface' => __DIR__ . '/../..' . '/src/interfaces/tokenInterface.php',
         'yt\\interfaces\\transformInterface' => __DIR__ . '/../..' . '/src/interfaces/transformInterface.php',
+        'yt\\itunes\\request\\podcast' => __DIR__ . '/../..' . '/src/api/itunes/requests/podcast.php',
+        'yt\\itunes\\request\\podcast_episode' => __DIR__ . '/../..' . '/src/api/itunes/requests/podcast_episode.php',
+        'yt\\itunes\\response' => __DIR__ . '/../..' . '/src/api/itunes/responses/responses.php',
         'yt\\mapper_collection' => __DIR__ . '/../..' . '/src/mapper/mapper_collection.php',
         'yt\\mapper_item' => __DIR__ . '/../..' . '/src/mapper/mapper_item.php',
         'yt\\option' => __DIR__ . '/../..' . '/src/acf/get_option.php',

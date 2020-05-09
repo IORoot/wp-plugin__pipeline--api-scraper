@@ -24,7 +24,7 @@ add_action( 'yt_reset_quotas', 'yt_reset_quotas', 10, 0 );
 
 if (! wp_next_scheduled('yt_reset_quotas')){
     wp_clear_scheduled_hook('yt_reset_quotas');
-    wp_schedule_event(time(), '1hour', 'yt_reset_quotas');
+    wp_schedule_event(time(), 'daily', 'yt_reset_quotas');
 }
 
 

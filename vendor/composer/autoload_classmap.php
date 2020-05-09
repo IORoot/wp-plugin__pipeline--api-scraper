@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'yt\\api' => $baseDir . '/src/api/api.php',
+    'yt\\api_list' => $baseDir . '/src/api/api_list.php',
     'yt\\e' => $baseDir . '/src/error/e.php',
     'yt\\filter' => $baseDir . '/src/filter/filter.php',
     'yt\\filter\\format\\instagram' => $baseDir . '/src/filter/formats/instagram.php',
@@ -41,6 +42,9 @@ return array(
     'yt\\interfaces\\requestInterface' => $baseDir . '/src/interfaces/requestInterface.php',
     'yt\\interfaces\\tokenInterface' => $baseDir . '/src/interfaces/tokenInterface.php',
     'yt\\interfaces\\transformInterface' => $baseDir . '/src/interfaces/transformInterface.php',
+    'yt\\itunes\\request\\podcast' => $baseDir . '/src/api/itunes/requests/podcast.php',
+    'yt\\itunes\\request\\podcast_episode' => $baseDir . '/src/api/itunes/requests/podcast_episode.php',
+    'yt\\itunes\\response' => $baseDir . '/src/api/itunes/responses/responses.php',
     'yt\\mapper_collection' => $baseDir . '/src/mapper/mapper_collection.php',
     'yt\\mapper_item' => $baseDir . '/src/mapper/mapper_item.php',
     'yt\\option' => $baseDir . '/src/acf/get_option.php',

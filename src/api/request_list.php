@@ -2,6 +2,8 @@
 
 namespace yt;
 
+use \yt\api_list;
+
 class request_list
 {
     public $list = [];
@@ -14,18 +16,23 @@ class request_list
 
     public function __construct()
     {
+        $this->get_api_list();
         $this->get_request_list();
         return;
     }
 
 
+    public function get_api_list()
+    {
+        $this->api_list = new api_list;
+    }
 
     
     public function get_request_list()
     {
         $files = [];
 
-        foreach ($this->api_list as $api)
+        foreach ($this->api_list->list as $api)
         {
 
             $files = scandir(__DIR__ . '/' . $api . '/requests');
