@@ -95,16 +95,19 @@ class options
 
     public function process_scrape_instance($id, $scrape_instance)
     {
+
         foreach ($scrape_instance as $field_name => $field_value) {
-            if ($field_name == 'yt_scrape_enabled') {
-                continue;
-            }
-            if ($field_name == 'yt_scrape_id') {
+
+            if ($field_name == 'yt_scrape_group') {
                 continue;
             }
 
             $this->process_scrape_field($field_name, $field_value, $id);
         }
+    }
+
+    public function process_scrape_enable_and_id(){
+        
     }
 
 

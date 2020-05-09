@@ -54,6 +54,20 @@ function my_acf_admin_head() {
         .-collapsed .-collapsed-target input {
             text-align: center;
         }
+
+        .acf-field-5ea141c6d975e .acf-field-group {
+            padding: 0px;
+            border: 0px;
+            background: transparent;
+        }
+        .acf-field-5ea141c6d975e .acf-field-group .acf-input > .acf-fields {
+            border: 0px;
+            background: transparent;
+        }
+        .acf-field-5ea141c6d975e .acf-field-group .acf-label {
+            display: none;
+        }
+
     </style>
     <?php
 }

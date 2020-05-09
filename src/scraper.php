@@ -77,7 +77,7 @@ class scraper
         foreach ($this->options->scrape as $this->_scrape_key => $value) {
             
             // has this scrape been enabled?
-            if ($this->options->scrape[$this->_scrape_key]['yt_scrape_enabled'] != true) {
+            if ($this->options->scrape[$this->_scrape_key]['yt_scrape_group']['yt_scrape_enabled'] != true) {
                 continue;
             }
 
@@ -101,12 +101,12 @@ class scraper
         foreach ($this->options->scrape as $this->_scrape_key => $value) {
             
             // Does this match the scrape_id given?
-            if ($this->options->scrape[$this->_scrape_key]['yt_scrape_id'] != $scrape_id) {
+            if ($this->options->scrape[$this->_scrape_key]['yt_scrape_group']['yt_scrape_id'] != $scrape_id) {
                 continue;
             }
 
             // has this scrape been enabled?
-            if ($this->options->scrape[$this->_scrape_key]['yt_scrape_enabled'] != true) {
+            if ($this->options->scrape[$this->_scrape_key]['yt_scrape_group']['yt_scrape_enabled'] != true) {
                 continue;
             }
 
@@ -132,7 +132,7 @@ class scraper
 
     public function process_single_scrape()
     {
-        (new \yt\e)->line(date("M,d,Y h:i:s A") .' RUNNING scrape - '.$this->options->scrape[$this->_scrape_key]['yt_scrape_id']);
+        (new \yt\e)->line(date("M,d,Y h:i:s A") .' RUNNING scrape - '.$this->options->scrape[$this->_scrape_key]['yt_scrape_group']['yt_scrape_id']);
 
         // Query API.
         $this->scrape_api();
@@ -378,7 +378,7 @@ class scraper
             return;
         }
 
-        $this->scheduler->set_scrape_id($this->options->scrape[$this->_scrape_key]['yt_scrape_id']);
+        $this->scheduler->set_scrape_id($this->options->scrape[$this->_scrape_key]['yt_scrape_group']['yt_scrape_id']);
 
         $this->scheduler->set_schedule_id($this->options->scrape[$this->_scrape_key]['yt_scrape_schedule']['yt_schedule_id']);
 
@@ -430,8 +430,8 @@ class scraper
     public function remove_any_schedules_for_disabled_scrapes()
     {
         // has this scrape been disabled?
-        if ($this->options->scrape[$this->_scrape_key]['yt_scrape_enabled'] != true) {
-            $this->scheduler->set_scrape_id($this->options->scrape[$this->_scrape_key]['yt_scrape_id']);
+        if ($this->options->scrape[$this->_scrape_key]['yt_scrape_group']['yt_scrape_enabled'] != true) {
+            $this->scheduler->set_scrape_id($this->options->scrape[$this->_scrape_key]['yt_scrape_group']['yt_scrape_id']);
             $this->scheduler->remove_schedule();
         }
 
@@ -443,7 +443,7 @@ class scraper
     {
         // has this scrape been disabled?
         if ($this->options->scrape[$this->_scrape_key]['yt_scrape_schedule']['yt_schedule_id'] == 'none') {
-            $this->scheduler->set_scrape_id($this->options->scrape[$this->_scrape_key]['yt_scrape_id']);
+            $this->scheduler->set_scrape_id($this->options->scrape[$this->_scrape_key]['yt_scrape_group']['yt_scrape_id']);
             $this->scheduler->remove_schedule();
         }
 
