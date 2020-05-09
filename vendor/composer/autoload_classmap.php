@@ -59,6 +59,7 @@ return array(
     'yt\\transform\\best_image' => $baseDir . '/src/transform/transforms/best_image.php',
     'yt\\transform\\clean_date' => $baseDir . '/src/transform/transforms/clean_date.php',
     'yt\\transform\\field_as_string' => $baseDir . '/src/transform/transforms/field_as_string.php',
+    'yt\\transform\\md5' => $baseDir . '/src/transform/transforms/md5.php',
     'yt\\transform\\none' => $baseDir . '/src/transform/transforms/none.php',
     'yt\\transform\\regex_remove' => $baseDir . '/src/transform/transforms/regex_remove.php',
     'yt\\transform\\string_append' => $baseDir . '/src/transform/transforms/string_append.php',
