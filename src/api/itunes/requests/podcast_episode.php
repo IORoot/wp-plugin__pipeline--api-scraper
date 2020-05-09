@@ -122,10 +122,16 @@ class podcast_episode implements requestInterface
 
     public function convert_rss_to_object()
     {
+        $original = $this->response;
         $fileContents = str_replace(array("\n", "\r", "\t"), '', $this->response);
         $fileContents = trim(str_replace('"', "'", $fileContents));
         $simpleXml = simplexml_load_string($fileContents);
+
         $this->response = $simpleXml;
+
+        if ($simpleXml == false){
+            $this->response = simplexml_load_string($original);
+        }
 
         (new \yt\r)->last('search', 'RSS->JSON RESPONSE:'. json_encode($this->response->channel, JSON_PRETTY_PRINT));
 

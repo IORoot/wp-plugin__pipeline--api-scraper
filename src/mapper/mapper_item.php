@@ -108,6 +108,8 @@ class mapper_item
         $source_value = $this->source_value();
 
         $transformed_value = $this->transform_value($source_value);
+
+        
         
         (new e)->line( 'Transformed value: '. substr($transformed_value,0,100) ,2);
 
@@ -178,8 +180,11 @@ class mapper_item
 
             if ($type == "object")
             {
-                if (isset($value->$object_level)) {
+                // if object is set and is not empty.
+                if (isset($value->$object_level) && !empty( (array) $value->$object_level)) {
+
                     $value = $value->$object_level;
+
                     continue;
                 }
                 return '';
