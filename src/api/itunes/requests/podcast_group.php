@@ -77,6 +77,7 @@ class podcast_group implements requestInterface
 
     public function csv_explode()
     {
+        $this->config['query_string'] = str_replace(' ', '', $this->config['query_string']);
         return explode(',',$this->config['query_string']);
     }
 

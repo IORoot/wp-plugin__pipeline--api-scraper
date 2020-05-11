@@ -37,7 +37,12 @@ class account_info implements requestInterface
 
     public function response()
     {
-        return $this->response;
+        if (isset($this->response)){
+            return json_decode($this->response);
+        }
+
+        return;
+        
     }
 
     public function get_cost()
@@ -50,17 +55,27 @@ class account_info implements requestInterface
     {
         $this->build_request_url();
 
-        (new \yt\e)->line('- Calling API.', 1);
+        (new \yt\e)->line('- INSTAGRAM BLOCKING IP ADDRESSES.', 1);
 
-        try {
-            $this->response = json_decode(wp_remote_fopen($this->built_request_url));
-        } catch (\Exception $e) {
-            (new \yt\e)->line('- \Exception calling API' . $e->getMessage(), 1);
-            return false;
-        }
+        // ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+        // ┃                                                                         ┃
+        // ┃             https://github.com/pgrimaud/instagram-user-feed             ┃
+        // ┃                                                                         ┃
+        // ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
-        (new \yt\r)->last('search', 'RESPONSE:'. json_encode($this->response, JSON_PRETTY_PRINT));
+        // $api = new \Instagram\Api();
+        // $api->setUserName($this->config['query_string']);
+        // $this->response = $api->getFeed();
+
+        // ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+        // ┃                                                                         ┃
+        // ┃             https://github.com/pgrimaud/instagram-user-feed             ┃
+        // ┃                                                                         ┃
+        // ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+        // (new \yt\r)->last('search', 'RESPONSE:'. json_encode($this->response, JSON_PRETTY_PRINT));
         
+
         if (!(new response)->is_errored($this->response)) {
             return false;
         }
@@ -89,6 +104,7 @@ class account_info implements requestInterface
     }
 
 
+    
     // ┌─────────────────────────────────────────────────────────────────────────┐
     // │                                                                         │░
     // │                                                                         │░

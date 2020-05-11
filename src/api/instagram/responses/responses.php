@@ -40,6 +40,11 @@ class response
 
     private function check_there_are_no_response_errors()
     {
+        if ($this->response == false || $this->response == null)
+        {
+            $this->result = false;
+        }
+
         return;
     }
 
