@@ -39,6 +39,8 @@ class transform_layer
 
     public $field;
 
+    public $index;
+
 
     public function __construct()
     {

@@ -12,8 +12,11 @@ class housekeep {
 
     public $result;
 
-    public function __construct()
+    public $when;
+
+    public function __construct($when = 'after')
     {
+        $this->when = $when;
         (new \yt\r)->clear('housekeep');
         $this->get_options();
         $this->run();
@@ -33,6 +36,13 @@ class housekeep {
     {
         foreach ($this->options as $this->_key => $hk_instance)
         {
+            if ($hk_instance['yt_housekeep_when'] != $this->when)
+            {
+                continue;
+            }
+            if (!$hk_instance['yt_housekeep_enabled']) {
+                continue;
+            }
             $this->instantiate_instance($hk_instance);
         }
     }
@@ -42,10 +52,7 @@ class housekeep {
         $instance_type = '\\yt\\housekeep\\'.$hk_instance['yt_housekeep_action'];
         $housekeep = new $instance_type;
         $housekeep->wp_query($hk_instance['yt_housekeep_query']);
-
-        if ($hk_instance['yt_housekeep_enabled']) {
-            $housekeep->run();
-        }
+        $housekeep->run();
 
         $this->result[$instance_type] = $housekeep->result();
     }

@@ -58,12 +58,13 @@ class search implements requestInterface
             return false;
         }
 
+        $this->add_index_to_items();
+
         (new \yt\r)->last('search', 'RESPONSE:'. json_encode($this->response, JSON_PRETTY_PRINT));
         
         if (!(new response)->is_errored($this->response)) {
             return false;
         }
-
 
         (new quota)->update_quota_by_api_key($this->cost, $this->config['api_key']);
 
@@ -89,6 +90,14 @@ class search implements requestInterface
         (new \yt\r)->last('search', 'QUERSTRING = '. $this->built_request_url); 
     }
 
+    private function add_index_to_items()
+    {
+        foreach ($this->response->items as $index => $item)
+        {
+            $item->index = $index;
+        }
+        return;
+    }
 
     // ┌─────────────────────────────────────────────────────────────────────────┐
     // │                                                                         │░

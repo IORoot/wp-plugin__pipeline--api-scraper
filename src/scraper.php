@@ -85,7 +85,8 @@ class scraper
             $this->process_single_scrape();
         }
 
-        $this->housekeep();
+        // run any 'after scrape' tasks
+        $this->after_housekeep();
 
         return;
     }
@@ -114,7 +115,7 @@ class scraper
             $this->process_single_scrape();
         }
 
-        $this->housekeep();
+        $this->after_housekeep();
 
         return;
     }
@@ -133,6 +134,9 @@ class scraper
     public function process_single_scrape()
     {
         (new \yt\e)->line(date("M,d,Y h:i:s A") .' RUNNING scrape - '.$this->options->scrape[$this->_scrape_key]['yt_scrape_group']['yt_scrape_id']);
+
+        // Run 'before' scrape
+        $this->before_housekeep();
 
         // Query API.
         $this->scrape_api();
@@ -403,10 +407,17 @@ class scraper
     // └─────────────────────────────────────────────────────────────────────────┘░
     //  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-    public function housekeep()
+    public function before_housekeep()
+    {
+        $this->housekeeping('before');
+
+        return;
+    }
+
+    public function after_housekeep()
     {
         $this->scheduler_housekeeping();
-        $this->post_housekeeping();
+        $this->housekeeping('after');
 
         return;
     }
@@ -452,9 +463,9 @@ class scraper
         return;
     }
 
-    public function post_housekeeping()
+    public function housekeeping($when)
     {
-        $housekeep = new housekeep;
+        $housekeep = new housekeep($when);
     }
 
 
