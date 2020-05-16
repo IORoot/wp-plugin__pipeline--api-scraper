@@ -11,7 +11,6 @@ use \yt\import\attach;
 
 class import
 {
-
     public $taxonomy;
 
     public $post;
@@ -46,7 +45,6 @@ class import
 
     public function add_posts($post_type, $collection)
     {
-
         if ($post_type == null || $post_type == '') {
             (new e)->line('- No post_type has been set. Cannot import->add_posts().', 1);
             return false;
@@ -58,7 +56,12 @@ class import
 
         foreach ($collection as $item) {
 
-            if ($this->does_post_exist($item, $post_type)){ continue; }
+            $post_id_if_exists = $this->does_post_exist($item, $post_type);
+
+            if ($post_id_if_exists) {
+                $this->add_taxonomy_to_existing_post($post_id_if_exists);
+                continue;
+            }
 
             $item['post']['post_type'] = $post_type;
             $item = $this->append_taxonomy_to_image_content($item);
@@ -73,9 +76,7 @@ class import
     
     public function add_post_and_combine($item)
     {
-        
-        foreach ($item as $target_object => $post_args)
-        {
+        foreach ($item as $target_object => $post_args) {
             $this->$target_object->set_args($post_args);
             $this->$target_object->add();
             $this->returned_ids[$target_object] = $this->$target_object->result();
@@ -89,7 +90,7 @@ class import
 
     public function combine()
     {
-        if (isset($this->returned_ids['image']) && isset($this->returned_ids['post'])){
+        if (isset($this->returned_ids['image']) && isset($this->returned_ids['post'])) {
             $this->attach->image_to_post($this->returned_ids['image'], $this->returned_ids['post']);
         }
         
@@ -116,7 +117,7 @@ class import
         $this->taxonomy->set_type($taxonomy);
         $this->taxonomy->set_term($term);
         $this->taxonomy->set_desc($description);   // optional
-        $this->taxonomy->add_term(); 
+        $this->taxonomy->add_term();
 
         return $this;
     }
@@ -128,29 +129,29 @@ class import
         $does_it_exist = false;
 
         $exist = new exists;
-        $does_it_exist = $exist->post_by_title($item['post']['post_title'], $post_type);
+        $post_id = $exist->post_by_title($item['post']['post_title'], $post_type);
 
-        return $does_it_exist;
+        return $post_id;
     }
-
-
-    
-
 
 
 
     public function append_taxonomy_to_image_content($item)
     {
-        if (isset($item['image']['post_content']))
-        {
+        if (isset($item['image']['post_content'])) {
             $item['image']['post_content'] = $item['image']['post_content'] . ' ' . $this->taxonomy->taxonomy_term;
             return $item;
-        } 
+        }
 
         $item['image']['post_content'] = $this->taxonomy->taxonomy_term;
 
         return $item;
-
     }
 
+
+
+    public function add_taxonomy_to_existing_post($post_id)
+    {
+        $this->attach->tax_to_post($this->taxonomy->taxonomy_type, $this->taxonomy->taxonomy_term, $post_id);
+    }
 }
