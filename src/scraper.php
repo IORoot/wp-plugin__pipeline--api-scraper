@@ -85,9 +85,6 @@ class scraper
             $this->process_single_scrape();
         }
 
-        // run any 'after scrape' tasks
-        $this->after_housekeep();
-
         return;
     }
 
@@ -149,6 +146,9 @@ class scraper
 
         // Import results into CPT
         $this->import();
+
+        // run any 'after scrape' tasks
+        $this->after_housekeep();
 
         // Add new schedule into WP_CRON
         $this->schedule();
@@ -410,9 +410,9 @@ class scraper
     public function before_housekeep()
     {
         $this->housekeeping('before');
-
         return;
     }
+
 
     public function after_housekeep()
     {
@@ -423,6 +423,14 @@ class scraper
     }
 
 
+    public function housekeeping($when)
+    {
+        $housekeep = new housekeep();
+        $housekeep->set_when($when);
+        $housekeep->set_options($this->options->scrape[$this->_scrape_key]['yt_scrape_housekeep']);
+        $housekeep->run();
+        unset($housekeep);
+    }
 
     
     public function scheduler_housekeeping()
@@ -463,10 +471,6 @@ class scraper
         return;
     }
 
-    public function housekeeping($when)
-    {
-        $housekeep = new housekeep($when);
-    }
 
 
     // ┌─────────────────────────────────────────────────────────────────────────┐

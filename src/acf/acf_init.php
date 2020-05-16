@@ -51,6 +51,8 @@ require __DIR__.'/populate_yt_scrape_auth.php';
 
 require __DIR__.'/populate_yt_scrape_filter.php';
 
+require __DIR__.'/populate_yt_scrape_housekeep.php';
+
 require __DIR__.'/populate_yt_scrape_import.php';
 
 require __DIR__.'/populate_yt_scrape_mapper.php';

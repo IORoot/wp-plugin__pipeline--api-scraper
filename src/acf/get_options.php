@@ -9,6 +9,7 @@ class options
     public $filter;
     public $transform;
     public $schedule;
+    public $housekeep;
 
     public $auth;
     public $mapper;
@@ -50,6 +51,9 @@ class options
 
         // import
         $this->get_repeater_options('yt_import_group_yt_import_instance', 'import');
+
+        // import
+        $this->get_repeater_options('yt_housekeep_group_yt_housekeep_instance', 'housekeep');
 
         // schedule
         $this->get_repeater_options('yt_schedule_instance', 'schedule');
