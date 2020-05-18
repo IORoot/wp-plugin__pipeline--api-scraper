@@ -87,6 +87,7 @@ class subscriptions implements requestInterface
     {
         if(!$this->check_url()){return false;}  
         $this->built_request_url = $this->domain . '/subscriptions?' . $this->config['query_string'] . "&key=" . $this->config['api_key'];
+        (new \yt\r)->last('search', 'QUERSTRING = '. $this->built_request_url); 
     }
 
 

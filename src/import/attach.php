@@ -41,7 +41,7 @@ class attach
     public function tax_to_post($tax_type, $tax_term, $post_id)
     {
         if (isset($tax_term) && isset($tax_type) && isset($post_id)) {
-            return wp_set_object_terms($post_id, $tax_term, $tax_type);
+            return wp_set_object_terms($post_id, $tax_term, $tax_type, true);
         }
         
         return;

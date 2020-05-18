@@ -12,7 +12,11 @@ class playlistitems implements requestInterface
 
     public $description = "Performs a search on the youtube search:list endpoint.";
 
-    public $parameters = 'none';
+    public $parameters = '
+    You can turn off going through all result pages with the following array parameter:
+    [
+        \'allpages\' => false
+    ]';
 
     public $cost = 1;
     public $cost_per_result = 2; // snippet
@@ -82,6 +86,8 @@ class playlistitems implements requestInterface
 
         $this->combine_results();
 
+        $this->add_index_to_items();
+
         $this->cost_of_items();
         
         return true;
@@ -108,6 +114,8 @@ class playlistitems implements requestInterface
             $pageToken = '&pageToken='.$this->config['page_token'];
         }
         $this->built_request_url = $this->domain . '/playlistItems?' . $this->config['query_string'] . "&key=" . $this->config['api_key'] . $pageToken;
+
+        (new \yt\r)->last('search', 'QUERSTRING = '. $this->built_request_url); 
     }
 
 
@@ -118,7 +126,13 @@ class playlistitems implements requestInterface
 
         $last_entry = end($this->response);
 
-        if (isset($last_entry->nextPageToken)) {
+        $all_pages = true;
+        if (isset($this->config["extra_parameters"]["allpages"]))
+        {
+            $all_pages = $this->config["extra_parameters"]["allpages"];
+        }
+
+        if (isset($last_entry->nextPageToken) && $all_pages != false) {
             $this->config['page_token'] = $last_entry->nextPageToken;
             $this->request();
         }
@@ -135,6 +149,15 @@ class playlistitems implements requestInterface
             $this->response[0]->items = array_merge($this->response[0]->items, $response->items);
             unset($this->response[$key]);
         }
+    }
+
+    private function add_index_to_items()
+    {
+        foreach ($this->response[0]->items as $index => $item)
+        {
+            $item->index = $index;
+        }
+        return;
     }
 
     private function cost_of_items()

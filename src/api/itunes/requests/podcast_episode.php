@@ -25,7 +25,12 @@ class podcast_episode implements requestInterface
 
     public $built_request_url;
 
+    public $artwork_url;
+
     public $response;
+
+
+
 
     public function config($config)
     {
@@ -97,6 +102,7 @@ class podcast_episode implements requestInterface
             return false;
         }
 
+
         (new \yt\r)->last('search', 'RESPONSE:'. json_encode($this->response, JSON_PRETTY_PRINT));
 
         return true;
@@ -107,6 +113,7 @@ class podcast_episode implements requestInterface
     private function retreive_rss_feed()
     {
         $rss_url = $this->response->results[0]->feedUrl;
+        $this->artwork_url = $this->response->results[0]->artworkUrl600;
 
         try {
             $this->response = wp_remote_fopen($rss_url);
@@ -134,7 +141,7 @@ class podcast_episode implements requestInterface
             $this->response = $simpleXml;
         }
 
-        (new \yt\r)->last('search', 'RSS->JSON RESPONSE:'. json_encode($this->response->channel, JSON_PRETTY_PRINT));
+        (new \yt\r)->last('search', 'RSS->JSON RESPONSE:'. json_encode($this->response, JSON_PRETTY_PRINT));
 
         return;
     }
@@ -162,14 +169,31 @@ class podcast_episode implements requestInterface
          * Add image to all items
          */
         if (isset($this->response->image)){
+
+            // replace for the itunes artwork URL - more reliable URL.
+            $this->response->image->url = $this->artwork_url;
+
             foreach ($this->response->items as $item)
             {
                 $item->image = $this->response->image;
             }
-        }        
+        }
+
+        /**
+         * Add any missing links
+         */
+        foreach ($this->response->items as $item)
+        {
+            if (!isset($item->link))
+            {
+                $item->link = $this->response->link;
+            }
+        }
+        
 
         unset($this->response->item);
     }
+
 
     // ┌─────────────────────────────────────────────────────────────────────────┐
     // │                                                                         │░

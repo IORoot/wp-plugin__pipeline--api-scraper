@@ -49,7 +49,7 @@ class podcast_group implements requestInterface
     public function request()
     {
 
-        $this->response->items = [];
+        // $this->response->items = [];
 
         foreach ($this->csv_explode() as $channelID)
         {
@@ -66,6 +66,13 @@ class podcast_group implements requestInterface
             $podcast_response = $podcast->response();
 
             $sliced_podcast = array_slice($podcast_response->items, 0, $this->config['extra_parameters']);
+
+            // if the first entry.
+            if (!isset($this->response->items)){
+                $this->response = new \stdClass;
+                $this->response->items = $sliced_podcast;
+                continue;
+            }
 
             $this->response->items = array_merge($this->response->items, $sliced_podcast);
 
