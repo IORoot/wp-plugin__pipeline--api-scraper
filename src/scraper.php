@@ -147,11 +147,11 @@ class scraper
         // Import results into CPT
         $this->import();
 
-        // run any 'after scrape' tasks
-        $this->after_housekeep();
-
         // Add new schedule into WP_CRON
         $this->schedule();
+
+        // run any 'after scrape' tasks
+        $this->after_housekeep();
 
         return;
     }
