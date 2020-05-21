@@ -27,6 +27,7 @@ function _manually_load_plugin() {
 	require dirname( dirname( __FILE__ ) ) . '/../advanced-custom-fields-pro/acf.php';
 	require dirname( dirname( __FILE__ ) ) . '/media_scraper.php';
 }
+
 tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );
 
 // Start up the WP testing environment.

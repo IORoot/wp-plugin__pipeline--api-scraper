@@ -89,8 +89,6 @@ class scraper
     }
 
 
-
-
     public function run_scrape_instance($scrape_id)
     {
         error_log('Scheduled scrape instance running - ' . $scrape_id);
@@ -219,13 +217,6 @@ class scraper
         if ($this->has_response() == false) {
             return;
         }
-        // // if not enabled, skip.
-        // if ($this->options->scrape[$this->_scrape_key]['yt_scrape_filter']['yt_filter_id'] == 'none') {
-        //     $this->options->scrape[$this->_scrape_key]['yt_scrape_filtered'] = $this->options->scrape[$this->_scrape_key]['yt_scrape_response'];
-        //     (new \yt\r)->clear('filter');
-        //     (new \yt\r)->last('filter', $this->options->scrape[$this->_scrape_key]['yt_scrape_filtered']->items);
-        //     return;
-        // }
 
         // This is the group of filters to
         // perform on the results of the API response.
