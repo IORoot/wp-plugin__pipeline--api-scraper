@@ -1,0 +1,2208 @@
+[
+    {
+        "key": "group_5e9efc1fc183a",
+        "title": "API Scraper v2",
+        "fields": [
+            {
+                "key": "field_5ea14187d975d",
+                "label": "🏁Scrape →",
+                "name": "",
+                "type": "tab",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "hide_admin": 0,
+                "placement": "top",
+                "endpoint": 0
+            },
+            {
+                "key": "field_5ea141c6d975e",
+                "label": "Scrape Instance",
+                "name": "yt_scrape_instance",
+                "type": "repeater",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "hide_admin": 0,
+                "collapsed": "field_5eb663d10d001",
+                "min": 0,
+                "max": 0,
+                "layout": "block",
+                "button_label": "",
+                "sub_fields": [
+                    {
+                        "key": "field_5eb663d10d001",
+                        "label": "",
+                        "name": "yt_scrape_group",
+                        "type": "group",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "hide_admin": 0,
+                        "layout": "block",
+                        "sub_fields": [
+                            {
+                                "key": "field_5ea145d4e8d5a",
+                                "label": "Enabled",
+                                "name": "yt_scrape_enabled",
+                                "type": "true_false",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "15",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "hide_admin": 0,
+                                "message": "",
+                                "default_value": 0,
+                                "ui": 1,
+                                "ui_on_text": "",
+                                "ui_off_text": ""
+                            },
+                            {
+                                "key": "field_5ea141e0d975f",
+                                "label": "Scrape ID",
+                                "name": "yt_scrape_id",
+                                "type": "text",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "85",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "hide_admin": 0,
+                                "default_value": "",
+                                "placeholder": "",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": ""
+                            }
+                        ]
+                    },
+                    {
+                        "key": "field_5ea19039108dd",
+                        "label": "🔑Auth",
+                        "name": "yt_scrape_auth",
+                        "type": "select",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "10",
+                            "class": "",
+                            "id": ""
+                        },
+                        "hide_admin": 0,
+                        "choices": {
+                            "IORoot": "IORoot",
+                            "MS1": "MS1",
+                            "YT1": "YT1",
+                            "IG": "IG",
+                            "iTunes": "iTunes",
+                            "none": "none"
+                        },
+                        "default_value": [],
+                        "allow_null": 0,
+                        "multiple": 0,
+                        "ui": 0,
+                        "return_format": "value",
+                        "ajax": 0,
+                        "placeholder": ""
+                    },
+                    {
+                        "key": "field_5ea141f9d9760",
+                        "label": "🔍Search",
+                        "name": "yt_scrape_search",
+                        "type": "select",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "20",
+                            "class": "",
+                            "id": ""
+                        },
+                        "hide_admin": 0,
+                        "choices": {
+                            "YouTube - Curated": "YouTube - Curated",
+                            "YouTube - Monthly Popular": "YouTube - Monthly Popular",
+                            "YouTube - Daily Top 3": "YouTube - Daily Top 3",
+                            "YouTube - ParkourPulse Hashtag": "YouTube - ParkourPulse Hashtag",
+                            "YouTube - ParkourPulse Playlists": "YouTube - ParkourPulse Playlists",
+                            "YouTube - ParkourPulse Subscriptions": "YouTube - ParkourPulse Subscriptions",
+                            "YouTube - Event Playlist": "YouTube - Event Playlist",
+                            "YouTube - BeyondParkour Subscriptions": "YouTube - BeyondParkour Subscriptions",
+                            "YouTube - BeyondParkour Playlists": "YouTube - BeyondParkour Playlists",
+                            "YouTube - LondonParkour Playlists (learn)": "YouTube - LondonParkour Playlists (learn)",
+                            "iTunes Podcasts - All": "iTunes Podcasts - All",
+                            "BLOCKED - Instagram - Curated Accounts": "BLOCKED - Instagram - Curated Accounts",
+                            "BLOCKED - Instagram - LondonParkour Account": "BLOCKED - Instagram - LondonParkour Account",
+                            "BLOCKED - Instagram - Parkour Hashtag - Latest Posts": "BLOCKED - Instagram - Parkour Hashtag - Latest Posts",
+                            "BLOCKED - Instagram - Parkour Hashtag - Top Posts": "BLOCKED - Instagram - Parkour Hashtag - Top Posts",
+                            "iTunes Podcast - Motus RSS Feed": "iTunes Podcast - Motus RSS Feed",
+                            "none": "none"
+                        },
+                        "default_value": [],
+                        "allow_null": 0,
+                        "multiple": 0,
+                        "ui": 0,
+                        "return_format": "value",
+                        "ajax": 0,
+                        "placeholder": ""
+                    },
+                    {
+                        "key": "field_5e9f1eabb09d5",
+                        "label": "⚖️Filter",
+                        "name": "yt_scrape_filter",
+                        "type": "select",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "15",
+                            "class": "",
+                            "id": ""
+                        },
+                        "hide_admin": 0,
+                        "choices": {
+                            "none": "none",
+                            "YouTube - Top 24 results": "YouTube - Top 24 results",
+                            "YouTube - 🎟Remove Premieres, Trim to 10": "YouTube - 🎟Remove Premieres, Trim to 10",
+                            "YouTube - 🥇Remove Events Playlist": "YouTube - 🥇Remove Events Playlist",
+                            "YouTube - 🎓Remove Blog Playlist": "YouTube - 🎓Remove Blog Playlist",
+                            "Instagram Account Conversion ": "Instagram Account Conversion ",
+                            "Instagram Hashtag Search Top Post Conversion": "Instagram Hashtag Search Top Post Conversion",
+                            "Instagram Hashtag Search Conversion": "Instagram Hashtag Search Conversion",
+                            "iTunes Top 3 Results": "iTunes Top 3 Results"
+                        },
+                        "default_value": [],
+                        "allow_null": 0,
+                        "multiple": 0,
+                        "ui": 0,
+                        "return_format": "value",
+                        "ajax": 0,
+                        "placeholder": ""
+                    },
+                    {
+                        "key": "field_5ea13f2244da7",
+                        "label": "🗂Mapper",
+                        "name": "yt_scrape_mapper",
+                        "type": "select",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "20",
+                            "class": "",
+                            "id": ""
+                        },
+                        "hide_admin": 0,
+                        "choices": {
+                            "iTunes - Single Podcast": "iTunes - Single Podcast",
+                            "YouTube - Search": "YouTube - Search",
+                            "YouTube - Channel Uploads": "YouTube - Channel Uploads",
+                            "YouTube - Playlists": "YouTube - Playlists",
+                            "YouTube - Playlist Items": "YouTube - Playlist Items",
+                            "YouTube - Subscribers": "YouTube - Subscribers",
+                            "Instagram - Accounts": "Instagram - Accounts",
+                            "none": "none"
+                        },
+                        "default_value": [],
+                        "allow_null": 0,
+                        "multiple": 0,
+                        "ui": 0,
+                        "return_format": "value",
+                        "ajax": 0,
+                        "placeholder": ""
+                    },
+                    {
+                        "key": "field_5e9f1ed3b09d6",
+                        "label": "🚚Import",
+                        "name": "yt_scrape_import",
+                        "type": "select",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "10",
+                            "class": "",
+                            "id": ""
+                        },
+                        "hide_admin": 0,
+                        "choices": {
+                            "YouTube CPT": "YouTube CPT",
+                            "none": "none"
+                        },
+                        "default_value": [],
+                        "allow_null": 0,
+                        "multiple": 0,
+                        "ui": 0,
+                        "return_format": "value",
+                        "ajax": 0,
+                        "placeholder": ""
+                    },
+                    {
+                        "key": "field_5ebe2ce694060",
+                        "label": "🧹Housekeep",
+                        "name": "yt_scrape_housekeep",
+                        "type": "select",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "15",
+                            "class": "",
+                            "id": ""
+                        },
+                        "hide_admin": 0,
+                        "choices": {
+                            "YT - 🔮Curated (24 - after)": "YT - 🔮Curated (24 - after)",
+                            "YT - 🔫Popular (ALL - Before)": "YT - 🔫Popular (ALL - Before)",
+                            "YT - ❤️Top 3 (ALL-Before)": "YT - ❤️Top 3 (ALL-Before)",
+                            "YT - #️⃣ParkourPulse (ALL - Before)": "YT - #️⃣ParkourPulse (ALL - Before)",
+                            "YT - ⬆️ParkourPulse Subscriptions": "YT - ⬆️ParkourPulse Subscriptions",
+                            "YT - 🥇Events": "YT - 🥇Events",
+                            "YT - 🧗🏻‍♀️Beyondparkour Playlists": "YT - 🧗🏻‍♀️Beyondparkour Playlists",
+                            "YT - 🎓LondonParkour Playlists (learn)": "YT - 🎓LondonParkour Playlists (learn)",
+                            "iTunes - 🎧Podcast (all - before)": "iTunes - 🎧Podcast (all - before)",
+                            "🚨DANGER - Delete 1 Category": "🚨DANGER - Delete 1 Category",
+                            "🚨DANGER - Delete All IG Posts": "🚨DANGER - Delete All IG Posts",
+                            "none": "none"
+                        },
+                        "default_value": [
+                            "none"
+                        ],
+                        "allow_null": 0,
+                        "multiple": 0,
+                        "ui": 0,
+                        "return_format": "value",
+                        "ajax": 0,
+                        "placeholder": ""
+                    },
+                    {
+                        "key": "field_5ead213fce5f5",
+                        "label": "⏱Schedule",
+                        "name": "yt_scrape_schedule",
+                        "type": "select",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "10",
+                            "class": "",
+                            "id": ""
+                        },
+                        "hide_admin": 0,
+                        "choices": {
+                            "none": "none",
+                            "every_1min": "every_1min",
+                            "every_2mins": "every_2mins",
+                            "every_10mins": "every_10mins",
+                            "1hr": "1hr",
+                            "3hrs": "3hrs",
+                            "6hrs": "6hrs",
+                            "12hrs": "12hrs",
+                            "4:30 and 16:30": "4:30 and 16:30"
+                        },
+                        "default_value": [],
+                        "allow_null": 0,
+                        "multiple": 0,
+                        "ui": 0,
+                        "return_format": "value",
+                        "ajax": 0,
+                        "placeholder": ""
+                    }
+                ]
+            },
+            {
+                "key": "field_5e9f026ed367d",
+                "label": "🔑Auth →",
+                "name": "",
+                "type": "tab",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "hide_admin": 0,
+                "placement": "top",
+                "endpoint": 0
+            },
+            {
+                "key": "field_5ea18f285f512",
+                "label": "Auth Instance",
+                "name": "yt_auth_instance",
+                "type": "repeater",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "hide_admin": 0,
+                "collapsed": "field_5e9f0297d367e",
+                "min": 0,
+                "max": 0,
+                "layout": "block",
+                "button_label": "",
+                "sub_fields": [
+                    {
+                        "key": "field_5ea18fe156745",
+                        "label": "Auth ID",
+                        "name": "yt_auth_id",
+                        "type": "text",
+                        "instructions": "slug",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "10",
+                            "class": "",
+                            "id": ""
+                        },
+                        "hide_admin": 0,
+                        "default_value": "",
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": "",
+                        "maxlength": ""
+                    },
+                    {
+                        "key": "field_5e9f0297d367e",
+                        "label": "API Project name",
+                        "name": "yt_api_project_name",
+                        "type": "text",
+                        "instructions": "Project name within <a href=\"https:\/\/console.developers.google.com\/apis\/credentials\" target=\"_blank\">google console<\/a> you wish to use.",
+                        "required": 1,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "40",
+                            "class": "",
+                            "id": ""
+                        },
+                        "hide_admin": 0,
+                        "default_value": "",
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": "",
+                        "maxlength": ""
+                    },
+                    {
+                        "key": "field_5e9f0343d367f",
+                        "label": "API Key",
+                        "name": "yt_api_key",
+                        "type": "password",
+                        "instructions": "This is the API key used for access.",
+                        "required": 1,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "40",
+                            "class": "",
+                            "id": ""
+                        },
+                        "hide_admin": 0,
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": ""
+                    },
+                    {
+                        "key": "field_5ea6bb2d96846",
+                        "label": "Quota",
+                        "name": "yt_api_quota",
+                        "type": "number",
+                        "instructions": "Daily limit",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "10",
+                            "class": "",
+                            "id": ""
+                        },
+                        "hide_admin": 0,
+                        "default_value": 10000,
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": "",
+                        "min": "",
+                        "max": "",
+                        "step": ""
+                    }
+                ]
+            },
+            {
+                "key": "field_5e9f0c2eeaad0",
+                "label": "🔍Search →",
+                "name": "",
+                "type": "tab",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "hide_admin": 0,
+                "placement": "top",
+                "endpoint": 0
+            },
+            {
+                "key": "field_5eb51c1de7af6",
+                "label": "Search Group",
+                "name": "yt_search_group",
+                "type": "group",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "hide_admin": 0,
+                "layout": "block",
+                "sub_fields": [
+                    {
+                        "key": "field_5eb53b67ea81f",
+                        "label": "❓Search Query",
+                        "name": "",
+                        "type": "tab",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "hide_admin": 0,
+                        "placement": "top",
+                        "endpoint": 0
+                    },
+                    {
+                        "key": "field_5e9f1dc223d1f",
+                        "label": "Search Instance",
+                        "name": "yt_search_instance",
+                        "type": "repeater",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "hide_admin": 0,
+                        "collapsed": "field_5e9f1de723d20",
+                        "min": 0,
+                        "max": 0,
+                        "layout": "block",
+                        "button_label": "",
+                        "sub_fields": [
+                            {
+                                "key": "field_5e9f1de723d20",
+                                "label": "Search ID",
+                                "name": "yt_search_id",
+                                "type": "text",
+                                "instructions": "",
+                                "required": 1,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "20",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "hide_admin": 0,
+                                "default_value": "",
+                                "placeholder": "",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": ""
+                            },
+                            {
+                                "key": "field_5eb3ae998ec18",
+                                "label": "Search API",
+                                "name": "yt_search_api",
+                                "type": "select",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "20",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "hide_admin": 0,
+                                "choices": {
+                                    "youtube": "YouTube",
+                                    "instagram": "Instagram",
+                                    "itunes": "iTunes",
+                                    "newsapi": "NewsAPI"
+                                },
+                                "default_value": [],
+                                "allow_null": 0,
+                                "multiple": 0,
+                                "ui": 1,
+                                "ajax": 0,
+                                "return_format": "value",
+                                "placeholder": ""
+                            },
+                            {
+                                "key": "field_5ea8798b853a3",
+                                "label": "Search Type",
+                                "name": "yt_search_type",
+                                "type": "select",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "20",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "hide_admin": 0,
+                                "choices": {
+                                    "account_info": "IG Account Info",
+                                    "multi_accounts": "IG Multi Account Info",
+                                    "tag_search": "IG Hashtag Search",
+                                    "podcast": "iTunes Podcast",
+                                    "podcast_episode": "iTunes Podcast Episodes",
+                                    "podcast_group": "iTunes Podcast Group",
+                                    "multichannel": "YouTube Multi-channel Search",
+                                    "playlistitems": "YouTube Playlist Items",
+                                    "playlists": "YouTube Channel Playlists",
+                                    "search": "YouTube Search",
+                                    "subscriptions": "YouTube Channel Subscriptions"
+                                },
+                                "default_value": [],
+                                "allow_null": 0,
+                                "multiple": 0,
+                                "ui": 0,
+                                "return_format": "value",
+                                "ajax": 0,
+                                "placeholder": ""
+                            },
+                            {
+                                "key": "field_5e9f1e1b23d21",
+                                "label": "Search Description",
+                                "name": "yt_search_description",
+                                "type": "textarea",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "40",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "hide_admin": 0,
+                                "default_value": "",
+                                "placeholder": "",
+                                "maxlength": "",
+                                "rows": 1,
+                                "new_lines": ""
+                            },
+                            {
+                                "key": "field_5e9f1e7f23d23",
+                                "label": "Search String",
+                                "name": "yt_search_string",
+                                "type": "textarea",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "60",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "hide_admin": 0,
+                                "default_value": "",
+                                "placeholder": "",
+                                "maxlength": "",
+                                "rows": "",
+                                "new_lines": ""
+                            },
+                            {
+                                "key": "field_5ea95f1088684",
+                                "label": "Extra Search Parameters",
+                                "name": "yt_search_parameters",
+                                "type": "textarea",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "40",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "hide_admin": 0,
+                                "default_value": "",
+                                "placeholder": "",
+                                "maxlength": "",
+                                "rows": 8,
+                                "new_lines": ""
+                            }
+                        ]
+                    },
+                    {
+                        "key": "field_5eb51c7fe7af8",
+                        "label": "🔁Search Substitutions",
+                        "name": "",
+                        "type": "tab",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "hide_admin": 0,
+                        "placement": "top",
+                        "endpoint": 0
+                    },
+                    {
+                        "key": "field_5ea9a33c8747b",
+                        "label": "Search Substitutions",
+                        "name": "yt_search_substitutions",
+                        "type": "repeater",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "hide_admin": 0,
+                        "collapsed": "field_5ea9a37f8747c",
+                        "min": 0,
+                        "max": 0,
+                        "layout": "block",
+                        "button_label": "",
+                        "sub_fields": [
+                            {
+                                "key": "field_5ea9a37f8747c",
+                                "label": "Substitution Word",
+                                "name": "yt_search_substitutions_word",
+                                "type": "text",
+                                "instructions": "Word to use in double square brackets. [[word]]",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "30",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "hide_admin": 0,
+                                "default_value": "",
+                                "placeholder": "",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": ""
+                            },
+                            {
+                                "key": "field_5ea9a3ba8747d",
+                                "label": "Replace with",
+                                "name": "yt_search_substitutions_replace",
+                                "type": "textarea",
+                                "instructions": "What to replace the word with.",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "70",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "hide_admin": 0,
+                                "default_value": "",
+                                "placeholder": "",
+                                "maxlength": "",
+                                "rows": 4,
+                                "new_lines": ""
+                            }
+                        ]
+                    },
+                    {
+                        "key": "field_5eb51c5ce7af7",
+                        "label": "🐞Search Report",
+                        "name": "",
+                        "type": "tab",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "hide_admin": 0,
+                        "placement": "top",
+                        "endpoint": 0
+                    },
+                    {
+                        "key": "field_5ea6ef88f95e5",
+                        "label": "Search Report",
+                        "name": "yt_debug_search",
+                        "type": "textarea",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "100",
+                            "class": "",
+                            "id": ""
+                        },
+                        "hide_admin": 0,
+                        "default_value": "",
+                        "placeholder": "",
+                        "maxlength": "",
+                        "rows": 20,
+                        "new_lines": ""
+                    }
+                ]
+            },
+            {
+                "key": "field_5e9fff797b74b",
+                "label": "⚖️Filter →",
+                "name": "",
+                "type": "tab",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "hide_admin": 0,
+                "placement": "top",
+                "endpoint": 0
+            },
+            {
+                "key": "field_5eb52314314f1",
+                "label": "Filter Group",
+                "name": "yt_filter_group",
+                "type": "group",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "hide_admin": 0,
+                "layout": "block",
+                "sub_fields": [
+                    {
+                        "key": "field_5eb55a41ad659",
+                        "label": "🗜Filter Instance",
+                        "name": "",
+                        "type": "tab",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "hide_admin": 0,
+                        "placement": "top",
+                        "endpoint": 0
+                    },
+                    {
+                        "key": "field_5e9fff8e7b74c",
+                        "label": "Filter Instance",
+                        "name": "yt_filter_instance",
+                        "type": "repeater",
+                        "instructions": "A filter instance is a group of filters, all performed one after another. Each filter instance is set in the scrape and applied to the YouTube result.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "hide_admin": 0,
+                        "collapsed": "field_5e9fffb57b74d",
+                        "min": 0,
+                        "max": 0,
+                        "layout": "block",
+                        "button_label": "",
+                        "sub_fields": [
+                            {
+                                "key": "field_5e9fffb57b74d",
+                                "label": "Filter ID",
+                                "name": "yt_filter_id",
+                                "type": "text",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "20",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "hide_admin": 0,
+                                "default_value": "",
+                                "placeholder": "",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": ""
+                            },
+                            {
+                                "key": "field_5ea000077b74f",
+                                "label": "Filter Group Layers",
+                                "name": "yt_filter_layers",
+                                "type": "repeater",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "80",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "hide_admin": 0,
+                                "collapsed": "",
+                                "min": 0,
+                                "max": 0,
+                                "layout": "block",
+                                "button_label": "",
+                                "sub_fields": [
+                                    {
+                                        "key": "field_5ea0003c7b750",
+                                        "label": "Filter",
+                                        "name": "yt_filter",
+                                        "type": "select",
+                                        "instructions": "",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "30",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "hide_admin": 0,
+                                        "choices": {
+                                            "ig_account_convert": "ig_account_convert",
+                                            "ig_search_convert": "ig_search_convert",
+                                            "ig_search_top_convert": "ig_search_top_convert",
+                                            "none": "none",
+                                            "remove_item_if_regex": "remove_item_if_regex",
+                                            "yt_array_front": "yt_array_front"
+                                        },
+                                        "default_value": [],
+                                        "allow_null": 0,
+                                        "multiple": 0,
+                                        "ui": 0,
+                                        "return_format": "value",
+                                        "ajax": 0,
+                                        "placeholder": ""
+                                    },
+                                    {
+                                        "key": "field_5ea0007a7b751",
+                                        "label": "Filter Parameters",
+                                        "name": "yt_filter_parameters",
+                                        "type": "textarea",
+                                        "instructions": "",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "70",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "hide_admin": 0,
+                                        "default_value": "",
+                                        "placeholder": "",
+                                        "maxlength": "",
+                                        "rows": 4,
+                                        "new_lines": ""
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "key": "field_5eb559ad03a85",
+                        "label": "📚Filter Catalog",
+                        "name": "",
+                        "type": "tab",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "hide_admin": 0,
+                        "placement": "top",
+                        "endpoint": 0
+                    },
+                    {
+                        "key": "field_5ea6f7c3764e1",
+                        "label": "Filter Catalog",
+                        "name": "yt_filter_catalog",
+                        "type": "repeater",
+                        "instructions": "Lists all of the filters available.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "hide_admin": 0,
+                        "collapsed": "field_5ea6f807764e2",
+                        "min": 0,
+                        "max": 0,
+                        "layout": "block",
+                        "button_label": "",
+                        "sub_fields": [
+                            {
+                                "key": "field_5ea6f807764e2",
+                                "label": "Filter Name",
+                                "name": "yt_filter_catalog_name",
+                                "type": "text",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "20",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "hide_admin": 0,
+                                "default_value": "",
+                                "placeholder": "",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": ""
+                            },
+                            {
+                                "key": "field_5ea6f82b764e3",
+                                "label": "Filter Description",
+                                "name": "yt_filter_catalog_description",
+                                "type": "textarea",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "50",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "hide_admin": 0,
+                                "default_value": "",
+                                "placeholder": "",
+                                "maxlength": "",
+                                "rows": 6,
+                                "new_lines": ""
+                            },
+                            {
+                                "key": "field_5ea6f84d764e4",
+                                "label": "Filter Parameters",
+                                "name": "yt_filter_catalog_parameters",
+                                "type": "textarea",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "30",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "hide_admin": 0,
+                                "default_value": "",
+                                "placeholder": "",
+                                "maxlength": "",
+                                "rows": 6,
+                                "new_lines": ""
+                            }
+                        ]
+                    },
+                    {
+                        "key": "field_5eb52350314f3",
+                        "label": "🐞Filter Report",
+                        "name": "",
+                        "type": "tab",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "hide_admin": 0,
+                        "placement": "top",
+                        "endpoint": 0
+                    },
+                    {
+                        "key": "field_5ea6effff95e6",
+                        "label": "Filter Report",
+                        "name": "yt_debug_filter",
+                        "type": "textarea",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "100",
+                            "class": "",
+                            "id": ""
+                        },
+                        "hide_admin": 0,
+                        "default_value": "",
+                        "placeholder": "",
+                        "maxlength": "",
+                        "rows": 20,
+                        "new_lines": ""
+                    }
+                ]
+            },
+            {
+                "key": "field_5ea138a0a0bbe",
+                "label": "🗂Map →",
+                "name": "",
+                "type": "tab",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "hide_admin": 0,
+                "placement": "top",
+                "endpoint": 0
+            },
+            {
+                "key": "field_5eb5236d314f4",
+                "label": "Mapper Group",
+                "name": "yt_mapper_group",
+                "type": "group",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "hide_admin": 0,
+                "layout": "block",
+                "sub_fields": [
+                    {
+                        "key": "field_5eb55e621360c",
+                        "label": "🔀Mapper Instance",
+                        "name": "",
+                        "type": "tab",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "hide_admin": 0,
+                        "placement": "top",
+                        "endpoint": 0
+                    },
+                    {
+                        "key": "field_5ea13915a0bbf",
+                        "label": "Mapper Instance",
+                        "name": "yt_mapper_instance",
+                        "type": "repeater",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "hide_admin": 0,
+                        "collapsed": "field_5ea13968a0bc0",
+                        "min": 0,
+                        "max": 0,
+                        "layout": "block",
+                        "button_label": "",
+                        "sub_fields": [
+                            {
+                                "key": "field_5ea13968a0bc0",
+                                "label": "Mapper ID",
+                                "name": "yt_mapper_id",
+                                "type": "text",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "100",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "hide_admin": 0,
+                                "default_value": "",
+                                "placeholder": "",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": ""
+                            },
+                            {
+                                "key": "field_5ea13a1aa0bc2",
+                                "label": "Mapper Row",
+                                "name": "yt_mapper_row",
+                                "type": "repeater",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "100",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "hide_admin": 0,
+                                "collapsed": "field_5ea13a50a0bc3",
+                                "min": 0,
+                                "max": 0,
+                                "layout": "block",
+                                "button_label": "",
+                                "sub_fields": [
+                                    {
+                                        "key": "field_5ea13a50a0bc3",
+                                        "label": "Source field",
+                                        "name": "yt_mapper_source",
+                                        "type": "text",
+                                        "instructions": "",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "30",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "hide_admin": 0,
+                                        "default_value": "",
+                                        "placeholder": "",
+                                        "prepend": "",
+                                        "append": "",
+                                        "maxlength": ""
+                                    },
+                                    {
+                                        "key": "field_5ea13a7fa0bc4",
+                                        "label": "Transform Group",
+                                        "name": "yt_mapper_transform",
+                                        "type": "select",
+                                        "instructions": "",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "30",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "hide_admin": 0,
+                                        "choices": {
+                                            "none": "none",
+                                            "Remove Spaces from beginning": "Remove Spaces from beginning",
+                                            "transform_description": "transform_description",
+                                            "transform_excerpt": "transform_excerpt",
+                                            "field_as_string": "field_as_string",
+                                            "best_image": "best_image",
+                                            "first_sentence": "first_sentence",
+                                            "remove_first_sentence": "remove_first_sentence",
+                                            "prepend_ig_url": "prepend_ig_url",
+                                            "First Sentence & Limit 50": "First Sentence & Limit 50",
+                                            "Clean Date for post_date": "Clean Date for post_date",
+                                            "Limit 50": "Limit 50",
+                                            "md5": "md5",
+                                            "Timestamp to Date": "Timestamp to Date",
+                                            "test": "test"
+                                        },
+                                        "default_value": [],
+                                        "allow_null": 0,
+                                        "multiple": 0,
+                                        "ui": 0,
+                                        "return_format": "value",
+                                        "ajax": 0,
+                                        "placeholder": ""
+                                    },
+                                    {
+                                        "key": "field_5ea7d499ebd96",
+                                        "label": "Destination",
+                                        "name": "yt_mapper_destination_object",
+                                        "type": "select",
+                                        "instructions": "",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "15",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "hide_admin": 0,
+                                        "choices": {
+                                            "post": "Post",
+                                            "image": "Image",
+                                            "meta": "Meta"
+                                        },
+                                        "default_value": [],
+                                        "allow_null": 0,
+                                        "multiple": 0,
+                                        "ui": 0,
+                                        "return_format": "value",
+                                        "ajax": 0,
+                                        "placeholder": ""
+                                    },
+                                    {
+                                        "key": "field_5ea13ac3a0bc5",
+                                        "label": "Destination field",
+                                        "name": "yt_mapper_destination",
+                                        "type": "text",
+                                        "instructions": "",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "25",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "hide_admin": 0,
+                                        "default_value": "",
+                                        "placeholder": "",
+                                        "prepend": "",
+                                        "append": "",
+                                        "maxlength": ""
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "key": "field_5eb570ffe33f7",
+                        "label": "🧬Transforms",
+                        "name": "",
+                        "type": "tab",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "hide_admin": 0,
+                        "placement": "top",
+                        "endpoint": 0
+                    },
+                    {
+                        "key": "field_5ea48874ea986",
+                        "label": "Transform Group Instance",
+                        "name": "yt_transform_instance",
+                        "type": "repeater",
+                        "instructions": "These are groups of individual transform commands. Build up the commands into a group and use that group in your mapping.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "hide_admin": 0,
+                        "collapsed": "field_5ea48874ea987",
+                        "min": 0,
+                        "max": 0,
+                        "layout": "block",
+                        "button_label": "",
+                        "sub_fields": [
+                            {
+                                "key": "field_5ea48874ea987",
+                                "label": "Transform Group ID",
+                                "name": "yt_transform_id",
+                                "type": "text",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "20",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "hide_admin": 0,
+                                "default_value": "",
+                                "placeholder": "",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": ""
+                            },
+                            {
+                                "key": "field_5ea48874ea988",
+                                "label": "Transform Group Layers",
+                                "name": "yt_transform_layers",
+                                "type": "repeater",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "80",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "hide_admin": 0,
+                                "collapsed": "field_5ea48874ea989",
+                                "min": 0,
+                                "max": 0,
+                                "layout": "block",
+                                "button_label": "",
+                                "sub_fields": [
+                                    {
+                                        "key": "field_5ea48874ea989",
+                                        "label": "Transform",
+                                        "name": "yt_transform",
+                                        "type": "select",
+                                        "instructions": "",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "30",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "hide_admin": 0,
+                                        "choices": {
+                                            "best_image": "best_image",
+                                            "clean_date": "clean_date",
+                                            "field_as_string": "field_as_string",
+                                            "md5": "md5",
+                                            "none": "none",
+                                            "regex_remove": "regex_remove",
+                                            "string_append": "string_append",
+                                            "string_prepend": "string_prepend",
+                                            "string_remove": "string_remove",
+                                            "string_trim": "string_trim",
+                                            "timestamp_to_date": "timestamp_to_date"
+                                        },
+                                        "default_value": [],
+                                        "allow_null": 0,
+                                        "multiple": 0,
+                                        "ui": 0,
+                                        "return_format": "value",
+                                        "ajax": 0,
+                                        "placeholder": ""
+                                    },
+                                    {
+                                        "key": "field_5ea48874ea98a",
+                                        "label": "Transform Parameters",
+                                        "name": "yt_transform_parameters",
+                                        "type": "textarea",
+                                        "instructions": "",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "70",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "hide_admin": 0,
+                                        "default_value": "",
+                                        "placeholder": "",
+                                        "maxlength": "",
+                                        "rows": 4,
+                                        "new_lines": ""
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "key": "field_5eb5708276eaf",
+                        "label": "📚Transform Catalog",
+                        "name": "",
+                        "type": "tab",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "hide_admin": 0,
+                        "placement": "top",
+                        "endpoint": 0
+                    },
+                    {
+                        "key": "field_5ea70988d96a1",
+                        "label": "Transform Catalog",
+                        "name": "yt_transform_catalog",
+                        "type": "repeater",
+                        "instructions": "Lists all of the transforms available.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "hide_admin": 0,
+                        "collapsed": "field_5ea70988d96a2",
+                        "min": 0,
+                        "max": 0,
+                        "layout": "block",
+                        "button_label": "",
+                        "sub_fields": [
+                            {
+                                "key": "field_5ea70988d96a2",
+                                "label": "Transform Name",
+                                "name": "yt_transform_catalog_name",
+                                "type": "text",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "20",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "hide_admin": 0,
+                                "default_value": "",
+                                "placeholder": "",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": ""
+                            },
+                            {
+                                "key": "field_5ea70988d96a3",
+                                "label": "Transform Description",
+                                "name": "yt_transform_catalog_description",
+                                "type": "textarea",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "50",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "hide_admin": 0,
+                                "default_value": "",
+                                "placeholder": "",
+                                "maxlength": "",
+                                "rows": 6,
+                                "new_lines": ""
+                            },
+                            {
+                                "key": "field_5ea70988d96a4",
+                                "label": "Transform Parameters",
+                                "name": "yt_transform_catalog_parameters",
+                                "type": "textarea",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "30",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "hide_admin": 0,
+                                "default_value": "",
+                                "placeholder": "",
+                                "maxlength": "",
+                                "rows": 6,
+                                "new_lines": ""
+                            }
+                        ]
+                    },
+                    {
+                        "key": "field_5eb5238a314f5",
+                        "label": "🐞Mapper Report",
+                        "name": "",
+                        "type": "tab",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "hide_admin": 0,
+                        "placement": "top",
+                        "endpoint": 0
+                    },
+                    {
+                        "key": "field_5ea6f034f95e7",
+                        "label": "Mapper Report",
+                        "name": "yt_debug_mapper",
+                        "type": "textarea",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "100",
+                            "class": "",
+                            "id": ""
+                        },
+                        "hide_admin": 0,
+                        "default_value": "",
+                        "placeholder": "",
+                        "maxlength": "",
+                        "rows": 20,
+                        "new_lines": ""
+                    }
+                ]
+            },
+            {
+                "key": "field_5ea04601b9937",
+                "label": "🚚Import →",
+                "name": "",
+                "type": "tab",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "hide_admin": 0,
+                "placement": "top",
+                "endpoint": 0
+            },
+            {
+                "key": "field_5eb523a5314f6",
+                "label": "Import Group",
+                "name": "yt_import_group",
+                "type": "group",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "hide_admin": 0,
+                "layout": "block",
+                "sub_fields": [
+                    {
+                        "key": "field_5eb57b6492a6b",
+                        "label": "🚚Import Instance",
+                        "name": "",
+                        "type": "tab",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "hide_admin": 0,
+                        "placement": "top",
+                        "endpoint": 0
+                    },
+                    {
+                        "key": "field_5ea14391d9761",
+                        "label": "Import Instance",
+                        "name": "yt_import_instance",
+                        "type": "repeater",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "hide_admin": 0,
+                        "collapsed": "",
+                        "min": 0,
+                        "max": 0,
+                        "layout": "block",
+                        "button_label": "",
+                        "sub_fields": [
+                            {
+                                "key": "field_5ea143e9d9762",
+                                "label": "Importer ID",
+                                "name": "yt_import_id",
+                                "type": "text",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "20",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "hide_admin": 0,
+                                "default_value": "",
+                                "placeholder": "",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": ""
+                            },
+                            {
+                                "key": "field_5ea0462bb9938",
+                                "label": "Import Post Type",
+                                "name": "yt_import_post_type",
+                                "type": "select",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "40",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "hide_admin": 0,
+                                "choices": {
+                                    "post": "post",
+                                    "page": "page",
+                                    "attachment": "attachment",
+                                    "revision": "revision",
+                                    "nav_menu_item": "nav_menu_item",
+                                    "custom_css": "custom_css",
+                                    "customize_changeset": "customize_changeset",
+                                    "oembed_cache": "oembed_cache",
+                                    "user_request": "user_request",
+                                    "wp_block": "wp_block",
+                                    "article": "article",
+                                    "youtube": "youtube",
+                                    "asp-products": "asp-products",
+                                    "stripe_order": "stripe_order",
+                                    "acf-field-group": "acf-field-group",
+                                    "acf-field": "acf-field",
+                                    "mobilepages": "mobilepages",
+                                    "tbk_service": "tbk_service",
+                                    "tbk_form": "tbk_form",
+                                    "tbk_email_template": "tbk_email_template",
+                                    "vc_grid_item": "vc_grid_item",
+                                    "asp_coupons": "asp_coupons",
+                                    "af_form": "af_form",
+                                    "af_entry": "af_entry",
+                                    "vc4_templates": "vc4_templates"
+                                },
+                                "default_value": [],
+                                "allow_null": 0,
+                                "multiple": 0,
+                                "ui": 0,
+                                "return_format": "value",
+                                "ajax": 0,
+                                "placeholder": ""
+                            },
+                            {
+                                "key": "field_5ea05cf7c23b6",
+                                "label": "Import Taxonomy Type",
+                                "name": "yt_import_taxonomy_type",
+                                "type": "select",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "40",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "hide_admin": 0,
+                                "choices": {
+                                    "category": "category",
+                                    "post_tag": "post_tag",
+                                    "nav_menu": "nav_menu",
+                                    "link_category": "link_category",
+                                    "post_format": "post_format",
+                                    "articlecategory": "articlecategory",
+                                    "articletags": "articletags",
+                                    "classschema": "classschema",
+                                    "scrapercategory": "scrapercategory"
+                                },
+                                "default_value": [],
+                                "allow_null": 0,
+                                "multiple": 0,
+                                "ui": 0,
+                                "return_format": "value",
+                                "ajax": 0,
+                                "placeholder": ""
+                            }
+                        ]
+                    },
+                    {
+                        "key": "field_5eb523be314f7",
+                        "label": "🐞Import Report",
+                        "name": "",
+                        "type": "tab",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "hide_admin": 0,
+                        "placement": "top",
+                        "endpoint": 0
+                    },
+                    {
+                        "key": "field_5eaa7976b69ac",
+                        "label": "Import Report",
+                        "name": "yt_debug_import",
+                        "type": "textarea",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "100",
+                            "class": "",
+                            "id": ""
+                        },
+                        "hide_admin": 0,
+                        "default_value": "",
+                        "placeholder": "",
+                        "maxlength": "",
+                        "rows": 20,
+                        "new_lines": ""
+                    }
+                ]
+            },
+            {
+                "key": "field_5ead15bd2b61f",
+                "label": "⏱Schedule",
+                "name": "",
+                "type": "tab",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "hide_admin": 0,
+                "placement": "top",
+                "endpoint": 0
+            },
+            {
+                "key": "field_5ead16a22b620",
+                "label": "Schedule Instance",
+                "name": "yt_schedule_instance",
+                "type": "repeater",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "hide_admin": 0,
+                "collapsed": "field_5ead16ce2b621",
+                "min": 0,
+                "max": 0,
+                "layout": "block",
+                "button_label": "",
+                "sub_fields": [
+                    {
+                        "key": "field_5ead16ce2b621",
+                        "label": "Schedule ID",
+                        "name": "yt_schedule_id",
+                        "type": "text",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "",
+                            "id": ""
+                        },
+                        "hide_admin": 0,
+                        "default_value": "",
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": "",
+                        "maxlength": ""
+                    },
+                    {
+                        "key": "field_5ead17062b622",
+                        "label": "Schedule Starts",
+                        "name": "yt_schedule_starts",
+                        "type": "date_time_picker",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "30",
+                            "class": "",
+                            "id": ""
+                        },
+                        "hide_admin": 0,
+                        "display_format": "Y-m-d H:i:s",
+                        "return_format": "U",
+                        "first_day": 1
+                    },
+                    {
+                        "key": "field_5eabf3b15289e",
+                        "label": "Repeats",
+                        "name": "yt_schedule_repeat",
+                        "type": "select",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "20",
+                            "class": "",
+                            "id": ""
+                        },
+                        "hide_admin": 0,
+                        "choices": {
+                            "1min": "1 Minute",
+                            "2mins": "2 Minutes",
+                            "3mins": "3 Minutes",
+                            "5mins": "5 Minutes",
+                            "10mins": "10 Minutes",
+                            "30mins": "30 Minutes",
+                            "1hour": "1 Hour",
+                            "2hours": "2 Hours",
+                            "3hours": "3 Hours",
+                            "4hours": "4 Hours",
+                            "6hours": "6 Hours",
+                            "12hours": "12 Hours",
+                            "2days": "2 days",
+                            "3days": "3 days",
+                            "1week": "1 week",
+                            "2weeks": "2 weeks",
+                            "4weeks": "4 weeks",
+                            "1month": "1 month",
+                            "3months": "3 months",
+                            "weekly": "Once Weekly",
+                            "wp_fetch_search_console_data_cron_interval": "Every 5 Minutes",
+                            "wp_convert_yoast_blocks_cron_interval": "Every 5 Minutes",
+                            "hourly": "Once Hourly",
+                            "twicedaily": "Twice Daily",
+                            "daily": "Once Daily",
+                            "none": "None"
+                        },
+                        "default_value": [],
+                        "allow_null": 0,
+                        "multiple": 0,
+                        "ui": 0,
+                        "return_format": "value",
+                        "ajax": 0,
+                        "placeholder": ""
+                    }
+                ]
+            },
+            {
+                "key": "field_5eaed53f25def",
+                "label": "🧹Housekeep",
+                "name": "",
+                "type": "tab",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "hide_admin": 0,
+                "placement": "top",
+                "endpoint": 0
+            },
+            {
+                "key": "field_5eb523d5314f8",
+                "label": "Housekeep Group",
+                "name": "yt_housekeep_group",
+                "type": "group",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "hide_admin": 0,
+                "layout": "block",
+                "sub_fields": [
+                    {
+                        "key": "field_5eb57707de879",
+                        "label": "🧹Housekeep",
+                        "name": "",
+                        "type": "tab",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "hide_admin": 0,
+                        "placement": "top",
+                        "endpoint": 0
+                    },
+                    {
+                        "key": "field_5eaed55b25df0",
+                        "label": "Housekeep instance",
+                        "name": "yt_housekeep_instance",
+                        "type": "repeater",
+                        "instructions": "<a href=\"https:\/\/developer.wordpress.org\/reference\/classes\/WP_Query\/parse_query\/\" target=\"_blank\" >WP_Query parse_query<\/a>",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "hide_admin": 0,
+                        "collapsed": "field_5eaed58625df1",
+                        "min": 0,
+                        "max": 0,
+                        "layout": "block",
+                        "button_label": "",
+                        "sub_fields": [
+                            {
+                                "key": "field_5eaed5d325df4",
+                                "label": "Enabled",
+                                "name": "yt_housekeep_enabled",
+                                "type": "true_false",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "11",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "hide_admin": 0,
+                                "message": "",
+                                "default_value": 0,
+                                "ui": 1,
+                                "ui_on_text": "",
+                                "ui_off_text": ""
+                            },
+                            {
+                                "key": "field_5eaed58625df1",
+                                "label": "Housekeep ID",
+                                "name": "yt_housekeep_id",
+                                "type": "text",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "19",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "hide_admin": 0,
+                                "default_value": "",
+                                "placeholder": "",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": ""
+                            },
+                            {
+                                "key": "field_5eaed5bf25df3",
+                                "label": "Action",
+                                "name": "yt_housekeep_action",
+                                "type": "select",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "20",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "hide_admin": 0,
+                                "choices": {
+                                    "none": "None",
+                                    "bin_posts": "Bin Posts",
+                                    "delete_posts": "Delete Posts",
+                                    "bin_all": "Bin Posts & Images",
+                                    "delete_all": "Delete Posts & Images"
+                                },
+                                "default_value": [],
+                                "allow_null": 0,
+                                "multiple": 0,
+                                "ui": 1,
+                                "ajax": 0,
+                                "return_format": "value",
+                                "placeholder": ""
+                            },
+                            {
+                                "key": "field_5ebcddc7618b6",
+                                "label": "When to Run",
+                                "name": "yt_housekeep_when",
+                                "type": "select",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "20",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "hide_admin": 0,
+                                "choices": {
+                                    "after": "After Scrape",
+                                    "before": "Before Scrape"
+                                },
+                                "default_value": [
+                                    "after"
+                                ],
+                                "allow_null": 0,
+                                "multiple": 0,
+                                "ui": 1,
+                                "ajax": 0,
+                                "return_format": "value",
+                                "placeholder": ""
+                            },
+                            {
+                                "key": "field_5eaed5a025df2",
+                                "label": "WP_Query",
+                                "name": "yt_housekeep_query",
+                                "type": "textarea",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "30",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "hide_admin": 0,
+                                "default_value": "",
+                                "placeholder": "",
+                                "maxlength": "",
+                                "rows": "",
+                                "new_lines": ""
+                            }
+                        ]
+                    },
+                    {
+                        "key": "field_5eb523ee314f9",
+                        "label": "🐞Housekeep Report",
+                        "name": "",
+                        "type": "tab",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "hide_admin": 0,
+                        "placement": "top",
+                        "endpoint": 0
+                    },
+                    {
+                        "key": "field_5eaede8dcb4a1",
+                        "label": "Housekeep Report",
+                        "name": "yt_debug_housekeep",
+                        "type": "textarea",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "100",
+                            "class": "",
+                            "id": ""
+                        },
+                        "hide_admin": 0,
+                        "default_value": "",
+                        "placeholder": "",
+                        "maxlength": "",
+                        "rows": 20,
+                        "new_lines": ""
+                    }
+                ]
+            },
+            {
+                "key": "field_5ea6b0d0570f2",
+                "label": "🐛Debug",
+                "name": "",
+                "type": "tab",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "hide_admin": 0,
+                "placement": "top",
+                "endpoint": 0
+            },
+            {
+                "key": "field_5ea6b0e2570f3",
+                "label": "",
+                "name": "yt_debug",
+                "type": "textarea",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "hide_admin": 0,
+                "default_value": "",
+                "placeholder": "",
+                "maxlength": "",
+                "rows": 40,
+                "new_lines": ""
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "options_page",
+                    "operator": "==",
+                    "value": "youtube_scraper"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": ""
+    }
+]

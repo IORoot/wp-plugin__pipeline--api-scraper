@@ -7,9 +7,9 @@ class api
 
     /**
      * $substitutions
-     * 
-     * This contains ALL of the substitutions available to the scraper. Use  
-     * these as a lookup to the one you wish to perform. 
+     *
+     * This contains ALL of the substitutions available to the scraper. Use
+     * these as a lookup to the one you wish to perform.
      *
      * @var undefined
      */
@@ -17,21 +17,21 @@ class api
 
     /**
      * $config
-     * 
-     * An Associative Array that contains the configuration settings on the API 
+     *
+     * An Associative Array that contains the configuration settings on the API
      * scraper. Three settings are used  to control the scrape:
-     * 
-     * api_key 
-     * At the moment, this is only used for the Youtube scrape and is appended 
+     *
+     * api_key
+     * At the moment, this is only used for the Youtube scrape and is appended
      * to the query string.
-     * 
+     *
      * query_string
-     * This is the search query that is passed to the YouTube endpoint for 
+     * This is the search query that is passed to the YouTube endpoint for
      * processing.
-     * 
+     *
      * extra_parameters
-     * These are used to control various aspects of the particular scrape 
-     * selected. For instance, if the multi-channel scrape is selected, this 
+     * These are used to control various aspects of the particular scrape
+     * selected. For instance, if the multi-channel scrape is selected, this
      * would be a list of all those channels to loop through.
      *
      * @var array
@@ -44,8 +44,8 @@ class api
 
     /**
      * $search_config
-     * 
-     * The search config holds the specific details of which scrape to perform 
+     *
+     * The search config holds the specific details of which scrape to perform
      * on which particular API. The array will contain the following structure:
      * [
      *      'yt_search_id' => "YouTube - Daily Top 3",
@@ -65,8 +65,8 @@ class api
 
     /**
      * __construct
-     * 
-     * Thes constructor will clear the report log and return an instance of the 
+     *
+     * Thes constructor will clear the report log and return an instance of the
      * object.
      *
      * @return \yt\api
@@ -80,9 +80,9 @@ class api
 
     /**
      * set_api_key
-     * 
+     *
      * Primarily used for YouTube, the api_key is separate from the query string
-     * to maintain security. Means that we can store it in a separate textfield 
+     * to maintain security. Means that we can store it in a separate textfield
      * that is not exported / imported and can be made a password type field.
      *
      * @param mixed $api_key
@@ -99,12 +99,12 @@ class api
 
     /**
      * set_substitutions() function
-     * 
+     *
      * Allow the scraper to pass through all of the substitutions that the user
      * has created in the options.
      *
-     * TODO - Maybe it SHOULD be null? 
-     * 
+     * TODO - Maybe it SHOULD be null?
+     *
      * @param [type] $substitutions
      * @return void
      */
@@ -119,7 +119,7 @@ class api
 
     /**
      * set_search_config()
-     * 
+     *
      * Allows the scraper to pass in the search configuration for the API.
      *
      * @param array $search_config
@@ -134,11 +134,30 @@ class api
         return;
     }
 
-
+    /**
+     * run() function
+     *
+     *
+     *
+     * @return void
+     */
     public function run()
     {
         $this->config_extra_parameters();
         $this->config_query();
+
+        if (!$this->check_input($this->search_config['yt_search_api'])) {
+            return;
+        };
+        if (!$this->check_input($this->search_config['yt_search_type'])) {
+            return;
+        };
+        if (!$this->check_input($this->config['api_key'])) {
+            return;
+        };
+        if (!$this->check_input($this->config['query_string'])) {
+            return;
+        };
 
         $request_type = '\\yt\\'.$this->search_config['yt_search_api'].'\\request\\'.$this->search_config['yt_search_type'];
         
@@ -154,23 +173,37 @@ class api
 
     /**
      * config_extra_parameters()
-     * 
-     * This function will take the inputted textarea string that users can add 
-     * in the 'extra parameters' field and parse it to become an associative
-     * array of keys and values. 
      *
-     * @return \yt\api 
+     * This function will take the inputted textarea string that users can add
+     * in the 'extra parameters' field and parse it to become an associative
+     * array of keys and values.
+     *
+     * @return \yt\api
      */
     public function config_extra_parameters()
     {
+        if (!isset($this->search_config['yt_search_parameters'])) {
+            return $this;
+        }
         $this->config['extra_parameters'] = $this->string_to_array($this->search_config['yt_search_parameters']);
         return $this;
     }
 
 
-
+    /**
+     * config_query()
+     *
+     * This function will rewrite the query_string with any substitutions or
+     * tokens that is within it. The [[substitutions]] and {{tokens}} are used
+     * to embed more complex pieces of data.
+     *
+     * @return void
+     */
     public function config_query()
     {
+        if (!isset($this->search_config['yt_search_string'])) {
+            return $this;
+        }
         $string = $this->replace_any_substitutions($this->search_config['yt_search_string']);
         $string = $this->replace_any_tokens($string);
         (new e)->line('- Final Query string = '.$string, 1);
@@ -179,7 +212,16 @@ class api
     }
 
 
-
+    /**
+     * string_to_array() function
+     *
+     * Will take a string interpretation of an associative array and convert it
+     * to an actual array. This allows you to input arrays into the options
+     * textboxes on the front end.
+     *
+     * @param [type] $parameters
+     * @return void
+     */
     public function string_to_array($parameters)
     {
         $string = preg_replace("/\r|\n/", "", $parameters);
@@ -187,9 +229,28 @@ class api
     }
 
 
+    /**
+     * replace_any_substitutions function
+     *
+     * Allows the user to input some substitutions and they will automatically
+     * replaced with their longer versions. Good for blacklist words on the
+     * query string line. Uses the passed in $this->substitutions to check for
+     * any substitutions the user has made.
+     *
+     * @param [type] $string
+     * @return void
+     */
     public function replace_any_substitutions($string)
     {
         preg_match_all('/\[\[(.*?)\]\]/', $string, $matches, PREG_SET_ORDER);
+
+        if (!$matches) {
+            return $string;
+        }
+        if (!isset($this->substitutions)) {
+            return $string;
+        }
+
         (new e)->line('- Found '.count($matches) . ' substitution matches in string '.$string, 1);
 
         foreach ($matches as $match) {
@@ -205,10 +266,34 @@ class api
         return $string;
     }
 
-
+    /**
+     * replace_any_tokens() function
+     *
+     * A little bit more complex than simple substitutions, the tokens allow for
+     * some actual computation on values in the query string. The 'DATE' is the
+     * prime example here.
+     * More often than not, you will require a relative date to the time right
+     * now. Say, one week ago from now. This allows you to put on the query line
+     * a query that says "Show me all results no older that one week ago".
+     * The only way to do that is by passing in the ?publishedAfter=ATOMDATE on
+     * the query string. To work out the ATOMDATE of one week ago, you can use
+     * the {{date=-7 days}} token.
+     * The tokens available are in the 'tokens' subdirectory and will take
+     * various inputs and config.
+     * This method, however, searches for those token names and runs them to
+     * substitute the token wil the result.
+     *
+     * @param [type] $string
+     * @return void
+     */
     public function replace_any_tokens($string)
     {
         preg_match_all('/\{\{(.*?)\=(.*?)\}\}/', $string, $matches, PREG_SET_ORDER);
+
+        if (!$matches) {
+            return $string;
+        }
+
         (new e)->line('- Found '.count($matches) . ' token matches in string '.$string, 1);
 
         foreach ($matches as $match) {
@@ -237,9 +322,21 @@ class api
     // └─────────────────────────────────────────────────────────────────────────┘░
     //  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-
-    public function check_input($input)
+    /**
+     * check_input() function
+     *
+     * Validates any input into the setter methods. Useful for filtering out any
+     * empty, null or no values.
+     *
+     * @param [type] $input
+     * @return void
+     */
+    public function check_input($input = null)
     {
+        if (!isset($input)) {
+            (new e)->line('- Input has not been set.', 1);
+            return false;
+        }
         if (!$input) {
             (new e)->line('- Input has not been set.', 1);
             return false;

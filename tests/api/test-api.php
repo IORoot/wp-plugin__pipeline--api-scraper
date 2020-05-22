@@ -299,6 +299,49 @@ class apiTest extends WP_UnitTestCase {
     // ┌─────────────────────────────────────────────────────────────────────────┐ 
     // │                                                                         │░
     // │                                                                         │░
+    // │                            run() method                                 │░
+    // │                                                                         │░
+    // │                                                                         │░
+    // └─────────────────────────────────────────────────────────────────────────┘░
+    //  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+
+    /** 
+	 * @test
+	 */
+	public function test_run_method_can_be_called() {
+
+        $expect = '';
+
+        $actual = $this->instance->run();
+
+		$this->assertEquals($actual, $expect);
+    }
+
+    /** 
+	 * @test
+	 */
+	public function test_run_method_cannot_be_called_without_config() {
+
+        // Setup
+        $search_config = [
+            'yt_search_api' => "youtube",
+            'yt_search_type' => "search",
+        ];
+        $this->instance->set_search_config($search_config);
+
+
+
+        $expect = '';
+
+        $actual = $this->instance->run();
+
+		$this->assertEquals($actual, $expect);
+    }
+
+
+    // ┌─────────────────────────────────────────────────────────────────────────┐ 
+    // │                                                                         │░
+    // │                                                                         │░
     // │                   config_extra_parameters() method                      │░
     // │                                                                         │░
     // │                                                                         │░
@@ -338,4 +381,199 @@ class apiTest extends WP_UnitTestCase {
 
 		$this->assertEquals($actual, $expect);
     }
+
+    /** 
+	 * @test
+	 */
+	public function test_configExtraParameters_handles_null() {
+
+        $expect = false;
+        
+        // Define the extra search parameters
+        $extra_parameter_string = null;
+
+        // Set the parameters into the api object.
+        $this->instance->set_search_config($extra_parameter_string);
+
+        // Run the function
+        $this->instance->config_extra_parameters();
+
+        // get the result
+        $actual = $this->instance->config['extra_parameters'];
+
+		$this->assertEquals($actual, $expect);
+    }
+
+    // ┌─────────────────────────────────────────────────────────────────────────┐ 
+    // │                                                                         │░
+    // │                                                                         │░
+    // │                        config_query() method                            │░
+    // │                                                                         │░
+    // │                                                                         │░
+    // └─────────────────────────────────────────────────────────────────────────┘░
+    //  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+
+    /** 
+	 * @test
+	 */
+	public function test_configQuery_returns_object_instance() {
+
+        $actual = $this->instance->config_query();
+
+		$this->assertIsObject($actual);
+    }
+
+
+    // ┌─────────────────────────────────────────────────────────────────────────┐ 
+    // │                                                                         │░
+    // │                                                                         │░
+    // │                        string_to_array() method                         │░
+    // │                                                                         │░
+    // │                                                                         │░
+    // └─────────────────────────────────────────────────────────────────────────┘░
+    //  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+
+    /** 
+	 * @test
+	 */
+	public function test_stringToArray_returns_array() {
+
+        $expect = [
+            'key1' => 'value1',
+            'key2' => 'value2'
+        ];
+
+        $input = "[
+            'key1' => 'value1', 
+            'key2' => 'value2'
+        ]";
+
+        $actual = $this->instance->string_to_array($input);
+
+		$this->assertEquals($actual, $expect);
+    }
+
+    //  ┌─────────────────────────────────────────────────────────────────────────┐
+    //  │                                                                         │░
+    //  │                                                                         │░
+    //  │                     replace_any_substitutions()                         │░
+    //  │                                                                         │░
+    //  │                                                                         │░
+    //  └─────────────────────────────────────────────────────────────────────────┘░
+    //   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+
+    /** 
+	 * @test
+	 */
+	public function test_configQuery_replaces_substitutions() {
+
+        //setup a substitution.
+        $this->instance->set_substitutions(
+            [
+                0 => [ 
+                    "yt_search_substitutions_word" => "test",
+                    "yt_search_substitutions_replace" => "test_substitutions"
+                ]
+            ]
+        );
+
+        $expected = 'sub=test_substitutions';
+
+        $this->instance->set_search_config([ 'yt_search_string' => "sub=[[test]]" ]);
+
+        $this->instance->config_query();
+
+        $actual = $this->instance->config['query_string'];
+
+		$this->assertEquals($actual, $expected);
+    }
+
+
+    //  ┌─────────────────────────────────────────────────────────────────────────┐
+    //  │                                                                         │░
+    //  │                                                                         │░
+    //  │                          replace_any_tokens()                           │░
+    //  │                                                                         │░
+    //  │                                                                         │░
+    //  └─────────────────────────────────────────────────────────────────────────┘░
+    //   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+
+    /** 
+	 * @test
+	 */
+	public function test_configQuery_replaces_date_tokens() {
+
+        // URL_ENCODED ATOM TIME
+        $expected = 'timedate=2008-08-07T00%3A00%3A00%2B01%3A00';
+
+        $this->instance->set_search_config([ 'yt_search_string' => "timedate={{date=2008-08-07}}"]);
+
+        $this->instance->config_query();
+
+        $actual = $this->instance->config['query_string'];
+
+		$this->assertEquals($actual, $expected);
+    }
+
+    //  ┌─────────────────────────────────────────────────────────────────────────┐
+    //  │                                                                         │░
+    //  │                                                                         │░
+    //  │                                check_input()                            │░
+    //  │                                                                         │░
+    //  │                                                                         │░
+    //  └─────────────────────────────────────────────────────────────────────────┘░
+    //   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+
+    /** 
+	 * @test
+	 */
+	public function test_checkInput_for_good_data() {
+
+        // URL_ENCODED ATOM TIME
+        $expected = true;
+
+        $actual = $this->instance->check_input('testinput');
+
+		$this->assertEquals($actual, $expected);
+    }
+
+    /** 
+	 * @test
+	 */
+	public function test_checkInput_for_empty_data() {
+
+        // URL_ENCODED ATOM TIME
+        $expected = false;
+
+        $actual = $this->instance->check_input('');
+
+		$this->assertEquals($actual, $expected);
+    }
+
+    /** 
+	 * @test
+	 */
+	public function test_checkInput_for_null_data() {
+
+        // URL_ENCODED ATOM TIME
+        $expected = false;
+
+        $actual = $this->instance->check_input(null);
+
+		$this->assertEquals($actual, $expected);
+    }
+
+    /** 
+	 * @test
+	 */
+	public function test_checkInput_for_no_data() {
+
+        // URL_ENCODED ATOM TIME
+        $expected = false;
+
+        $actual = $this->instance->check_input();
+
+		$this->assertEquals($actual, $expected);
+    }
+
 }
