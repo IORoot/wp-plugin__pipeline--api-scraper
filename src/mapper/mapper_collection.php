@@ -86,7 +86,8 @@ class mapper_collection
             return;
         }
 
-        $this->mapped_result[] = $result;
+        array_push($this->mapped_result, $result);
+       // $this->mapped_result[] = $result;
 
         return;
     }
