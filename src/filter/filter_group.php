@@ -48,7 +48,7 @@ class filter_group
             return $this->collection;
         }
 
-        (new e)->line('- Filtered Rows : ' . count($this->collection), 1);
+        (new e)->line('- Filtered Rows : ' . count($this->collection->items), 1);
 
         return $this->collection;
     }
