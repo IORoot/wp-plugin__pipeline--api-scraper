@@ -86,8 +86,12 @@ class mapper_collection
             return;
         }
 
+        if (is_string($result)) {
+            error_log("string = ". $result);
+            return;
+        }
+
         array_push($this->mapped_result, $result);
-       // $this->mapped_result[] = $result;
 
         return;
     }
