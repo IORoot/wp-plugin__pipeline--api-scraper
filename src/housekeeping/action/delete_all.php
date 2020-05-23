@@ -31,6 +31,9 @@ class delete_all implements housekeepInterface{
 
     public function run()
     {
+        if (!isset($this->post_list)){
+            return;
+        }
         foreach($this->post_list as $post)
         {
             $this->delete_image($post->ID);
@@ -45,6 +48,10 @@ class delete_all implements housekeepInterface{
      */
     public function result()
     {
+        if (!isset($this->post_list)){
+            (new \yt\r)->last('housekeep', 'Category empty, skipping.');
+            return;
+        }
         (new \yt\r)->last('housekeep', 'Will delete ' . count($this->post_list) . ' posts (and attachments).'); 
         (new \yt\r)->last('housekeep', 'Response : ' . count($this->response) . ' deleted. (Post objects and Image objects).'); 
         return;
@@ -53,6 +60,9 @@ class delete_all implements housekeepInterface{
 
     public function post_list()
     {
+        if (!isset($this->query)){
+            return;
+        }
         $this->post_list = get_posts($this->query);
     }
 

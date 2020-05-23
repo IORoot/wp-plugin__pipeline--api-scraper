@@ -31,7 +31,9 @@ class delete_posts implements housekeepInterface{
 
     public function run()
     {
-        
+        if (!isset($this->post_list)){
+            return;
+        }
         foreach($this->post_list as $post)
         {
             $this->response[] = wp_delete_post( $post->ID, true);
@@ -46,6 +48,10 @@ class delete_posts implements housekeepInterface{
     public function result()
     {
         (new \yt\r)->clear('housekeep');
+        if (!isset($this->post_list)){
+            (new \yt\r)->last('housekeep', 'Category empty, skipping.');
+            return;
+        }
         (new \yt\r)->last('housekeep', 'Will delete ' . count($this->post_list) . ' records.'); 
         (new \yt\r)->last('housekeep', 'Response : ' . count($this->response) . ' deleted.'); 
         return ;
@@ -54,6 +60,9 @@ class delete_posts implements housekeepInterface{
 
     public function post_list()
     {
+        if (!isset($this->query)){
+            return;
+        }
         $this->post_list = get_posts($this->query);
     }
 
