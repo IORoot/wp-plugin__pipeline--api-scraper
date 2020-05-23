@@ -9,6 +9,7 @@ class options
     public $filter;
     public $transform;
     public $schedule;
+    public $housekeep;
 
     public $auth;
     public $mapper;
@@ -34,22 +35,25 @@ class options
         $this->get_repeater_options('yt_auth_instance', 'auth');
 
         // search
-        $this->get_repeater_options('yt_search_instance', 'search');
+        $this->get_repeater_options('yt_search_group_yt_search_instance', 'search');
 
         // search substitutions
-        $this->get_repeater_options('yt_search_substitutions', 'substitutions');
-
-        // mapper
-        $this->get_repeater_options('yt_mapper_instance', 'mapper');
-
-        // import
-        $this->get_repeater_options('yt_import_instance', 'import');
+        $this->get_repeater_options('yt_search_group_yt_search_substitutions', 'substitutions');
 
         // filters
-        $this->get_repeater_options('yt_filter_instance', 'filter');
+        $this->get_repeater_options('yt_filter_group_yt_filter_instance', 'filter');
+
+        // mapper
+        $this->get_repeater_options('yt_mapper_group_yt_mapper_instance', 'mapper');
 
         // transforms
-        $this->get_repeater_options('yt_transform_instance', 'transform');
+        $this->get_repeater_options('yt_mapper_group_yt_transform_instance', 'transform');
+
+        // import
+        $this->get_repeater_options('yt_import_group_yt_import_instance', 'import');
+
+        // import
+        $this->get_repeater_options('yt_housekeep_group_yt_housekeep_instance', 'housekeep');
 
         // schedule
         $this->get_repeater_options('yt_schedule_instance', 'schedule');
@@ -95,16 +99,19 @@ class options
 
     public function process_scrape_instance($id, $scrape_instance)
     {
+
         foreach ($scrape_instance as $field_name => $field_value) {
-            if ($field_name == 'yt_scrape_enabled') {
-                continue;
-            }
-            if ($field_name == 'yt_scrape_id') {
+
+            if ($field_name == 'yt_scrape_group') {
                 continue;
             }
 
             $this->process_scrape_field($field_name, $field_value, $id);
         }
+    }
+
+    public function process_scrape_enable_and_id(){
+        
     }
 
 

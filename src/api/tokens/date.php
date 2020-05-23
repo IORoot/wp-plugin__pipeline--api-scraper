@@ -21,6 +21,11 @@ class date implements tokenInterface
 
     public function out(){
 
+        /**
+         * https://www.php.net/manual/en/datetime.formats.php
+         * 
+         * DateTime('first day of this month') will work.
+         */
         $DT = new \DateTime($this->config);
         $out = $DT->format(\DateTime::ATOM);
         return urlencode($out);

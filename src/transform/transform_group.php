@@ -61,7 +61,7 @@ class transform_group
     public function get_transform_layers()
     {
         $transforms = new option;
-        $all_transform_groups = $transforms->get_all('yt_transform_instance');
+        $all_transform_groups = $transforms->get_all('yt_mapper_group_yt_transform_instance');
 
         foreach ($all_transform_groups as $transform_group)
         {

@@ -27,8 +27,18 @@ class best_image implements transformInterface
     public function out()
     {
         $last = end($this->input);
-        return $last->url;
 
+        if (isset($last->url))
+        {
+            return $last->url;
+        }
+
+        if (isset($last->src))
+        {
+            return $last->src;
+        }
+        
+        return 'URL/SRC NOT FOUND IN SELECTED LOCATION.';
     }
 
 }

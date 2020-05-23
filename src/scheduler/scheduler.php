@@ -93,11 +93,6 @@ class scheduler
 
 
 
-
-
-
-
-
     public function add_schedule($args)
     {
         // remove old instance
@@ -105,7 +100,9 @@ class scheduler
 
         // update with new one.
         // NOTE: $args MUST be an array.
-        wp_schedule_event($this->schedule_time, $this->schedule_repeat, 'yt_run_scraper', $args);
+        $result = wp_schedule_event($this->schedule_time, $this->schedule_repeat, 'yt_run_scraper', $args);
+
+        
     }
 
 

@@ -1,53 +1,63 @@
-<?php 
+<?php
 
 namespace yt;
 
 use yt\option;
 
-class housekeep {
-
+class housekeep
+{
     public $options;
 
     public $_key;
 
     public $result;
 
+    public $when;
+
     public function __construct()
     {
-        $this->get_options();
-        $this->run();
-
+        (new \yt\r)->clear('housekeep');
         return $this;
     }
 
-    public function get_options()
+
+    public function set_options($options)
     {
-        $op = new option;
-        $op->get_all('yt_housekeep_instance');
-        $this->options = $op->returned;
+        $this->options = $options;
     }
 
+    public function set_when($when)
+    {
+        $this->when = $when;
+    }
 
     public function run()
     {
-        foreach ($this->options as $this->_key => $hk_instance)
-        {
-            $this->instantiate_instance($hk_instance);
+        if ($this->options == 'none') {
+            return;
         }
+        if (!isset($this->options)) {
+            return;
+        }
+        if ($this->options['yt_housekeep_enabled'] == false) {
+            return;
+        }
+        if (!isset($this->when)) {
+            return;
+        }
+        if ($this->when != $this->options['yt_housekeep_when']) {
+            return;
+        }
+
+        $this->instantiate_instance();
     }
 
-    public function instantiate_instance($hk_instance)
+    public function instantiate_instance()
     {
-        $instance_type = '\\yt\\housekeep\\'.$hk_instance['yt_housekeep_action'];
+        $instance_type = '\\yt\\housekeep\\'.$this->options['yt_housekeep_action'];
         $housekeep = new $instance_type;
-        $housekeep->wp_query($hk_instance['yt_housekeep_query']);
-
-        if ($hk_instance['yt_housekeep_enabled']) {
-            $housekeep->run();
-        }
-
-        $this->result[$instance_type] = $housekeep->result();
+        $housekeep->wp_query($this->options['yt_housekeep_query']);
+        $housekeep->run();
+        $housekeep->result();
     }
-
-    
 }
