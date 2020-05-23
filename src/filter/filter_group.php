@@ -42,6 +42,11 @@ class filter_group
             (new e)->line('- Filtered Rows : empty', 1);
             return $this->collection;
         }
+        
+        if (!isset($this->collection)){
+            (new e)->line('- Filtered Rows : not set', 1);
+            return $this->collection;
+        }
 
         (new e)->line('- Filtered Rows : ' . count($this->collection), 1);
 
