@@ -31,7 +31,7 @@ class delete_posts implements housekeepInterface{
 
     public function run()
     {
-        if (!isset($this->post_list)){
+        if (empty($this->post_list)){
             return;
         }
         foreach($this->post_list as $post)
@@ -52,7 +52,7 @@ class delete_posts implements housekeepInterface{
             (new \yt\r)->last('housekeep', 'Category empty, skipping.');
             return;
         }
-        if (!is_array($this->post_list)){
+        if (empty($this->post_list)){
             (new \yt\r)->last('housekeep', 'Category not an array, skipping.');
             return;
         }
