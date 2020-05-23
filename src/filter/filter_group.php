@@ -37,6 +37,11 @@ class filter_group
         foreach ($this->filter_group['yt_filter_layers'] as $filter_layer) {
             $this->filter_item($filter_layer);
         }
+        
+        if (empty($this->collection)){
+            (new e)->line('- Filtered Rows : empty', 1);
+            return $this->collection;
+        }
 
         (new e)->line('- Filtered Rows : ' . count($this->collection), 1);
 
