@@ -27,7 +27,7 @@ class mapper_collection
 
     public $collection;
 
-    public $mapped_result;
+    public $mapped_result = array();
 
     public function __construct()
     {
@@ -62,7 +62,6 @@ class mapper_collection
 
     public function run()
     {
-        $this->mapped_result = '';
         
         foreach ($this->collection as $key => $item) {
             (new e)->line('- item : '.$key, 1);
@@ -85,12 +84,7 @@ class mapper_collection
         if (!is_array($result)) {
             return;
         }
-
-        if (is_string($result)) {
-            error_log("string = ". $result);
-            return;
-        }
-
+        
         array_push($this->mapped_result, $result);
 
         return;
