@@ -48,7 +48,7 @@ class yt_import_export
     public function admin_page()
     {
         $plugin_url = menu_page_url('acf-import-export', false);
-        $plugin_url = 'https://dev.londonparkour.com/wp-admin/edit.php?post_type=youtube&page=acf-import-export' ?>
+        $plugin_url = '/wp-admin/edit.php?post_type=youtube&page=acf-import-export' ?>
 		
 		<div class="wrap">
 			<h2><?php esc_html_e('YouTube Scrape options import/export', 'acfim-plugin'); ?></h2>
