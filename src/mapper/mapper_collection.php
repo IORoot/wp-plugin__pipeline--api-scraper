@@ -4,8 +4,7 @@ namespace yt;
 
 use yt\mapper_item;
 
-
-// ┌─────────────────────────────────────────────────────────────────────────┐ 
+// ┌─────────────────────────────────────────────────────────────────────────┐
 // │                                                                         │░
 // │                            MAPPER_COLLECTION                            │░
 // │                                                                         │░
@@ -66,7 +65,7 @@ class mapper_collection
         $this->mapped_result = '';
         
         foreach ($this->collection as $key => $item) {
-            (new e)->line('- item : '.$key,1);
+            (new e)->line('- item : '.$key, 1);
             $this->map_item($item);
         }
 
@@ -81,7 +80,13 @@ class mapper_collection
         $mapper_item->set_mappings($this->mappings);
         $mapper_item->set_source_item($item);
 
-        $this->mapped_result[] = $mapper_item->run();
+        $result = $mapper_item->run();
+
+        if (!is_array($result)) {
+            return;
+        }
+
+        $this->mapped_result[] = $result;
 
         return;
     }
