@@ -186,7 +186,7 @@ class yt_import_export
 
     public function delete_files()
     {
-        $files = glob($this->plugin_path . '/temp/*');
+        $files = glob($this->plugin_path . '/temp/options*');
 
         foreach ($files as $file) {
             if (is_file($file)) {
