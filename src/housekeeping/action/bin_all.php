@@ -34,7 +34,7 @@ class bin_all implements housekeepInterface{
         if (!isset($this->post_list)){
             return;
         }
-        
+
         foreach($this->post_list as $post)
         {
             $this->bin_image($post->ID);
@@ -52,6 +52,10 @@ class bin_all implements housekeepInterface{
         (new \yt\r)->clear('housekeep');
         if (!isset($this->post_list)){
             (new \yt\r)->last('housekeep', 'Category empty, skipping.');
+            return;
+        }
+        if (!is_array($this->post_list)){
+            (new \yt\r)->last('housekeep', 'Category not an array, skipping.');
             return;
         }
         (new \yt\r)->last('housekeep', 'Will bin ' . count($this->post_list) . ' post (and image attachments).'); 

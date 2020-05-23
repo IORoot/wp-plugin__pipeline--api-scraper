@@ -52,6 +52,11 @@ class delete_all implements housekeepInterface{
             (new \yt\r)->last('housekeep', 'Category empty, skipping.');
             return;
         }
+        if (!is_array($this->post_list)){
+            (new \yt\r)->last('housekeep', 'Category not an array, skipping.');
+            return;
+        }
+
         (new \yt\r)->last('housekeep', 'Will delete ' . count($this->post_list) . ' posts (and attachments).'); 
         (new \yt\r)->last('housekeep', 'Response : ' . count($this->response) . ' deleted. (Post objects and Image objects).'); 
         return;
