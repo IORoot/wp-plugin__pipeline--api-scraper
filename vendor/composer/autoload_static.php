@@ -48,6 +48,7 @@ class ComposerStaticInit30fd7ec9b8e2598fd2f686f91346eea7
         'yt\\itunes\\request\\podcast_episode' => __DIR__ . '/../..' . '/src/api/itunes/requests/podcast_episode.php',
         'yt\\itunes\\request\\podcast_group' => __DIR__ . '/../..' . '/src/api/itunes/requests/podcast_group.php',
         'yt\\itunes\\response' => __DIR__ . '/../..' . '/src/api/itunes/responses/responses.php',
+        'yt\\l' => __DIR__ . '/../..' . '/src/error/l.php',
         'yt\\mapper_collection' => __DIR__ . '/../..' . '/src/mapper/mapper_collection.php',
         'yt\\mapper_item' => __DIR__ . '/../..' . '/src/mapper/mapper_item.php',
         'yt\\option' => __DIR__ . '/../..' . '/src/acf/get_option.php',

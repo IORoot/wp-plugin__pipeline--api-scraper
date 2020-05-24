@@ -47,6 +47,7 @@ return array(
     'yt\\itunes\\request\\podcast_episode' => $baseDir . '/src/api/itunes/requests/podcast_episode.php',
     'yt\\itunes\\request\\podcast_group' => $baseDir . '/src/api/itunes/requests/podcast_group.php',
     'yt\\itunes\\response' => $baseDir . '/src/api/itunes/responses/responses.php',
+    'yt\\l' => $baseDir . '/src/error/l.php',
     'yt\\mapper_collection' => $baseDir . '/src/mapper/mapper_collection.php',
     'yt\\mapper_item' => $baseDir . '/src/mapper/mapper_item.php',
     'yt\\option' => $baseDir . '/src/acf/get_option.php',
