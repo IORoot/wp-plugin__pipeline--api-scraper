@@ -1,0 +1,649 @@
+[
+    {
+        "key": "group_5d7b5fa99dc5e",
+        "title": "API Scraper",
+        "fields": [
+            {
+                "key": "field_5d8642cfc7e4f",
+                "label": "Scraper Shortcodes",
+                "name": "",
+                "type": "tab",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "placement": "top",
+                "endpoint": 0
+            },
+            {
+                "key": "field_5d7b66e3ded2d",
+                "label": "API Scrape Instance",
+                "name": "scrape_instance",
+                "type": "repeater",
+                "instructions": "Create a shortcode that you can then use to output the contents of the API scrape.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "collapsed": "field_5d7b696e949ae",
+                "min": 0,
+                "max": 0,
+                "layout": "block",
+                "button_label": "New Instance",
+                "sub_fields": [
+                    {
+                        "key": "field_5d7b696e949ae",
+                        "label": "Instance Slug",
+                        "name": "instance_slug",
+                        "type": "text",
+                        "instructions": "",
+                        "required": 1,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "100",
+                            "class": "mediascraper__lightgrey",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": "",
+                        "maxlength": ""
+                    },
+                    {
+                        "key": "field_5d7b6985949af",
+                        "label": "Instance Description",
+                        "name": "instance_description",
+                        "type": "textarea",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "100",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": "",
+                        "maxlength": "",
+                        "rows": 5,
+                        "new_lines": ""
+                    },
+                    {
+                        "key": "field_5d7b670dded2e",
+                        "label": "API Type",
+                        "name": "api_type",
+                        "type": "select",
+                        "instructions": "API to use.",
+                        "required": 1,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "10",
+                            "class": "mediascraper__red",
+                            "id": ""
+                        },
+                        "choices": {
+                            "Instagram": "Instagram",
+                            "YouTube": "YouTube"
+                        },
+                        "default_value": [],
+                        "allow_null": 0,
+                        "multiple": 0,
+                        "ui": 1,
+                        "ajax": 0,
+                        "return_format": "value",
+                        "placeholder": ""
+                    },
+                    {
+                        "key": "field_5d7b689cded38",
+                        "label": "API username \/ Key Name",
+                        "name": "api_username",
+                        "type": "text",
+                        "instructions": "API Username or Identifier",
+                        "required": 1,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "20",
+                            "class": "mediascraper__red",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": "",
+                        "maxlength": ""
+                    },
+                    {
+                        "key": "field_5d7b68added39",
+                        "label": "API password \/ Key",
+                        "name": "api_password",
+                        "type": "password",
+                        "instructions": "Password or API Secret Key.",
+                        "required": 1,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "30",
+                            "class": "mediascraper__red",
+                            "id": ""
+                        },
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": ""
+                    },
+                    {
+                        "key": "field_5d7bb9b76c6a9",
+                        "label": "Request Script",
+                        "name": "request_script",
+                        "type": "text",
+                        "instructions": "\/src\/getters\/[api]\/requests\/",
+                        "required": 1,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "40",
+                            "class": "mediascraper__red",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": "",
+                        "maxlength": ""
+                    },
+                    {
+                        "key": "field_5d7e8c6beb4ae",
+                        "label": "Default Request Parameter (CSV)",
+                        "name": "request_params",
+                        "type": "text",
+                        "instructions": "Default request parameter(s). Separated by commas.",
+                        "required": 1,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "100",
+                            "class": "mediascraper__red",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": "",
+                        "maxlength": ""
+                    },
+                    {
+                        "key": "field_5d7b6808ded35",
+                        "label": "Shortcode Container",
+                        "name": "shortcode_container",
+                        "type": "textarea",
+                        "instructions": "Wraps the items below.\r\nUse {{items}} to place where you want the items to be within your container.",
+                        "required": 1,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "{{items}}",
+                        "placeholder": "",
+                        "maxlength": "",
+                        "rows": "",
+                        "new_lines": ""
+                    },
+                    {
+                        "key": "field_5d7b682aded36",
+                        "label": "Shortcode Items",
+                        "name": "shortcode_items",
+                        "type": "textarea",
+                        "instructions": "Item Variables: {{username}}, {{avatar}}, {{title}}, {{description}}, {{url}}, {{date}}, {{comments}}, {{likes}}, {{smallimage}}, {{image}}, {{type}}, {{id}}, {{embed}}, {{index}}<br\/><br\/>\r\nArray Variables for use with identifying each item. 1,2,3... : {{count}}, {{iteration}}",
+                        "required": 1,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "",
+                            "id": ""
+                        },
+                        "hide_admin": 0,
+                        "default_value": "{{id}}",
+                        "placeholder": "",
+                        "maxlength": "",
+                        "rows": "",
+                        "new_lines": ""
+                    },
+                    {
+                        "key": "field_5d7b6b8ed8376",
+                        "label": "Result Limit",
+                        "name": "result_limit",
+                        "type": "text",
+                        "instructions": "# of results",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "10",
+                            "class": "mediascraper__green",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": "",
+                        "maxlength": ""
+                    },
+                    {
+                        "key": "field_5d7b684aded37",
+                        "label": "Transient Length",
+                        "name": "caching_length",
+                        "type": "number",
+                        "instructions": "1hr:3600, 24h:86400",
+                        "required": 1,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "20",
+                            "class": "mediascraper__blue",
+                            "id": ""
+                        },
+                        "default_value": 43200,
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": "",
+                        "min": "",
+                        "max": "",
+                        "step": ""
+                    },
+                    {
+                        "key": "field_5d88b36fe4330",
+                        "label": "Allow $_GET Params",
+                        "name": "allow_get_params",
+                        "type": "true_false",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "20",
+                            "class": "mediascraper__black",
+                            "id": ""
+                        },
+                        "message": "",
+                        "default_value": 0,
+                        "ui": 0,
+                        "ui_on_text": "",
+                        "ui_off_text": ""
+                    },
+                    {
+                        "key": "field_5d9359415b001",
+                        "label": "Filters",
+                        "name": "filters_scripts",
+                        "type": "repeater",
+                        "instructions": "Things to do to the results of the API call.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "collapsed": "",
+                        "min": 0,
+                        "max": 0,
+                        "layout": "table",
+                        "button_label": "",
+                        "sub_fields": [
+                            {
+                                "key": "field_5d9361b75b002",
+                                "label": "filter name",
+                                "name": "filter_name",
+                                "type": "select",
+                                "instructions": "Select which filters you want to apply to the results.",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "choices": {
+                                    "youtube_id_to_playlist_page": "Change YouTube URL to Internal Playlist Page URL.",
+                                    "youtube_id_to_video_page": "Change YouTube URL to Internal Video Page URL.",
+                                    "youtube_description_hashtag": "Filter results for specific Hashtag in description.",
+                                    "youtube_tutorials_title_only": "Filter results with specific word in title.",
+                                    "youtube_colour_hashtag": "Add {{colour}} tag based on description tag #COL-.",
+                                    "youtube_title_subtitle_split": "Add {{header}} and {{subheader}} based on {{title} and a delimiter.",
+                                    "date_to_timeago": "Add a {{timeago}} field to use."
+                                },
+                                "default_value": [],
+                                "allow_null": 1,
+                                "multiple": 0,
+                                "ui": 0,
+                                "return_format": "value",
+                                "ajax": 0,
+                                "placeholder": ""
+                            },
+                            {
+                                "key": "field_5d9362ce5b003",
+                                "label": "filter values",
+                                "name": "filter_values",
+                                "type": "text",
+                                "instructions": "Default value to pass into the filter. (Can override with $_GET['msf'] ).",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "placeholder": "",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": ""
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "key": "field_5d8642b381bae",
+                "label": "WP Events",
+                "name": "",
+                "type": "tab",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "placement": "top",
+                "endpoint": 0
+            },
+            {
+                "key": "field_5d863f08eaa6d",
+                "label": "WP Events",
+                "name": "api_crontab_entry",
+                "type": "repeater",
+                "instructions": "<p>crontab  -->  WP Event  -->  Action Hook  -->  do_shortcode()  -->  check transient  -->  refresh.<\/p>\r\n<h3>The Shortcode<\/h3>\r\n<ul>\r\n<li>1. Each shortcode is cached using a transient with a length of time before it expires.<\/li>\r\n<li>2. Set the expiry length in the API Instance tab for each specific shortcode.<\/li>\r\n<\/ul>\r\n<h3>The WP Event<\/h3>\r\n<p>use: `wp cron event list` on CLI to check.<\/p>\r\n<ul>\r\n<li>1. This tab will create two things: a) A WP event. b) An action hook to run.<\/li>\r\n<li>2. The WP Event is a pseudo-crontab will run on an interval. This will only actually run if someone visits the site, not a real crontab.<\/li>\r\n<li>3. The WP Event will execute the action hook if scheduled to run.<\/li>\r\n<li>4. The Action hook will do a do_shortcode() to run the shortcode.<\/li>\r\n<li>5. The shortcode will re-create the transient again and refreesh it.<\/li>\r\n<\/ul>\r\n<h3>Crontab<\/h3>\r\n<ul>\r\n<li>1. A REAL Crontab entry is set up to run every minute to WGET the site.<\/li>\r\n<li>2. This WGET will trigger the WP Event to fire and do the refresh.<\/li>\r\n<\/ul>\r\n<br\/>\r\n<u>NOTE - need to disable \/ reenable if you change times.<\/u>",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "collapsed": "",
+                "min": 0,
+                "max": 0,
+                "layout": "table",
+                "button_label": "",
+                "sub_fields": [
+                    {
+                        "key": "field_5d863f1beaa6e",
+                        "label": "Scraper Instance to run",
+                        "name": "api_crontab_instance",
+                        "type": "text",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": "",
+                        "maxlength": ""
+                    },
+                    {
+                        "key": "field_5d863f25eaa6f",
+                        "label": "Schedule.",
+                        "name": "api_crontab_schedule",
+                        "type": "select",
+                        "instructions": "How often to run the WP Scheduler task.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "40",
+                            "class": "",
+                            "id": ""
+                        },
+                        "choices": {
+                            "30secs": "30secs",
+                            "1min": "1min",
+                            "10mins": "10mins",
+                            "30mins": "30mins",
+                            "hourly": "hourly",
+                            "90mins": "90mins",
+                            "twicedaily": "twicedaily",
+                            "daily": "daily",
+                            "3days": "3days",
+                            "weekly": "weekly"
+                        },
+                        "default_value": [
+                            "hourly"
+                        ],
+                        "allow_null": 0,
+                        "multiple": 0,
+                        "ui": 0,
+                        "return_format": "value",
+                        "ajax": 0,
+                        "placeholder": ""
+                    },
+                    {
+                        "key": "field_5d86465904371",
+                        "label": "Disable",
+                        "name": "api_crontab_disabled",
+                        "type": "true_false",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "10",
+                            "class": "",
+                            "id": ""
+                        },
+                        "message": "",
+                        "default_value": 0,
+                        "ui": 0,
+                        "ui_on_text": "",
+                        "ui_off_text": ""
+                    }
+                ]
+            },
+            {
+                "key": "field_5d888a4943e14",
+                "label": "Scheduler",
+                "name": "",
+                "type": "tab",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "placement": "top",
+                "endpoint": 0
+            },
+            {
+                "key": "field_5d8889f143e10",
+                "label": "Schedule Times",
+                "name": "schedule_times",
+                "type": "repeater",
+                "instructions": "TODO: Need to automatically populate the crontab field with new option. Doesn't work yet. Need to MANUALLY add this new value in.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "collapsed": "",
+                "min": 0,
+                "max": 0,
+                "layout": "table",
+                "button_label": "",
+                "sub_fields": [
+                    {
+                        "key": "field_5d888a0043e11",
+                        "label": "Schedule Slug",
+                        "name": "schedule_slug",
+                        "type": "text",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "40",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": "",
+                        "maxlength": ""
+                    },
+                    {
+                        "key": "field_5d888a2143e12",
+                        "label": "Schedule Interval",
+                        "name": "schedule_interval",
+                        "type": "number",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "30",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": "",
+                        "min": "",
+                        "max": "",
+                        "step": ""
+                    },
+                    {
+                        "key": "field_5d888a3543e13",
+                        "label": "Schedule Display Name",
+                        "name": "schedule_display_name",
+                        "type": "text",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "30",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": "",
+                        "maxlength": ""
+                    }
+                ]
+            },
+            {
+                "key": "field_5da570750b772",
+                "label": "Transients",
+                "name": "",
+                "type": "tab",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "placement": "top",
+                "endpoint": 0
+            },
+            {
+                "key": "field_5da5708a0b773",
+                "label": "Reset transients",
+                "name": "reset_transients",
+                "type": "true_false",
+                "instructions": "On page refresh, delete all transients of name \"ms_???\"",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "message": "",
+                "default_value": 0,
+                "ui": 1,
+                "ui_on_text": "",
+                "ui_off_text": ""
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "options_page",
+                    "operator": "==",
+                    "value": "apiscraper"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": "This is the admin interface for the API Scraper."
+    },
+    {
+        "key": "group_5db6c412c956c",
+        "title": "API Scraper help",
+        "fields": [
+            {
+                "key": "field_5db6c41b1a8ce",
+                "label": "Usage",
+                "name": "",
+                "type": "message",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "hide_admin": 0,
+                "message": "<a target=\"_blank\" href=\"https:\/\/console.developers.google.com\/apis\/credentials?folder=&organizationId=&project=mediascraper\">API Console<\/a>\r\n\r\n<h4>Shortcode<\/h4>\r\n[media_scrapper slug=\"instance_slug\"]",
+                "new_lines": "wpautop",
+                "esc_html": 0
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "options_page",
+                    "operator": "==",
+                    "value": "apiscraper"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "side",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": ""
+    }
+]
