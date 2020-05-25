@@ -6,9 +6,9 @@
  * @copyright 2020 LondonParkour
  *
  * @wordpress-plugin
- * Plugin Name:       _ANDYP - YouTube API Scraper V2
+ * Plugin Name:       _ANDYP - API Scraper V2
  * Plugin URI:        http://londonparkour.com
- * Description:       Query YouTube API, add results to a CPT, output to shortcode.
+ * Description:       <strong>🔌PLUGIN</strong> | <em>YouTube > Youtube Settings</em> | Query APIs, add results to a CPT, output to shortcode.
  * Version:           2.0.0
  * Author:            Andy Pearson
  * Author URI:        https://londonparkour.com
