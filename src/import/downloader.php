@@ -92,7 +92,9 @@ class downloader
     public function does_image_exist($filename)
     {
         global $wpdb;
-        return intval( $wpdb->get_var( "SELECT post_id FROM {$wpdb->postmeta} WHERE meta_value LIKE '%/$filename%'" ) );
+        return intval( 
+            $wpdb->get_var( "SELECT post_id FROM {$wpdb->postmeta} WHERE meta_value LIKE '%/$filename.%'" ) 
+        );
     }
 
 }
