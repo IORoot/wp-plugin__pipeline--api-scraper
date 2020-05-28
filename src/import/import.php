@@ -59,6 +59,7 @@ class import
             $post_id_if_exists = $this->does_post_exist($item, $post_type);
 
             if ($post_id_if_exists) {
+                $this->add_new_meta($post_id_if_exists, $item['meta']);
                 $this->add_taxonomy_to_existing_post($post_id_if_exists);
                 continue;
             }
@@ -153,5 +154,16 @@ class import
     public function add_taxonomy_to_existing_post($post_id)
     {
         $this->attach->tax_to_post($this->taxonomy->taxonomy_type, $this->taxonomy->taxonomy_term, $post_id);
+    }
+
+    public function add_new_meta($post_id, $post_meta)
+    {
+        if (!$post_meta){ return; }
+        
+        foreach($post_meta as $key => $value)
+        {
+            // Keep unique. - do not overwrite values, just append.
+            add_post_meta($post_id, $key, $value, TRUE);
+        }
     }
 }
