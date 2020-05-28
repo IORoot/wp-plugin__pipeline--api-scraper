@@ -36,6 +36,8 @@ class mapper_item
 
     public $wp_post_args;
 
+    public $search_id;
+
     
     /**
      * $single_mapping
@@ -80,6 +82,11 @@ class mapper_item
         return $this;
     }
 
+    public function set_search_id($search_id)
+    {
+        $this->search_id = $search_id;
+        return $this;
+    }
 
 
 
@@ -223,6 +230,7 @@ class mapper_item
 
     public function destination_field()
     {
+        $this->replace_tags();
         return $this->single_mapping['yt_mapper_destination'];
     }
 
@@ -246,6 +254,27 @@ class mapper_item
     }
 
 
+    /**
+     * replace_tags function
+     *
+     * Special case which looks for {{search_id_slug}} string in the
+     * DESTINATION field, not a transform in the source field.
+     * This enables you to dynamically change the source field for
+     * indexes.
+     * so, a destination field of {{search_id_slug}}_index  will change
+     * to my-search-id_index
+     * 
+     * @return void
+     */
+    public function replace_tags()
+    {
+        $input = $this->single_mapping['yt_mapper_destination'];
+
+        $search_id_slug = preg_replace('/[[:^print:]]/', '', $this->search_id);
+        $search = sanitize_title($search_id_slug);
+
+        $this->single_mapping['yt_mapper_destination'] = preg_replace('/\{\{search_id_slug\}\}/', $search ,$input);
+    }
 
 
 }

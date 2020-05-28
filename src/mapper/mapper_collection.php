@@ -27,6 +27,8 @@ class mapper_collection
 
     public $collection;
 
+    public $search_id;
+
     public $mapped_result = array();
 
     public function __construct()
@@ -38,6 +40,13 @@ class mapper_collection
     public function set_mappings($mappings)
     {
         $this->mappings = $mappings;
+        return $this;
+    }
+
+
+    public function set_search_id($search_id)
+    {
+        $this->search_id = $search_id;
         return $this;
     }
 
@@ -78,6 +87,7 @@ class mapper_collection
         $mapper_item->set_transforms($this->transforms);
         $mapper_item->set_mappings($this->mappings);
         $mapper_item->set_source_item($item);
+        $mapper_item->set_search_id($this->search_id);
 
         $result = $mapper_item->run();
 

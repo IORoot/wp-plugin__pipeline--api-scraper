@@ -270,6 +270,11 @@ class scraper
             return;
         }
 
+        // Pass in the search ID
+        // this is used to substitute any {{search_id}}_Index
+        // instances for destination fields.
+        $this->mapper->set_search_id($this->options->scrape[$this->_scrape_key]['yt_scrape_search']['yt_search_id']);
+
         // Give the mapper all transforms
         // This is because we'll need the parameters for
         // every transform to be able to run it.
