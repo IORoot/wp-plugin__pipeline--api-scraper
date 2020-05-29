@@ -19,7 +19,7 @@ function andyp_scrape_date_callback($atts){
     $a = shortcode_atts( 
         array(
             'scrape_id'  => null,
-            'fmt' => null,
+            'fmt' => null
         ), $atts );
 
 
@@ -48,11 +48,26 @@ function andyp_scrape_date_callback($atts){
         $format = $a['fmt'];
     }
 
+    if ($format == 'ago')
+    {
+        return timeago($timestamp);
+    }
+
     $datetime = new \DateTime();
     $datetime->setTimestamp($timestamp);
 
     return $datetime->format($format);
 
+}
+
+function timeago($i){
+    $m = time()-$i; $o='just now';
+    $t = array('year'=>31556926,'month'=>2629744,'week'=>604800, 'day'=>86400,'hour'=>3600,'minute'=>60,'second'=>1);
+
+    foreach($t as $u=>$s){
+        if($s<=$m){$v=floor($m/$s); $o="$v $u".($v==1?'':'s').' ago'; break;}
+    }
+    return $o;
 }
 
 add_shortcode( 'andyp_scrape_date', 'andyp_scrape_date_callback' );

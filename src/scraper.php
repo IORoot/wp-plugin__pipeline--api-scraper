@@ -128,6 +128,7 @@ class scraper
 
     public function process_single_scrape()
     {
+        (new \yt\l)->go('global');
         (new \yt\l)->go($this->options->scrape[$this->_scrape_key]['yt_scrape_group']['yt_scrape_id']);
         (new \yt\e)->line(date("M,d,Y h:i:s A") .' RUNNING scrape - '.$this->options->scrape[$this->_scrape_key]['yt_scrape_group']['yt_scrape_id']);
 
