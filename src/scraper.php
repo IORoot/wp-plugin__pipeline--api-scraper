@@ -150,6 +150,9 @@ class scraper
         // Add new schedule into WP_CRON
         $this->schedule();
 
+        // Post Actions
+        $this->actions();
+
         // run any 'after scrape' tasks
         $this->after_housekeep();
 
@@ -357,7 +360,7 @@ class scraper
 
         (new \yt\e)->line('- Add_Posts : '.$post_type, 1);
         
-        $this->importer->add_posts($post_type, $collection);
+        $this->options->scrape[$this->_scrape_key]['yt_scrape_imported'] = $this->importer->add_posts($post_type, $collection);
     }
 
 
@@ -468,6 +471,21 @@ class scraper
 
         return;
     }
+
+    // ┌─────────────────────────────────────────────────────────────────────────┐
+    // │                                                                         │░
+    // │                                                                         │░
+    // │                                 ACTIONS                                 │░
+    // │                                                                         │░
+    // │                                                                         │░
+    // └─────────────────────────────────────────────────────────────────────────┘░
+    //  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+
+    public function actions()
+    {
+        do_action('yt_action_post_process', $this->options->scrape[$this->_scrape_key]);
+    }
+
 
 
 

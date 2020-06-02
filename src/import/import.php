@@ -54,7 +54,7 @@ class import
             return false;
         }
 
-        foreach ($collection as $item) {
+        foreach ($collection as $key => $item) {
 
             $post_id_if_exists = $this->does_post_exist($item, $post_type);
 
@@ -68,9 +68,11 @@ class import
             $item = $this->append_taxonomy_to_image_content($item);
 
             $this->add_post_and_combine($item);
+
+            $collection[$key]['returned'] = $this->returned_ids;
         }
 
-        return $this;
+        return $collection;
     }
 
 
