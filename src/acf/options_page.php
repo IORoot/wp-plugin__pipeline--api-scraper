@@ -8,8 +8,8 @@
 if (function_exists('acf_add_options_page')) {
     $args = array(
 
-        'page_title' => 'YouTube Settings',
-        'menu_title' => 'YouTube Settings',
+        'page_title' => 'Scraper Settings',
+        'menu_title' => 'Scraper Settings',
         'menu_slug' => 'youtube_scraper',
         'capability' => 'manage_options',
         'position' => '100',

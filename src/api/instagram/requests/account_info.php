@@ -11,7 +11,7 @@ class account_info implements requestInterface
 
     public $nice_name = "IG Account Info";
 
-    public $description = "Performs a search on a single instagram account.";
+    public $description = "Performs a search on a single instagram account using Instamancer.";
 
     public $parameters = 'none';
 
@@ -23,7 +23,7 @@ class account_info implements requestInterface
         'api_key' => null,
         'query_string' => null,
         'extra_parameters' => null,
-    ];
+    ];  
 
     public $built_request_url;
 
@@ -53,19 +53,17 @@ class account_info implements requestInterface
 
     public function request()
     {
-        $this->build_request_url();
 
-        (new \yt\e)->line('- INSTAGRAM BLOCKING IP ADDRESSES.', 1);
+        $dir = WP_PLUGIN_DIR . '/andyp_youtube_scraper_v2/files/instagram_json/london_parkour';
+        $json_file = $dir . '/london_parkour.json';
+        $down_dir = $dir . '/downloads';
 
-        // ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-        // ┃                                                                         ┃
-        // ┃             https://github.com/pgrimaud/instagram-user-feed             ┃
-        // ┃                                                                         ┃
-        // ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+        $cmd = 'instamancer user london_parkour -c 10 -f -o '.$json_file.' -d --downdir '.$down_dir;
+        $cmd = 'pwd';
+        $result = shell_exec( $cmd );
 
-        // $api = new \Instagram\Api();
-        // $api->setUserName($this->config['query_string']);
-        // $this->response = $api->getFeed();
+        $cmd = 'cat /var/www/vhosts/dev.londonparkour.com/wp-content/plugins/andyp_youtube_scraper_v2/vendor/instamancer/instamancer';
+        $result = shell_exec( $cmd );
 
         // ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
         // ┃                                                                         ┃
@@ -102,7 +100,6 @@ class account_info implements requestInterface
 
         (new \yt\r)->last('search', 'QUERSTRING = '. $this->built_request_url); 
     }
-
 
     
     // ┌─────────────────────────────────────────────────────────────────────────┐
