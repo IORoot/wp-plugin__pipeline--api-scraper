@@ -83,14 +83,14 @@ class search implements requestInterface
     // └─────────────────────────────────────────────────────────────────────────┘░
     //  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-    private function build_request_url()
+    public function build_request_url()
     {
         if(!$this->check_url()){return false;}  
         $this->built_request_url = $this->domain . '/search?' . $this->config['query_string'] . "&key=" . $this->config['api_key'];
         (new \yt\r)->last('search', 'QUERSTRING = '. $this->built_request_url); 
     }
 
-    private function add_index_to_items()
+    public function add_index_to_items()
     {
         foreach ($this->response->items as $index => $item)
         {
