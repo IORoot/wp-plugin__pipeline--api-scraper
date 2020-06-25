@@ -24,7 +24,7 @@ require_once $_tests_dir . '/includes/functions.php';
  */
 function _manually_load_plugin() {
 
-	require dirname( dirname( __FILE__ ) ) . '/../advanced-custom-fields-pro/acf.php';
+	// require dirname( dirname( __FILE__ ) ) . '/../advanced-custom-fields-pro/acf.php';
 	require dirname( dirname( __FILE__ ) ) . '/media_scraper.php';
 }
 
