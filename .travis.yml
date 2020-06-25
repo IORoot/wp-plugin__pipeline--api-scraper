@@ -1,7 +1,10 @@
 sudo: false
-dist: trusty
+dist: xenial
 
 language: php
+
+php:
+  - '7.3'
 
 notifications:
   email:
