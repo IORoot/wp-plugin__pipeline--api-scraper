@@ -2,7 +2,9 @@
 
 [![Build Status](https://travis-ci.org/IORoot/wp-plugin__api-scraper.svg?branch=master)](https://travis-ci.org/IORoot/wp-plugin__api-scraper)
 
-The API Scraper Wordpress plugin will allow you to get data from various API endpoints and output the results as posts into your custom post types / taxonomies.
+The API Scraper Wordpress plugin will allow you to get data from various API endpoints and output the results as posts into your custom post types / taxonomies. 
+
+Badge not working correctly?
 
 ## Dependencies
 
