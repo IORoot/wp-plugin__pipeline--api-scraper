@@ -1,4 +1,8 @@
-API Scraper Wordpress plugin that will allow you to get data from YouTube and output the results as you like.
+# Wordpress Generic API Scraper.
+
+[![Build Status](https://travis-ci.org/IORoot/wp-plugin__api-scraper.svg?branch=master)](https://travis-ci.org/IORoot/wp-plugin__api-scraper)
+
+The API Scraper Wordpress plugin will allow you to get data from various API endpoints and output the results as posts into your custom post types / taxonomies.
 
 ## Dependencies
 
