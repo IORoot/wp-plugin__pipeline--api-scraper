@@ -7,7 +7,7 @@ The API Scraper Wordpress plugin will allow you to get data from various API end
 Badge not working correctly?
 
 ## Dependencies
-
+ 
 - ACF (Advanced Custom Fields)
 
 ## Wiki
