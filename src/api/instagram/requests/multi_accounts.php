@@ -6,6 +6,9 @@ use yt\interfaces\requestInterface;
 use yt\instagram\response;
 use yt\instagram\request\account_info;
 
+# PostAddictMe
+use Phpfastcache\Helper\Psr16Adapter;
+
 class multi_accounts implements requestInterface
 {
     public $nice_name = "IG Multi Account Info";
@@ -16,15 +19,11 @@ class multi_accounts implements requestInterface
 
     public $cost = 0;
 
-    public $domain = 'https://www.instagram.com/';
-
     public $config = [
         'api_key' => null,
         'query_string' => null,
         'extra_parameters' => null,
     ];
-
-    public $built_request_url;
 
     public $response;
 
@@ -47,27 +46,44 @@ class multi_accounts implements requestInterface
 
     public function request()
     {
-        if (isset($this->response->items)) {
-            $this->response->items = [];
-        }
+
+        $instagram = \InstagramScraper\Instagram::withCredentials('emilybrightman03@gmail.com', 'Tt3D7U8Kb8w7JH', new Psr16Adapter('Files'));
+        $instagram->login();
+
+        $items = array();
 
         foreach ($this->csv_explode() as $accountID) {
-            $config = [
-                'api_key' => null,
-                'query_string' => $accountID,
-                'extra_parameters' => null,
-            ];
-            
-            $instagram = new account_info;
-            $instagram->config($config);
-            $instagram->request();
 
-            $instagram_response = $instagram->response();
-
-            if (isset($instagram_response->graphql->user->edge_owner_to_timeline_media->edges)) {
-                $sliced_instagram = array_slice($instagram_response->graphql->user->edge_owner_to_timeline_media->edges, 0, $this->config['extra_parameters']);
-                $this->response->items = array_merge($this->response->items, $sliced_instagram);
+            try {
+                $medias = $instagram->getMedias($accountID, $this->config['extra_parameters']);
+            } catch (\Exception $e) {
+                (new \yt\e)->line('- \Exception calling Instagram' . $e->getMessage(), 1);
+                continue;
             }
+            
+            if (!$medias){ continue; }
+            
+            foreach($medias as $media)
+            {
+                $item['caption'] = $media->getCaption();
+                $item['createdTime'] = $media->getCreatedTime();
+                $item['imageHighResolutionUrl'] = $media->getImageHighResolutionUrl();
+                $item['shortCode'] = $media->getShortCode();
+                $item['isAd'] = $media->isAd();
+                $item['type'] = $media->getType();
+                $item['commentsCount'] = $media->getCommentsCount();
+                $item['likesCount'] = $media->getLikesCount();
+                $item['link'] = $media->getLink();
+                $item['locationName'] = $media->getLocationName();
+
+                $account = $media->getOwner();
+                $item['username'] = $account->getUsername();
+
+                $this->response->items[] = $item;
+
+                (new \yt\r)->last('search', 'RESPONSE:'. json_encode($item, JSON_PRETTY_PRINT));
+            }
+
         }
 
         return true;

@@ -6,6 +6,48 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit30fd7ec9b8e2598fd2f686f91346eea7
 {
+    public static $prefixLengthsPsr4 = array (
+        'P' => 
+        array (
+            'Psr\\SimpleCache\\' => 16,
+            'Psr\\Cache\\' => 10,
+            'Phpfastcache\\' => 13,
+        ),
+        'I' => 
+        array (
+            'InstagramScraper\\' => 17,
+        ),
+    );
+
+    public static $prefixDirsPsr4 = array (
+        'Psr\\SimpleCache\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/simple-cache/src',
+        ),
+        'Psr\\Cache\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/cache/src',
+        ),
+        'Phpfastcache\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpfastcache/phpfastcache/lib/Phpfastcache',
+        ),
+        'InstagramScraper\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/raiym/instagram-php-scraper/src/InstagramScraper',
+        ),
+    );
+
+    public static $prefixesPsr0 = array (
+        'U' => 
+        array (
+            'Unirest\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/mashape/unirest-php/src',
+            ),
+        ),
+    );
+
     public static $classMap = array (
         'yt\\api' => __DIR__ . '/../..' . '/src/api/api.php',
         'yt\\api_list' => __DIR__ . '/../..' . '/src/api/api_list.php',
@@ -85,6 +127,9 @@ class ComposerStaticInit30fd7ec9b8e2598fd2f686f91346eea7
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
+            $loader->prefixLengthsPsr4 = ComposerStaticInit30fd7ec9b8e2598fd2f686f91346eea7::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit30fd7ec9b8e2598fd2f686f91346eea7::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit30fd7ec9b8e2598fd2f686f91346eea7::$prefixesPsr0;
             $loader->classMap = ComposerStaticInit30fd7ec9b8e2598fd2f686f91346eea7::$classMap;
 
         }, null, ClassLoader::class);
