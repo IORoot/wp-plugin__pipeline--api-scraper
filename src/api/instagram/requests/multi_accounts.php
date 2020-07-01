@@ -49,9 +49,11 @@ class multi_accounts implements requestInterface
     {
 
         $instagram = \InstagramScraper\Instagram::withCredentials($this->config['api_username'], $this->config['api_key'], new Psr16Adapter('Files'));
+        // $instagram = new \InstagramScraper\Instagram();
 
         try {
             $instagram->login();
+            $instagram->saveSession();
         } catch (\Exception $e) {
             (new \yt\e)->line('- \Exception calling Instagram' . $e->getMessage(), 1);
             return;
