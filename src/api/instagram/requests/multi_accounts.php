@@ -21,6 +21,7 @@ class multi_accounts implements requestInterface
 
     public $config = [
         'api_key' => null,
+        'api_username' => null,
         'query_string' => null,
         'extra_parameters' => null,
     ];
@@ -47,8 +48,14 @@ class multi_accounts implements requestInterface
     public function request()
     {
 
-        $instagram = \InstagramScraper\Instagram::withCredentials('emilybrightman03@gmail.com', 'Tt3D7U8Kb8w7JH', new Psr16Adapter('Files'));
-        $instagram->login();
+        $instagram = \InstagramScraper\Instagram::withCredentials($this->config['api_username'], $this->config['api_key'], new Psr16Adapter('Files'));
+
+        try {
+            $instagram->login();
+        } catch (\Exception $e) {
+            (new \yt\e)->line('- \Exception calling Instagram' . $e->getMessage(), 1);
+            return;
+        }
 
         $items = array();
 

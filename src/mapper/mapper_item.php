@@ -187,7 +187,6 @@ class mapper_item
 
             if ($type == "object")
             {
-                $value = $value->$object_level;
                 // if object is set and is not empty.
                 if (isset($value->$object_level) && !empty( (array) $value->$object_level)) {
 

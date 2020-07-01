@@ -38,6 +38,7 @@ class api
      */
     public $config = [
         'api_key' => '',
+        'api_username' => '',
         'query_string' => '',
         'extra_parameters' => '',
     ];
@@ -94,6 +95,25 @@ class api
             return false;
         }
         $this->config['api_key'] = $api_key;
+        return true;
+    }
+
+    /**
+     * set_api_username
+     *
+     * Primarily used for Instagram, the set_api_username is separate is the account
+     * login details. Means that we can use sessions and cookies with the 
+     * instagram scraper library.
+     *
+     * @param mixed $api_username
+     * @return void
+     */
+    public function set_api_username($api_username = null)
+    {
+        if (!$this->check_input($api_username)) {
+            return false;
+        }
+        $this->config['api_username'] = $api_username;
         return true;
     }
 

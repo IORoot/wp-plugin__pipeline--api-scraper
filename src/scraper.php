@@ -184,6 +184,10 @@ class scraper
         // Scrape Instance -> auth array -> api key
         $this->api->set_api_key($this->options->scrape[$this->_scrape_key]['yt_scrape_auth']['yt_api_key']);
 
+        // Set the API Username.
+        // Scrape Instance -> auth array -> api username / project name
+        $this->api->set_api_username($this->options->scrape[$this->_scrape_key]['yt_scrape_auth']['yt_api_project_name']);
+
         // Pass all of the available substitutions into
         // the class so we can do some swapping.
         $this->api->set_substitutions($this->options->substitutions);
