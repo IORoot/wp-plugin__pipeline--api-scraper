@@ -506,7 +506,7 @@ class scraper
     public function has_response()
     {
         if (isset($this->options->scrape[$this->_scrape_key]['yt_scrape_response']->error)) {
-            (new \yt\e)->line('- There is no response from YouTube.', 1);
+            (new \yt\e)->line('- There is no response from API.', 1);
             return false;
         }
         return true;

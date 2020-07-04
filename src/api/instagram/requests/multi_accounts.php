@@ -47,58 +47,91 @@ class multi_accounts implements requestInterface
 
     public function request()
     {
-
-        $instagram = \InstagramScraper\Instagram::withCredentials($this->config['api_username'], $this->config['api_key'], new Psr16Adapter('Files'));
-        // $instagram = new \InstagramScraper\Instagram();
-
-        try {
-            $instagram->login();
-            $instagram->saveSession();
-        } catch (\Exception $e) {
-            (new \yt\e)->line('- \Exception calling Instagram' . $e->getMessage(), 1);
-            return;
-        }
-
-        $items = array();
+        // Declare an empty object stdClass.
+        $this->response = (object) [];
+        $this->response->items = [];
 
         foreach ($this->csv_explode() as $accountID) {
 
-            try {
-                $medias = $instagram->getMedias($accountID, $this->config['extra_parameters']);
-            } catch (\Exception $e) {
-                (new \yt\e)->line('- \Exception calling Instagram' . $e->getMessage(), 1);
-                continue;
+            if (!$this->can_run_node()) {
+                break;
             }
-            
-            if (!$medias){ continue; }
-            
-            foreach($medias as $media)
-            {
-                $item['caption'] = $media->getCaption();
-                $item['createdTime'] = $media->getCreatedTime();
-                $item['imageHighResolutionUrl'] = $media->getImageHighResolutionUrl();
-                $item['shortCode'] = $media->getShortCode();
-                $item['isAd'] = $media->isAd();
-                $item['type'] = $media->getType();
-                $item['commentsCount'] = $media->getCommentsCount();
-                $item['likesCount'] = $media->getLikesCount();
-                $item['link'] = $media->getLink();
-                $item['locationName'] = $media->getLocationName();
-
-                $account = $media->getOwner();
-                $item['username'] = $account->getUsername();
-
-                $this->response->items[] = $item;
-
-                (new \yt\r)->last('search', 'RESPONSE:'. json_encode($item, JSON_PRETTY_PRINT));
+            if (!$this->can_run_instamancer()) {
+                break;
             }
+
+            $this->run_instamancer($accountID);
+            $this->read_response_json($accountID);
 
         }
+        
+        (new \yt\r)->last('search', 'RESPONSE:'. json_encode($this->response, JSON_PRETTY_PRINT));
 
         return true;
     }
 
 
+
+    public function run_instamancer($accountID)
+    {
+        $temp_dir = get_temp_dir() . 'instamancer/'.$accountID.'/';
+        $json_file = $temp_dir.'output.json';
+        $downloads = $temp_dir.'downloads/';
+        $count = $this->default_count();
+        
+        $instamancer = 'node';
+        $instamancer .= ' /usr/local/lib/node_modules/instamancer/src/cli.js';
+        $instamancer .= ' user '.$accountID;
+        $instamancer .= ' --file '.$json_file;
+        $instamancer .= ' --count '.$count;
+        $instamancer .= ' --full';
+        $instamancer .= ' --download';
+        $instamancer .= ' --downdir '.$downloads;
+
+        $command = escapeshellcmd($instamancer);
+        shell_exec($command);
+
+        return;
+    }
+
+
+    public function read_response_json($accountID)
+    {
+        $account_dir = get_temp_dir() . 'instamancer/'.$accountID.'/';
+        $output_json = $account_dir.'output.json';
+        $download_dir = $account_dir.'downloads/';
+
+        $json = file_get_contents($output_json);
+        $obj = json_decode($json);
+
+        foreach($obj as $key => $item)
+        {
+            // Add username
+            $item->shortcode_media->username = $accountID;
+
+            // Add LOCAL filename
+            $local_file = $download_dir . $item->shortcode_media->shortcode . '.jpg';
+            $item->shortcode_media->filename = $local_file;
+
+            // remove the shortcode_media bit.
+            $obj[$key] = $item->shortcode_media;
+        }
+
+        $this->response->items = array_merge($this->response->items, $obj);
+
+        return;
+    }
+
+
+    // public function remove_local_files($accountID)
+    // {
+    //     $temp_dir = get_temp_dir() . 'instamancer/'.$accountID.'/';
+
+    //     global $wp_filesystem;
+    //     $wp_filesystem->delete($temp_dir, true);
+
+    //     return;
+    // }
 
     // ┌─────────────────────────────────────────────────────────────────────────┐
     // │                                                                         │░
@@ -108,6 +141,42 @@ class multi_accounts implements requestInterface
     // │                                                                         │░
     // └─────────────────────────────────────────────────────────────────────────┘░
     //  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+
+
+    public function default_count()
+    {
+        $count = 3;
+        if ($this->config['extra_parameters'] != null){ 
+            $count = $this->config['extra_parameters']; 
+        }
+
+        return $count;
+    }
+
+    public function can_run_node()
+    {
+        $node = 'node -v';
+        $output = shell_exec($node);
+
+        if ($output == null) {
+            return false;
+        }
+
+        return true;
+    }
+
+
+    public function can_run_instamancer()
+    {
+        $node = 'node /usr/local/lib/node_modules/instamancer/src/cli.js --version';
+        $output = shell_exec($node);
+
+        if ($output == null) {
+            return false;
+        }
+
+        return true;
+    }
 
     public function csv_explode()
     {
