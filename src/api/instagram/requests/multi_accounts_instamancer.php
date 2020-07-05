@@ -11,7 +11,7 @@ use Phpfastcache\Helper\Psr16Adapter;
 
 class multi_accounts implements requestInterface
 {
-    public $nice_name = "IG Multi Account Info";
+    public $nice_name = "IG Multi Account Info - instamancer";
 
     public $description = "Performs a search on multiple instagram accounts. (CSV separated)";
 
@@ -27,10 +27,6 @@ class multi_accounts implements requestInterface
     ];
 
     public $response;
-
-
-
-
 
     public function config($config)
     {
@@ -49,28 +45,7 @@ class multi_accounts implements requestInterface
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-    // ┌─────────────────────────────────────────────────────────────────────────┐
-    // │                                                                         │░
-    // │                                                                         │░
-    // │                            INSTAMANCER                                  │░
-    // │                                                                         │░
-    // │                                                                         │░
-    // └─────────────────────────────────────────────────────────────────────────┘░
-    //  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-
-
-    public function request2()
+    public function request()
     {
         // Declare an empty object stdClass.
         $this->response = (object) [];
@@ -94,6 +69,7 @@ class multi_accounts implements requestInterface
 
         return true;
     }
+
 
 
     public function run_instamancer($accountID)
