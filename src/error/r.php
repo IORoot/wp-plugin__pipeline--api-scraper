@@ -39,6 +39,13 @@ class r
     }
 
 
+    public function new($field, $value)
+    {
+        $this->clear($field);
+        $this->last($field, $value);
+    }
+
+
     public function utf8ize($d) {
         if (is_array($d)) {
             foreach ($d as $k => $v) {

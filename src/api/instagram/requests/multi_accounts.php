@@ -31,7 +31,6 @@ class multi_accounts implements requestInterface
 
 
 
-
     public function config($config)
     {
         $this->config = $config;
@@ -50,9 +49,67 @@ class multi_accounts implements requestInterface
 
 
 
+    // ┌─────────────────────────────────────────────────────────────────────────┐
+    // │                                                                         │░
+    // │                                                                         │░
+    // │                            POSTADDICTME                                 │░
+    // │                                                                         │░
+    // │                                                                         │░
+    // └─────────────────────────────────────────────────────────────────────────┘░
+    //  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
+    // public function request()
+    // {
 
+    //     $instagram = \InstagramScraper\Instagram::withCredentials($this->config['api_username'], $this->config['api_key'], new Psr16Adapter('Files'));
+    //     // $instagram = new \InstagramScraper\Instagram();
 
+    //     try {
+    //         $instagram->login(true);
+    //         $instagram->saveSession();
+    //     } catch (\Exception $e) {
+    //         (new \yt\e)->line('- \Exception calling Instagram' . $e->getMessage(), 1);
+    //         return;
+    //     }
+
+    //     $items = array();
+
+    //     foreach ($this->csv_explode() as $accountID) {
+
+    //         try {
+    //             $medias = $instagram->getMedias($accountID, $this->config['extra_parameters']);
+    //         } catch (\Exception $e) {
+    //             (new \yt\e)->line('- \Exception calling Instagram' . $e->getMessage(), 1);
+    //             continue;
+    //         }
+            
+    //         if (!$medias){ continue; }
+            
+    //         foreach($medias as $media)
+    //         {
+    //             $item['caption'] = $media->getCaption();
+    //             $item['createdTime'] = $media->getCreatedTime();
+    //             $item['imageHighResolutionUrl'] = $media->getImageHighResolutionUrl();
+    //             $item['shortCode'] = $media->getShortCode();
+    //             $item['isAd'] = $media->isAd();
+    //             $item['type'] = $media->getType();
+    //             $item['commentsCount'] = $media->getCommentsCount();
+    //             $item['likesCount'] = $media->getLikesCount();
+    //             $item['link'] = $media->getLink();
+    //             $item['locationName'] = $media->getLocationName();
+
+    //             $account = $media->getOwner();
+    //             $item['username'] = $account->getUsername();
+
+    //             $this->response->items[] = $item;
+
+    //             (new \yt\r)->new('search', 'RESPONSE:'. json_encode($item, JSON_PRETTY_PRINT));
+    //         }
+
+    //     }
+
+    //     return true;
+    // }
 
 
 
@@ -70,7 +127,7 @@ class multi_accounts implements requestInterface
     //  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
 
-    public function request2()
+    public function request()
     {
         // Declare an empty object stdClass.
         $this->response = (object) [];
@@ -89,8 +146,6 @@ class multi_accounts implements requestInterface
             $this->read_response_json($accountID);
 
         }
-        
-        (new \yt\r)->last('search', 'RESPONSE:'. json_encode($this->response, JSON_PRETTY_PRINT));
 
         return true;
     }
@@ -98,8 +153,13 @@ class multi_accounts implements requestInterface
 
     public function run_instamancer($accountID)
     {
-        $temp_dir = get_temp_dir() . 'instamancer/'.$accountID.'/';
-        $json_file = $temp_dir.'output.json';
+        $temp_dir = WP_CONTENT_DIR . '/uploads/instamancer/'.$accountID.'/';
+        
+        if (!file_exists($temp_dir)) {
+            mkdir($temp_dir , 0777, true);
+        }
+        
+        $json_file = $temp_dir.'output_' . date('Ymd') . '.json';
         $downloads = $temp_dir.'downloads/';
         $count = $this->default_count();
         
@@ -109,16 +169,19 @@ class multi_accounts implements requestInterface
         $instamancer .= ' --file '.$json_file;
         $instamancer .= ' --count '.$count;
         $instamancer .= ' --full';
-        $instamancer .= ' --graft';
-        $instamancer .= ' --sync';
-        $instamancer .= ' --threads 6';
+        // $instamancer .= ' --graft';
+        // $instamancer .= ' --sync';
+        // $instamancer .= ' --threads 6';
         $instamancer .= ' --logging debug';
         $instamancer .= ' --logfile ../wp-content/instamancer.log';
-        $instamancer .= ' --download';
-        $instamancer .= ' --downdir '.$downloads;
+
+        // No longer downloading here. do it in the main scraper. 
+        // This is so that consistency of JSON structure can be relied upon.
+        // $instamancer .= ' --download';
+        // $instamancer .= ' --downdir '.$downloads;
 
         $command = escapeshellcmd($instamancer);
-        $return = exec($command);
+        $return = shell_exec($command);
 
         return;
     }
@@ -126,30 +189,42 @@ class multi_accounts implements requestInterface
 
     public function read_response_json($accountID)
     {
-        $account_dir = get_temp_dir() . 'instamancer/'.$accountID.'/';
-        $output_json = $account_dir.'output.json';
+        $account_dir = WP_CONTENT_DIR . '/uploads/instamancer/'.$accountID.'/';
+        $output_json = $account_dir.'output_' . date('Ymd') . '.json';
         $download_dir = $account_dir.'downloads/';
+
+        if (!file_exists($output_json)){
+            (new \yt\r)->new('search', 'No output.json file found in '. $account_dir);
+            return;
+        }
+
+        if (filesize($output_json) < 100){
+            (new \yt\r)->new('search', 'Output.json file less than 100 bytes, Probably no results. ');
+            return;
+        }
 
         $json = file_get_contents($output_json);
         $obj = json_decode($json);
 
         foreach($obj as $key => $item)
         {
-            // Add username
-            $item->shortcode_media->username = $accountID;
+            // Add link
+            $item->shortcode_media->link = 'https://instagram.com/p/'.$item->shortcode_media->shortcode;
 
-            // Add LOCAL filename
-            $local_file = $download_dir . $item->shortcode_media->shortcode . '.jpg';
-            $item->shortcode_media->filename = $local_file;
+            // Add username
+            $item->shortcode_media->username = $accountID;  
 
             // remove the shortcode_media bit.
             $obj[$key] = $item->shortcode_media;
         }
 
         $this->response->items = array_merge($this->response->items, $obj);
-
+        (new \yt\r)->new('search', 'RESPONSE OK: '. json_encode($obj, JSON_PRETTY_PRINT));
+        
+        
         return;
     }
+
 
 
     // public function remove_local_files($accountID)
@@ -188,6 +263,7 @@ class multi_accounts implements requestInterface
         $output = shell_exec($node);
 
         if ($output == null) {
+            (new \yt\r)->last('search', 'CANNOT RUN NODE');
             return false;
         }
 
@@ -201,6 +277,7 @@ class multi_accounts implements requestInterface
         $output = shell_exec($node);
 
         if ($output == null) {
+            (new \yt\r)->last('search', 'CANNOT RUN INSTAMANCER');
             return false;
         }
 

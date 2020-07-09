@@ -157,7 +157,7 @@ class downloader
         // If error storing permanently, unlink
         if ( is_wp_error($this->att_id) ) {
             @unlink($this->file_array['tmp_name']);   // clean up
-            (new \yt\e)->line('There was an error with the image file. : ' . $this->att_id, 2 );
+            (new \yt\e)->line('There was an error with an image file, so it was deleted. ', 2 );
         }
 
         return;

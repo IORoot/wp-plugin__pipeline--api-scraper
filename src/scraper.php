@@ -236,13 +236,12 @@ class scraper
         $this->filter->set_item_collection($this->options->scrape[$this->_scrape_key]['yt_scrape_response']);
 
         // once everything is set, run it.
-        // Then add the respons of the filtering into the scrape
+        // Then add the response of the filtering into the scrape
         // object.
         $this->options->scrape[$this->_scrape_key]['yt_scrape_filtered'] = $this->filter->run();
 
-        // Report last response.
-        (new \yt\r)->clear('filter');
-        (new \yt\r)->last('filter', $this->options->scrape[$this->_scrape_key]['yt_scrape_filtered']->items);
+        // Report first response.
+        // (new \yt\r)->new('filter', $this->options->scrape[$this->_scrape_key]['yt_scrape_filtered']->items);s
 
         unset($this->filter);
 
@@ -302,8 +301,8 @@ class scraper
         $this->options->scrape[$this->_scrape_key]['yt_scrape_mapped'] = $this->mapper->run();
 
         // Report last response.
-        (new \yt\r)->clear('mapper');
-        (new \yt\r)->last('mapper', $this->options->scrape[$this->_scrape_key]['yt_scrape_mapped']);
+        // (new \yt\r)->clear('mapper');
+        // (new \yt\r)->new('mapper', $this->options->scrape[$this->_scrape_key]['yt_scrape_mapped']);
 
         unset($this->mapper);
 
