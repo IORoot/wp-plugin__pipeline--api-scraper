@@ -420,9 +420,8 @@ class scraper
 
     public function after_housekeep()
     {
-        $this->scheduler_housekeeping();
         $this->housekeeping('after');
-
+        $this->scheduler_housekeeping();
         return;
     }
 
