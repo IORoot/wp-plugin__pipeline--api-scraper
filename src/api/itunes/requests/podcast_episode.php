@@ -102,9 +102,6 @@ class podcast_episode implements requestInterface
             return false;
         }
 
-
-        (new \yt\r)->last('search', 'RESPONSE:'. json_encode($this->response, JSON_PRETTY_PRINT));
-
         return true;
     }
 
@@ -131,7 +128,7 @@ class podcast_episode implements requestInterface
     {
 
         $original = $this->response['rss'] ;
-        $this->response['rss'] = simplexml_load_string($original);
+        $this->response['rss'] = simplexml_load_string($original, "SimpleXMLElement", LIBXML_NOCDATA);
 
         // Try again with some sanitising.
         if ($this->response['rss'] == false){
@@ -140,8 +137,6 @@ class podcast_episode implements requestInterface
             $simpleXml = simplexml_load_string($fileContents);
             $this->response['rss'] = $simpleXml;
         }
-
-        (new \yt\r)->last('search', 'RSS->JSON RESPONSE:'. json_encode($this->response['rss'], JSON_PRETTY_PRINT));
 
         return;
     }

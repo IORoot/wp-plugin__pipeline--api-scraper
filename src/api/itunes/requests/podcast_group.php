@@ -76,6 +76,9 @@ class podcast_group implements requestInterface
 
             $this->response->items = array_merge($this->response->items, $sliced_podcast);
 
+
+            (new \yt\r)->new('search', 'RESPONSE:'. json_encode($this->response, JSON_PRETTY_PRINT));
+
         }
 
         return true;
