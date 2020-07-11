@@ -5,17 +5,16 @@ namespace yt\youtube\request;
 use yt\interfaces\requestInterface;
 use yt\quota;
 use yt\youtube\response;
-use yt\youtube\request\videos;
 
-class search implements requestInterface
+class videos implements requestInterface
 {
-    public $nice_name = "YouTube Search";
+    public $nice_name = "YouTube Videos";
 
-    public $description = "Performs a search on the youtube search:list endpoint.";
+    public $description = "Performs a retrieval on the youtube video:list endpoint.";
 
-    public $parameters = 'none';
+    public $parameters = 'video IDs (CSV)';
 
-    public $cost = 100;
+    public $cost = 1;
 
     public $domain = 'https://www.googleapis.com/youtube/v3';
 
@@ -26,8 +25,6 @@ class search implements requestInterface
     ];
 
     public $built_request_url;
-
-    public $videos_csv;
 
     public $response;
 
@@ -60,9 +57,9 @@ class search implements requestInterface
             (new \yt\e)->line('- \Exception calling YouTube' . $e->getMessage(), 1);
             return false;
         }
-        
-        $this->add_statistics_to_items();
 
+        $this->add_index_to_items();
+        
         if (!(new response)->is_errored($this->response)) {
             return false;
         }
@@ -71,31 +68,6 @@ class search implements requestInterface
 
 
         return true;
-    }
-
-
-    public function add_statistics_to_items()
-    {
-
-        foreach ($this->response->items as $item)
-        {
-            $this->videos_csv .= $item->id->videoId . ',';
-        }
-
-        // remove last comma
-        $this->videos_csv = rtrim($this->videos_csv, ',');
-
-        $vid = new videos();
-
-        $config = $this->config;
-        $config['query_string'] = $this->videos_csv;
-        $vid->config($config);
-        $vid->request();
-
-        // Replace the current repsonse with the new one that has stats as well.
-        $this->response = $vid->response();
-
-        return;
     }
 
 
@@ -112,7 +84,7 @@ class search implements requestInterface
     public function build_request_url()
     {
         if(!$this->check_url()){return false;}  
-        $this->built_request_url = $this->domain . '/search?' . $this->config['query_string'] . "&key=" . $this->config['api_key'];
+        $this->built_request_url = $this->domain . '/videos?part=snippet&part=statistics&id=' . $this->config['query_string'] . "&key=" . $this->config['api_key'];
         (new \yt\e)->line('search - QUERSTRING = '. $this->built_request_url); 
     }
 

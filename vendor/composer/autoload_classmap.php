@@ -75,6 +75,7 @@ return array(
     'yt\\youtube\\request\\playlists' => $baseDir . '/src/api/youtube/requests/playlists.php',
     'yt\\youtube\\request\\search' => $baseDir . '/src/api/youtube/requests/search.php',
     'yt\\youtube\\request\\subscriptions' => $baseDir . '/src/api/youtube/requests/subscriptions.php',
+    'yt\\youtube\\request\\videos' => $baseDir . '/src/api/youtube/requests/videos.php',
     'yt\\youtube\\response' => $baseDir . '/src/api/youtube/responses/responses.php',
     'yt_import_export' => $baseDir . '/src/acf/import_export_page.php',
 );

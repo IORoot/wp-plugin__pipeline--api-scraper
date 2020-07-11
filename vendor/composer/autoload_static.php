@@ -76,6 +76,7 @@ class ComposerStaticInit30fd7ec9b8e2598fd2f686f91346eea7
         'yt\\youtube\\request\\playlists' => __DIR__ . '/../..' . '/src/api/youtube/requests/playlists.php',
         'yt\\youtube\\request\\search' => __DIR__ . '/../..' . '/src/api/youtube/requests/search.php',
         'yt\\youtube\\request\\subscriptions' => __DIR__ . '/../..' . '/src/api/youtube/requests/subscriptions.php',
+        'yt\\youtube\\request\\videos' => __DIR__ . '/../..' . '/src/api/youtube/requests/videos.php',
         'yt\\youtube\\response' => __DIR__ . '/../..' . '/src/api/youtube/responses/responses.php',
         'yt_import_export' => __DIR__ . '/../..' . '/src/acf/import_export_page.php',
     );
