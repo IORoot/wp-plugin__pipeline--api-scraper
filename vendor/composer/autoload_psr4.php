@@ -6,8 +6,4 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Psr\\SimpleCache\\' => array($vendorDir . '/psr/simple-cache/src'),
-    'Psr\\Cache\\' => array($vendorDir . '/psr/cache/src'),
-    'Phpfastcache\\' => array($vendorDir . '/phpfastcache/phpfastcache/lib/Phpfastcache'),
-    'InstagramScraper\\' => array($vendorDir . '/raiym/instagram-php-scraper/src/InstagramScraper'),
 );

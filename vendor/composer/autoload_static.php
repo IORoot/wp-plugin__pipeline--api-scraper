@@ -6,48 +6,6 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit30fd7ec9b8e2598fd2f686f91346eea7
 {
-    public static $prefixLengthsPsr4 = array (
-        'P' => 
-        array (
-            'Psr\\SimpleCache\\' => 16,
-            'Psr\\Cache\\' => 10,
-            'Phpfastcache\\' => 13,
-        ),
-        'I' => 
-        array (
-            'InstagramScraper\\' => 17,
-        ),
-    );
-
-    public static $prefixDirsPsr4 = array (
-        'Psr\\SimpleCache\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/psr/simple-cache/src',
-        ),
-        'Psr\\Cache\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/psr/cache/src',
-        ),
-        'Phpfastcache\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/phpfastcache/phpfastcache/lib/Phpfastcache',
-        ),
-        'InstagramScraper\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/raiym/instagram-php-scraper/src/InstagramScraper',
-        ),
-    );
-
-    public static $prefixesPsr0 = array (
-        'U' => 
-        array (
-            'Unirest\\' => 
-            array (
-                0 => __DIR__ . '/..' . '/mashape/unirest-php/src',
-            ),
-        ),
-    );
-
     public static $classMap = array (
         'yt\\api' => __DIR__ . '/../..' . '/src/api/api.php',
         'yt\\api_list' => __DIR__ . '/../..' . '/src/api/api_list.php',
@@ -77,10 +35,8 @@ class ComposerStaticInit30fd7ec9b8e2598fd2f686f91346eea7
         'yt\\import\\meta' => __DIR__ . '/../..' . '/src/import/create_meta.php',
         'yt\\import\\post' => __DIR__ . '/../..' . '/src/import/create_post.php',
         'yt\\import\\taxonomy' => __DIR__ . '/../..' . '/src/import/create_taxonomy.php',
-        'yt\\instagram\\request\\account_info' => __DIR__ . '/../..' . '/src/api/instagram/requests/account_info.php',
         'yt\\instagram\\request\\multi_accounts' => __DIR__ . '/../..' . '/src/api/instagram/requests/multi_accounts.php',
         'yt\\instagram\\request\\tag_search' => __DIR__ . '/../..' . '/src/api/instagram/requests/tag_search.php',
-        'yt\\instagram\\response' => __DIR__ . '/../..' . '/src/api/instagram/responses/responses.php',
         'yt\\interfaces\\filterInterface' => __DIR__ . '/../..' . '/src/interfaces/filterInterface.php',
         'yt\\interfaces\\housekeepInterface' => __DIR__ . '/../..' . '/src/interfaces/housekeepInterface.php',
         'yt\\interfaces\\requestInterface' => __DIR__ . '/../..' . '/src/interfaces/requestInterface.php',
@@ -127,9 +83,6 @@ class ComposerStaticInit30fd7ec9b8e2598fd2f686f91346eea7
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit30fd7ec9b8e2598fd2f686f91346eea7::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit30fd7ec9b8e2598fd2f686f91346eea7::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit30fd7ec9b8e2598fd2f686f91346eea7::$prefixesPsr0;
             $loader->classMap = ComposerStaticInit30fd7ec9b8e2598fd2f686f91346eea7::$classMap;
 
         }, null, ClassLoader::class);

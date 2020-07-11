@@ -3,9 +3,5 @@
         "classmap": [
             "src"
         ]
-    },
-    "require": {
-        "raiym/instagram-php-scraper": "^0.9.11",
-        "phpfastcache/phpfastcache": "^8.0"
     }
 }
