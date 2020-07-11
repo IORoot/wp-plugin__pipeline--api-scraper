@@ -122,7 +122,6 @@ class multichannel implements requestInterface
             (new \yt\e)->line('- \Exception calling YouTube' . $e->getMessage(), 1);
             return false;
         }
-        (new \yt\r)->last('search', 'RESPONSE:'. json_encode($this->last_response, JSON_PRETTY_PRINT));
     }
 
 
@@ -145,7 +144,7 @@ class multichannel implements requestInterface
             return false;
         }
         $this->built_request_url = $this->domain . '/activities?part=snippet%2CcontentDetails&channelId='.$channel_id.'&' . $this->config['query_string'] . "&key=" . $this->config['api_key'];
-        (new \yt\r)->last('search', 'QUERSTRING = '. $this->built_request_url);
+        (new \yt\e)->line('search - QUERSTRING = '. $this->built_request_url);
     }
 
     // ┌─────────────────────────────────────────────────────────────────────────┐

@@ -124,12 +124,12 @@ class multi_accounts implements requestInterface
         $download_dir = $account_dir.'downloads/';
 
         if (!file_exists($output_json)){
-            (new \yt\r)->new('search', 'No output.json file found in '. $account_dir);
+            (new \yt\e)->line('[search] No output.json file found in '. $account_dir);
             return;
         }
 
         if (filesize($output_json) < 100){
-            (new \yt\r)->new('search', 'Output.json file less than 100 bytes, Probably no results. ');
+            (new \yt\e)->line('[search] Output.json file less than 100 bytes, Probably no results. ');
             return;
         }
 
@@ -149,7 +149,6 @@ class multi_accounts implements requestInterface
         }
 
         $this->response->items = array_merge($this->response->items, $obj);
-        (new \yt\r)->new('search', 'RESPONSE OK: '. json_encode($obj, JSON_PRETTY_PRINT));
         
         
         return;
@@ -193,7 +192,7 @@ class multi_accounts implements requestInterface
         $output = shell_exec($node);
 
         if ($output == null) {
-            (new \yt\r)->last('search', 'CANNOT RUN NODE');
+            (new \yt\e)->line('[search] CANNOT RUN NODE');
             return false;
         }
 
@@ -207,7 +206,7 @@ class multi_accounts implements requestInterface
         $output = shell_exec($node);
 
         if ($output == null) {
-            (new \yt\r)->last('search', 'CANNOT RUN INSTAMANCER');
+            (new \yt\e)->line('[search] CANNOT RUN INSTAMANCER');
             return false;
         }
 

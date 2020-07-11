@@ -30,7 +30,7 @@ class post
     {
 
         (new \yt\e)->line('Inserting Post : ' . $this->args['post_title'], 2 );
-        (new \yt\r)->last('import','Inserting Post : ' . $this->args['post_title']); 
+        (new \yt\e)->line('import - Inserting Post : ' . $this->args['post_title']); 
         
         $this->result = wp_insert_post(
             $this->args

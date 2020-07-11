@@ -58,8 +58,6 @@ class podcast implements requestInterface
             (new \yt\e)->line('- \Exception calling API' . $e->getMessage(), 1);
             return false;
         }
-
-        (new \yt\r)->last('search', 'RESPONSE:'. json_encode($this->response, JSON_PRETTY_PRINT));
         
         if (!(new response)->is_errored($this->response)) {
             return false;
@@ -85,7 +83,7 @@ class podcast implements requestInterface
 
         $this->built_request_url = $this->domain . $this->config['query_string'];
 
-        (new \yt\r)->last('search', 'QUERSTRING = '. $this->built_request_url); 
+        (new \yt\e)->line('search - QUERSTRING = '. $this->built_request_url); 
     }
 
 

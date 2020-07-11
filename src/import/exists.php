@@ -62,6 +62,6 @@ class exists
     public function error_report($title)
     {
         (new \yt\e)->line('Post exists, skipping : ' . $title, 2);
-        (new \yt\r)->last('import', 'Post exists, skipping : ' . $title);
+        (new \yt\e)->line('import - Post exists, skipping : ' . $title);
     }
 }

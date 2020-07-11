@@ -89,7 +89,7 @@ class podcast_episode implements requestInterface
 
         $this->built_request_url = $this->domain . $this->config['query_string'];
 
-        (new \yt\r)->last('search', 'QUERSTRING = '. $this->built_request_url);
+        (new \yt\e)->line('search - QUERSTRING = '. $this->built_request_url);
     }
 
 

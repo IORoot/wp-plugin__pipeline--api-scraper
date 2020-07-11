@@ -47,16 +47,16 @@ class delete_all implements housekeepInterface
     public function result()
     {
         if (!isset($this->post_list)) {
-            (new \yt\r)->last('housekeep', 'Category does not exist, skipping.');
+            (new \yt\e)->line('housekeep - Category does not exist, skipping.');
             return;
         }
         if (empty($this->post_list)) {
-            (new \yt\r)->last('housekeep', 'Category empty, skipping.');
+            (new \yt\e)->line('housekeep - Category empty, skipping.');
             return;
         }
 
-        (new \yt\r)->last('housekeep', 'Will delete ' . count($this->post_list) . ' posts (and attachments).');
-        (new \yt\r)->last('housekeep', 'Response : ' . count($this->response) . ' deleted. (Post objects and Image objects).');
+        (new \yt\e)->line('housekeep - Will delete ' . count($this->post_list) . ' posts (and attachments).');
+        (new \yt\e)->line('housekeep - Response : ' . count($this->response) . ' deleted. (Post objects and Image objects).');
         return;
     }
 

@@ -28,6 +28,11 @@ class r
 
             $value = json_encode($value, JSON_PRETTY_PRINT);
         }
+        if (is_object($value)){
+            $value = json_encode($value, JSON_PRETTY_PRINT);
+        }
+
+        
 
         $field = 'yt_'.$field.'_group_yt_debug_'.$field;
 

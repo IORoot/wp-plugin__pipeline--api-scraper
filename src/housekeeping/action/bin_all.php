@@ -51,15 +51,15 @@ class bin_all implements housekeepInterface{
     {
         (new \yt\r)->clear('housekeep');
         if (!isset($this->post_list)){
-            (new \yt\r)->last('housekeep', 'Category empty, skipping.');
+            (new \yt\e)->line('housekeep - Category empty, skipping.');
             return;
         }
         if (empty($this->post_list)){
-            (new \yt\r)->last('housekeep', 'Category not an array, skipping.');
+            (new \yt\e)->line('housekeep - Category not an array, skipping.');
             return;
         }
-        (new \yt\r)->last('housekeep', 'Will bin ' . count($this->post_list) . ' post (and image attachments).'); 
-        (new \yt\r)->last('housekeep', 'Response : ' . count($this->response) . ' were placed in the bin.'); 
+        (new \yt\e)->line('housekeep - Will bin ' . count($this->post_list) . ' post (and image attachments).'); 
+        (new \yt\e)->line('housekeep - Response : ' . count($this->response) . ' were placed in the bin.'); 
         return ;
     }
 
