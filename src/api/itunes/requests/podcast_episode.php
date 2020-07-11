@@ -96,7 +96,7 @@ class podcast_episode implements requestInterface
     private function request_to_apple()
     {
         try {
-            $this->response = json_decode(wp_remote_fopen($this->built_request_url));
+            $this->response['itunes'] = json_decode(wp_remote_fopen($this->built_request_url));
         } catch (\Exception $e) {
             (new \yt\e)->line('- \Exception calling API' . $e->getMessage(), 1);
             return false;
@@ -112,11 +112,11 @@ class podcast_episode implements requestInterface
 
     private function retreive_rss_feed()
     {
-        $rss_url = $this->response->results[0]->feedUrl;
-        $this->artwork_url = $this->response->results[0]->artworkUrl600;
+        $rss_url = $this->response['itunes']->results[0]->feedUrl;
+        $this->artwork_url = $this->response['itunes']->results[0]->artworkUrl600;
 
         try {
-            $this->response = wp_remote_fopen($rss_url);
+            $this->response['rss'] = wp_remote_fopen($rss_url);
         } catch (\Exception $e) {
             (new \yt\e)->line('- \Exception calling RSS' . $e->getMessage(), 1);
             return false;
@@ -130,18 +130,18 @@ class podcast_episode implements requestInterface
     public function convert_rss_to_object()
     {
 
-        $original = $this->response;
-        $this->response = simplexml_load_string($original);
+        $original = $this->response['rss'] ;
+        $this->response['rss'] = simplexml_load_string($original);
 
         // Try again with some sanitising.
-        if ($this->response == false){
-            $fileContents = str_replace(array("\n", "\r", "\t"), '', $this->response);
+        if ($this->response['rss'] == false){
+            $fileContents = str_replace(array("\n", "\r", "\t"), '', $this->response['rss']);
             $fileContents = trim(str_replace('"', "'", $fileContents));
             $simpleXml = simplexml_load_string($fileContents);
-            $this->response = $simpleXml;
+            $this->response['rss'] = $simpleXml;
         }
 
-        (new \yt\r)->last('search', 'RSS->JSON RESPONSE:'. json_encode($this->response, JSON_PRETTY_PRINT));
+        (new \yt\r)->last('search', 'RSS->JSON RESPONSE:'. json_encode($this->response['rss'], JSON_PRETTY_PRINT));
 
         return;
     }
@@ -153,45 +153,55 @@ class podcast_episode implements requestInterface
         /**
          * Convert SimpleXMLElement to STDClass. (using JSON)
          */
-        $this->response = json_decode(json_encode($this->response));
+        $this->response['rss'] = json_decode(json_encode($this->response['rss']));
 
         /**
          * Change response
          */
-        $this->response = $this->response->channel;
+        $this->response['rss'] = $this->response['rss']->channel;
 
         /**
-         * Relabel
+         * Add iTunes data into every RSS item
          */
-        $this->response->items = $this->response->item;
-
+        foreach ($this->response['rss']->item as $item)
+        {
+            $item->itunes = $this->response['itunes']->results[0];
+        }
+        
         /**
          * Add image to all items
          */
-        if (isset($this->response->image)){
+        if (isset($this->response['rss']->image)){
 
             // replace for the itunes artwork URL - more reliable URL.
-            $this->response->image->url = $this->artwork_url;
+            $this->response['rss']->image->url = $this->artwork_url;
 
-            foreach ($this->response->items as $item)
+            foreach ($this->response['rss']->item as $item)
             {
-                $item->image = $this->response->image;
+                $item->image = $this->response['rss']->image;
             }
         }
 
         /**
          * Add any missing links
          */
-        foreach ($this->response->items as $item)
+        foreach ($this->response['rss']->item as $item)
         {
             if (!isset($item->link))
             {
-                $item->link = $this->response->link;
+                $item->link = $this->response['rss']->link;
             }
         }
         
-
+        /**
+         * Relabel
+         */
+        $this->response = $this->response['rss'];
+        
+        $this->response->items = $this->response->item;
         unset($this->response->item);
+
+        return;
     }
 
 
