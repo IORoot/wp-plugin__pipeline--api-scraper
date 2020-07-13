@@ -102,7 +102,7 @@ class multi_accounts implements requestInterface
         // $instamancer .= ' --graft';
         // $instamancer .= ' --sync';
         // $instamancer .= ' --threads 6';
-        $instamancer .= ' --logging debug';
+        $instamancer .= ' --logging error';
         $instamancer .= ' --logfile ../wp-content/instamancer.log';
 
         // No longer downloading here. do it in the main scraper. 
