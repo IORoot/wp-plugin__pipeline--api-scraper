@@ -113,7 +113,11 @@ class tag_search implements requestInterface
         // $instamancer .= ' --downdir '.$downloads;
 
         $command = escapeshellcmd($instamancer);
+
+        (new \yt\e)->line('Instamancer command:'. $command);
+        
         $return = shell_exec($command);
+
 
         return;
     }
