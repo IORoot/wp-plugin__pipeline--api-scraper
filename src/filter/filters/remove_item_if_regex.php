@@ -99,6 +99,7 @@ class remove_item_if_regex implements filterInterface
     
         //if the array is now empty, we can access simply without a loop
         if(count($pathArray) == 0){
+            if (!isset($current_item->{$module}->{$property})){ return; }
             return $current_item->{$module}->{$property};
         }
     
