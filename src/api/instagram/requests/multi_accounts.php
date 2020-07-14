@@ -103,7 +103,7 @@ class multi_accounts implements requestInterface
         // $instamancer .= ' --sync';
         // $instamancer .= ' --threads 6';
         $instamancer .= ' --sleep 3';
-        $instamancer .= ' --logging error';
+        $instamancer .= ' --logging debug';
         $instamancer .= ' --logfile ../wp-content/instamancer.log';
 
         $command = escapeshellcmd($instamancer);
