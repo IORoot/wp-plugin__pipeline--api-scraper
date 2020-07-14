@@ -102,13 +102,9 @@ class multi_accounts implements requestInterface
         // $instamancer .= ' --graft';
         // $instamancer .= ' --sync';
         // $instamancer .= ' --threads 6';
+        $instamancer .= ' --sleep 3';
         $instamancer .= ' --logging error';
         $instamancer .= ' --logfile ../wp-content/instamancer.log';
-
-        // No longer downloading here. do it in the main scraper. 
-        // This is so that consistency of JSON structure can be relied upon.
-        // $instamancer .= ' --download';
-        // $instamancer .= ' --downdir '.$downloads;
 
         $command = escapeshellcmd($instamancer);
         $return = shell_exec($command);
