@@ -63,27 +63,25 @@ class multi_accounts implements requestInterface
         $this->response = (object) [];
         $this->response->items = [];
 
-        foreach ($this->csv_explode() as $accountID) {
-
-            if (!$this->can_run_node()) {
-                break;
-            }
-            if (!$this->can_run_instamancer()) {
-                break;
-            }
-
-            $this->run_instamancer($accountID);
-            $this->read_response_json($accountID);
-
+        if (!$this->can_run_node()) {
+            return;
         }
+        if (!$this->can_run_instamancer()) {
+            return;
+        }
+
+        $this->config['query_string'] = str_replace(' ', '', $this->config['query_string']);
+
+        $this->run_instamancer($this->config['query_string']);
+        // $this->read_response_json($accountID);
 
         return true;
     }
 
 
-    public function run_instamancer($accountID)
+    public function run_instamancer($accountCSV)
     {
-        $temp_dir = WP_CONTENT_DIR . '/uploads/instamancer/'.$accountID.'/';
+        $temp_dir = WP_CONTENT_DIR . '/uploads/instamancer/';
         
         if (!file_exists($temp_dir)) {
             mkdir($temp_dir , 0777, true);
@@ -95,7 +93,7 @@ class multi_accounts implements requestInterface
         
         $instamancer = 'node';
         $instamancer .= ' /usr/local/lib/node_modules/instamancer/src/cli.js';
-        $instamancer .= ' user '.$accountID;
+        $instamancer .= ' users '.$accountCSV;
         $instamancer .= ' --file '.$json_file;
         $instamancer .= ' --count '.$count;
         $instamancer .= ' --full';
@@ -115,7 +113,7 @@ class multi_accounts implements requestInterface
 
     public function read_response_json($accountID)
     {
-        $account_dir = WP_CONTENT_DIR . '/uploads/instamancer/'.$accountID.'/';
+        $account_dir = WP_CONTENT_DIR . '/uploads/instamancer/';
         $output_json = $account_dir.'output_' . date('Ymd') . '.json';
         $download_dir = $account_dir.'downloads/';
 
