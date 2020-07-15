@@ -73,7 +73,7 @@ class multi_accounts implements requestInterface
         $this->config['query_string'] = str_replace(' ', '', $this->config['query_string']);
 
         $this->run_instamancer($this->config['query_string']);
-        // $this->read_response_json($accountID);
+        $this->read_response_json();
 
         return true;
     }
@@ -111,7 +111,7 @@ class multi_accounts implements requestInterface
     }
 
 
-    public function read_response_json($accountID)
+    public function read_response_json()
     {
         $account_dir = WP_CONTENT_DIR . '/uploads/instamancer/';
         $output_json = $account_dir.'output_' . date('Ymd') . '.json';
@@ -135,15 +135,11 @@ class multi_accounts implements requestInterface
             // Add link
             $item->shortcode_media->link = 'https://instagram.com/p/'.$item->shortcode_media->shortcode;
 
-            // Add username
-            $item->shortcode_media->username = $accountID;  
-
             // remove the shortcode_media bit.
             $obj[$key] = $item->shortcode_media;
         }
 
         $this->response->items = array_merge($this->response->items, $obj);
-        
         
         return;
     }
