@@ -14,6 +14,7 @@ require __DIR__.'/options_page.php';
 //  │                          The ACF Dashboard                              │
 //  └─────────────────────────────────────────────────────────────────────────┘
 require __DIR__.'/dashboard.php';
+require __DIR__.'/sidemenu.php';
 
 //  ┌─────────────────────────────────────────────────────────────────────────┐
 //  │                      The ACF import/export tab page                     │

@@ -4,6 +4,7 @@ namespace yt;
 
 class options
 {
+    public $sidebar;
     public $scrape;
     public $search;
     public $filter;
@@ -27,6 +28,9 @@ class options
 
     public function get_all_options()
     {
+
+        // sidebar
+        $this->sidebar['saveonly'] = get_field('yt_sidebar_saveonly', 'option');
 
         // scrape
         $this->get_repeater_options('yt_scrape_instance', 'scrape');

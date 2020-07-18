@@ -73,9 +73,14 @@ class scraper
     public function run()
     {
 
+        // saveonly mode. Don't run scrapers.
+        if ($this->options->sidebar['saveonly']) {
+            return;
+        }
+
         // loop over each scrape instance.
         foreach ($this->options->scrape as $this->_scrape_key => $value) {
-            
+
             // has this scrape been enabled?
             if ($this->options->scrape[$this->_scrape_key]['yt_scrape_group']['yt_scrape_enabled'] != true) {
                 continue;
