@@ -206,6 +206,7 @@ class api
             return $this;
         }
         $this->config['extra_parameters'] = $this->string_to_array($this->search_config['yt_search_parameters']);
+        (new e)->line('- Query Config = '.$this->config['extra_parameters'], 1);
         return $this;
     }
 

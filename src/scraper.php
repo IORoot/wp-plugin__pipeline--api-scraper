@@ -73,14 +73,14 @@ class scraper
     public function run()
     {
 
-        // saveonly mode. Don't run scrapers.
-        if ($this->options->sidebar['saveonly']) {
-            return;
-        }
-
         // loop over each scrape instance.
         foreach ($this->options->scrape as $this->_scrape_key => $value) {
 
+            if ($this->options->sidebar['saveonly']) {
+                $this->saveonly_mode();
+                continue;
+            }
+            
             // has this scrape been enabled?
             if ($this->options->scrape[$this->_scrape_key]['yt_scrape_group']['yt_scrape_enabled'] != true) {
                 continue;
@@ -161,6 +161,24 @@ class scraper
         // run any 'after scrape' tasks
         $this->after_housekeep();
 
+        return;
+    }
+
+
+    public function saveonly_mode()
+    {
+
+        // has this scrape been enabled?
+        if ($this->options->scrape[$this->_scrape_key]['yt_scrape_group']['yt_scrape_enabled'] != true) {
+            return;
+        }
+
+        // Run any housekeeping.
+        $this->before_housekeep();
+
+        // Add any new schedule into WP_CRON
+        $this->schedule();
+        
         return;
     }
 
@@ -440,7 +458,15 @@ class scraper
         unset($housekeep);
     }
 
-    
+    // ┌─────────────────────────────────────────────────────────────────────────┐
+    // │                                                                         │░
+    // │                                                                         │░
+    // │                                 CLEANUPS                                │░
+    // │                                                                         │░
+    // │                                                                         │░
+    // └─────────────────────────────────────────────────────────────────────────┘░
+    //  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+
     public function scheduler_housekeeping()
     {
         $this->scheduler = new scheduler;

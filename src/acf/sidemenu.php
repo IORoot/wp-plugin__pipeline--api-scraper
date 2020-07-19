@@ -11,7 +11,7 @@ acf_add_local_field_group(array(
 			'label' => 'Save only',
 			'name' => 'yt_sidebar_saveonly',
 			'type' => 'true_false',
-			'instructions' => 'When this is ON you will NOT run the scrapers. Use to update fields while scrapers are enabled.',
+			'instructions' => 'When this is ON you will NOT run the scrapers. Schedules WILL update. Housekeeping WILL run. Use to update fields while scrapers are enabled.',
 			'required' => 0,
 			'conditional_logic' => 0,
 			'wrapper' => array(

@@ -74,6 +74,7 @@ class multi_accounts implements requestInterface
 
         $this->run_instamancer($this->config['query_string']);
         $this->read_response_json();
+        $this->delete_json_file();
 
         return true;
     }
@@ -105,6 +106,9 @@ class multi_accounts implements requestInterface
         $instamancer .= ' --logfile ../wp-content/instamancer.log';
 
         $command = escapeshellcmd($instamancer);
+
+        (new \yt\e)->line('Instamancer command:'. $command);
+
         $return = shell_exec($command);
 
         return;
@@ -203,9 +207,26 @@ class multi_accounts implements requestInterface
         return true;
     }
 
+    
     public function csv_explode()
     {
         $this->config['query_string'] = str_replace(' ', '', $this->config['query_string']);
         return explode(',', $this->config['query_string']);
+    }
+
+
+    public function delete_json_file()
+    {
+
+        $account_dir = WP_CONTENT_DIR . '/uploads/instamancer/';
+        $output_json = $account_dir.'output_' . date('Ymd') . '.json';
+
+        if (file_exists($output_json)){
+            (new \yt\e)->line('search - FILE DELETED:'. $output_json);
+            @unlink($output_json);   // clean up
+            return;
+        }
+
+        return;
     }
 }

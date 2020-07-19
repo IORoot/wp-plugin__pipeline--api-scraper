@@ -76,6 +76,7 @@ class tag_search implements requestInterface
 
             $this->run_instamancer($hashtag);
             $this->read_response_json($hashtag);
+            $this->delete_json_file($hashtag);
 
         }
 
@@ -92,7 +93,6 @@ class tag_search implements requestInterface
         }
         
         $json_file = $temp_dir.'output_' . date('Ymd') . '.json';
-        $downloads = $temp_dir.'downloads/';
         $count = $this->default_count();
         
         $instamancer = 'node';
@@ -101,7 +101,7 @@ class tag_search implements requestInterface
         $instamancer .= ' --file '.$json_file;
         $instamancer .= ' --count '.$count;
         $instamancer .= ' --full';
-        $instamancer .= ' --logging error';
+        $instamancer .= ' --logging debug';
         $instamancer .= ' --logfile ../wp-content/instamancer.log';
 
         $command = escapeshellcmd($instamancer);
@@ -110,17 +110,14 @@ class tag_search implements requestInterface
 
         $return = shell_exec($command);
 
-
         return;
     }
 
 
     public function read_response_json($hashtag)
     {
-        // $account_dir = get_temp_dir() . 'instamancer/'.$hashtag.'/';
         $account_dir = WP_CONTENT_DIR . '/uploads/instamancer/'.$hashtag.'/';
         $output_json = $account_dir.'output_' . date('Ymd') . '.json';
-        $download_dir = $account_dir.'downloads/';
 
         if (!file_exists($output_json)){
             (new \yt\e)->line('search - No output.json file found in '. $account_dir);
@@ -204,5 +201,20 @@ class tag_search implements requestInterface
     {
         $this->config['query_string'] = str_replace(' ', '', $this->config['query_string']);
         return explode(',', $this->config['query_string']);
+    }
+
+    public function delete_json_file($hashtag)
+    {
+
+        $account_dir = WP_CONTENT_DIR . '/uploads/instamancer/'.$hashtag.'/';
+        $output_json = $account_dir.'output_' . date('Ymd') . '.json';
+
+        if (file_exists($output_json)){
+            (new \yt\e)->line('search - FILE DELETED:'. $output_json);
+            @unlink($output_json);   // clean up
+            return;
+        }
+
+        return;
     }
 }
