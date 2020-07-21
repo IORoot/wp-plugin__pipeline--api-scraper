@@ -116,10 +116,6 @@ class mapper_item
 
         $transformed_value = $this->transform_value($source_value);
 
-        
-        
-        (new e)->line( 'Transformed value: '. substr($transformed_value,0,100) ,2);
-
         // Set the result array to have a key of the
         // destination field and the value of the
         // source field, after its had any transforms
