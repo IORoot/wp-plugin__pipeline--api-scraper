@@ -5,6 +5,7 @@ namespace yt\youtube\request;
 use yt\interfaces\requestInterface;
 use yt\quota;
 use yt\youtube\response;
+use yt\youtube\request\videos;
 
 class multichannel implements requestInterface
 {
@@ -26,6 +27,8 @@ class multichannel implements requestInterface
         'query_string' => null,
         'extra_parameters' => null,
     ];
+
+    public $videos_csv;
 
     public $built_request_url;
 
@@ -60,7 +63,9 @@ class multichannel implements requestInterface
         (new quota)->update_quota_by_api_key($this->cost, $this->config['api_key']);
 
         foreach ($this->channel_list as $channel_id) {
+
             (new \yt\e)->line('- Calling API for Channel_ID : '.$channel_id, 1);
+
             $this->build_request_url($channel_id);
             $this->call_api();
 
@@ -75,7 +80,34 @@ class multichannel implements requestInterface
 
         $this->filter_for_uploads_only();
 
+        $this->add_statistics_to_items();
+
         return true;
+    }
+
+
+    public function add_statistics_to_items()
+    {
+
+        foreach ($this->response[0]->items as $key => $item) 
+        {
+            $this->videos_csv .= $item->contentDetails->upload->videoId . ',';
+        }
+
+        // remove last comma
+        $this->videos_csv = rtrim($this->videos_csv, ',');
+
+        $vid = new videos();
+
+        $config = $this->config;
+        $config['query_string'] = $this->videos_csv;
+        $vid->config($config);
+        $vid->request();
+
+        // Replace the current repsonse with the new one that has stats as well.
+        $this->response[0] = $vid->response();
+
+        return;
     }
 
 
