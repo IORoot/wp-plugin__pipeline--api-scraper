@@ -98,10 +98,6 @@ class multi_accounts implements requestInterface
         $instamancer .= ' --file '.$json_file;
         $instamancer .= ' --count '.$count;
         $instamancer .= ' --full';
-        // $instamancer .= ' --graft';
-        // $instamancer .= ' --sync';
-        // $instamancer .= ' --threads 6';
-        // $instamancer .= ' --sleep 3';
         $instamancer .= ' --logging error';
         $instamancer .= ' --logfile ' . WP_CONTENT_DIR . '/instamancer.log';
 

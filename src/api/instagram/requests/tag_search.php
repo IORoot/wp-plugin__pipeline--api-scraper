@@ -101,12 +101,12 @@ class tag_search implements requestInterface
         $instamancer .= ' --file '.$json_file;
         $instamancer .= ' --count '.$count;
         $instamancer .= ' --full';
-        $instamancer .= ' --logging error';
+        $instamancer .= ' --logging debug';
         $instamancer .= ' --logfile ' . WP_CONTENT_DIR . '/instamancer.log';
 
-        $command = escapeshellcmd($instamancer);
-
         (new \yt\e)->line('Instamancer command:'. $command);
+
+        $command = escapeshellcmd($instamancer);
 
         $return = shell_exec($command);
 
