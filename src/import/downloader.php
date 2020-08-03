@@ -2,6 +2,10 @@
 
 namespace yt\import;
 
+use WP_REST_Request;
+use MatthiasWeb\RealMediaLibrary\rest\Service;
+use MatthiasWeb\RealMediaLibrary\rest\Attachment;
+
 class downloader 
 {
 
@@ -16,6 +20,7 @@ class downloader
     public $file_array;
     public $att_id;
 
+    public $rml_menu_id;
 
 
     public function download($url = null, $post_data = array(), $alttext, $filename = null )
@@ -47,6 +52,7 @@ class downloader
         $this->load_image_into_wp();
         $this->update_image_meta();
         $this->delete_image_if_error();
+        $this->move_into_RML_folder();
 
         return $this->att_id;
     }
@@ -171,5 +177,68 @@ class downloader
             $wpdb->get_var( "SELECT post_id FROM {$wpdb->postmeta} WHERE meta_value LIKE '%/$filename.%'" ) 
         );
     }
+
+
+    public function move_into_RML_folder()
+    {
+
+        // Are you using Real-Media-Library plugin?
+        if (!defined("RML_NS")) {
+            return;
+        }
+
+        if( !is_plugin_active( 'real-media-library/index.php' ) ) {
+            return;
+        }
+
+        $this->get_RML_folder_id();
+        $this->move_image_into_RML_folder();
+
+    }
+
+
+    public function get_RML_folder_id()
+    {
+
+        $rml_service = new Service;
+
+        $request = new WP_REST_Request( 'GET', '/wp/v2/posts' );
+
+        $tree =  $rml_service->routeTree($request);
+
+        $slugs = $tree->get_data();
+
+        foreach ($slugs['slugs']['names'] as $key => $name)
+        {
+            if (stripos($name, 'PULSE'))
+            {
+                $this->rml_menu_id = $slugs['slugs']['slugs'][$key];
+            }
+        }
+
+        return;
+    }
+
+
+
+
+    public function move_image_into_RML_folder()
+    {
+        $rml_attachment = new Attachment;
+
+        $request = new WP_REST_Request( 'PUT', '/wp/v2/posts' );
+    
+        // PULSE DIRECTORY
+        $request->set_query_params([
+            'ids' => [$this->att_id],
+            'to' => $this->rml_menu_id 
+        ]);
+    
+        $rml_attachment->routeBulkMove($request);
+    
+        return;
+    }
+
+
 
 }
