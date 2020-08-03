@@ -191,6 +191,12 @@ class downloader
             return;
         }
 
+
+        if( !$this->att_id || $this->att_id == '' || $this->att_id == null) {
+            return;
+        }
+
+
         $this->get_RML_folder_id();
         $this->move_image_into_RML_folder();
 
@@ -224,6 +230,11 @@ class downloader
 
     public function move_image_into_RML_folder()
     {
+
+        if( !$this->rml_menu_id || $this->rml_menu_id == '' || $this->rml_menu_id == null ) {
+            return;
+        }
+        
         $rml_attachment = new Attachment;
 
         $request = new WP_REST_Request( 'PUT', '/wp/v2/posts' );
