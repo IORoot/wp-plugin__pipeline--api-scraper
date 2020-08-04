@@ -98,7 +98,10 @@ class multi_accounts implements requestInterface
         $instamancer .= ' --file '.$json_file;
         $instamancer .= ' --count '.$count;
         $instamancer .= ' --full';
-        $instamancer .= ' --logging error';
+        $instamancer .= ' --screenshots';
+        $instamancer .= ' --user '. $this->config['api_username'];
+        $instamancer .= ' --pass '. $this->config['api_key'];
+        $instamancer .= ' --logging debug';
         $instamancer .= ' --logfile ' . WP_CONTENT_DIR . '/instamancer.log';
 
         $command = escapeshellcmd($instamancer);
