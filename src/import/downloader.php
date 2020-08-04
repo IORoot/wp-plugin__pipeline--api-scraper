@@ -191,11 +191,9 @@ class downloader
             return;
         }
 
-
         if (!$this->att_id || $this->att_id == '' || $this->att_id == null) {
             return;
         }
-
 
         $this->get_RML_folder_id();
         $this->move_image_into_RML_folder();
@@ -231,12 +229,12 @@ class downloader
         }
 
         if (is_a($this->rml_menu_id, 'WP_Error')) {
-            (new \yt\e)->line('WP_ERROR when looking for RML folder :' . json_encode($this->rml_menu_id), 2);
+            (new \yt\e)->line('rml_menu_id WP_ERROR when looking for RML folder :' . json_encode($this->rml_menu_id), 2);
             return;
         }
 
-        if (is_object($this->rml_menu_id)) {
-            (new \yt\e)->line('rml_menu_id is an object. Error. ', 2);
+        if (is_a($this->att_id, 'WP_Error')) {
+            (new \yt\e)->line('att_id WP_ERROR when looking for RML folder :' . json_encode($this->rml_menu_id), 2);
             return;
         }
         
