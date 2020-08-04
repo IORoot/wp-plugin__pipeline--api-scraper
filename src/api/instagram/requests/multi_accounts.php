@@ -103,8 +103,7 @@ class multi_accounts implements requestInterface
         $instamancer .= ' --pass '. $this->config['api_key'];
         $instamancer .= ' --logging debug';
         $instamancer .= ' --logfile ' . WP_CONTENT_DIR . '/instamancer.log';
-        $instamancer .= ' 2>&1';
-        
+
         // delete all screenshots
         shell_exec('rm /tmp/instamancer/*.png');
 
@@ -112,7 +111,7 @@ class multi_accounts implements requestInterface
 
         (new \yt\e)->line('Instamancer command:'. $command);
 
-        $return = shell_exec($command);
+        $return = shell_exec($command . ' 2>&1');
 
         (new \yt\e)->line('Instamancer returned:'. $return);
 
