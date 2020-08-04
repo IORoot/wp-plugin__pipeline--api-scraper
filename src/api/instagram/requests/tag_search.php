@@ -107,6 +107,9 @@ class tag_search implements requestInterface
         $instamancer .= ' --logging debug';
         $instamancer .= ' --logfile ' . WP_CONTENT_DIR . '/instamancer.log';
 
+        // delete all screenshots
+        shell_exec('rm /tmp/instamancer/*.png');
+
         $command = escapeshellcmd($instamancer);
 
         (new \yt\e)->line('Instamancer command:'. $command);
