@@ -246,7 +246,7 @@ class api
     public function string_to_array($parameters)
     {
         $string = preg_replace("/\r|\n/", "", $parameters);
-        return eval("return $string;");
+        return eval("return " . $string . ";");
     }
 
 

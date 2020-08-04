@@ -49,7 +49,7 @@ class yt_array_front implements filterInterface
     public function config_string_to_array()
     {
         $config = preg_replace("/\r|\n/", "", $this->config);
-        $this->config = eval("return $config;");
+        $this->config = eval("return " . $config . ";");
         return;
     }
 

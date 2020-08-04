@@ -20,8 +20,9 @@ class delete_all implements housekeepInterface
 
     public function wp_query($wp_query)
     {
+
         $config = preg_replace("/\r|\n/", "", $wp_query);
-        $this->query = eval("return $config;");
+        $this->query = eval("return " . $config . ";");
 
         $this->post_list();
 
