@@ -110,6 +110,8 @@ class multi_accounts implements requestInterface
 
         $return = shell_exec($command);
 
+        (new \yt\e)->line('Instamancer returned:'. $return);
+
         return;
     }
 
