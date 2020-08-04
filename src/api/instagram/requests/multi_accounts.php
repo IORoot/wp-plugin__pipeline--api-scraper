@@ -74,7 +74,7 @@ class multi_accounts implements requestInterface
 
         $this->run_instamancer($this->config['query_string']);
         $this->read_response_json();
-        $this->delete_json_file();
+        // $this->delete_json_file();
 
         return true;
     }

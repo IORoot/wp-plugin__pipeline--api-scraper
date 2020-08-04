@@ -76,7 +76,7 @@ class tag_search implements requestInterface
 
             $this->run_instamancer($hashtag);
             $this->read_response_json($hashtag);
-            $this->delete_json_file($hashtag);
+            // $this->delete_json_file($hashtag);
 
         }
 
@@ -217,11 +217,14 @@ class tag_search implements requestInterface
         $account_dir = WP_CONTENT_DIR . '/uploads/instamancer/'.$hashtag.'/';
         $output_json = $account_dir.'output_' . date('Ymd') . '.json';
 
-        if (file_exists($output_json)){
-            (new \yt\e)->line('search - FILE DELETED:'. $output_json);
-            @unlink($output_json);   // clean up
+        if (!file_exists($output_json)){
             return;
         }
+
+        (new \yt\e)->line('search - FILE DELETED:'. $output_json);
+        @unlink($output_json);   // clean up
+        return;
+        
 
         return;
     }
