@@ -250,7 +250,11 @@ class downloader
             'to' => $this->rml_menu_id
         ]);
     
-        $rml_attachment->routeBulkMove($request);
+        try {
+            $rml_attachment->routeBulkMove($request);
+        } catch (Exception $e) {
+            (new \yt\e)->line('Exception trying to move into RML Folder. '. $e, 2);
+        }
     
         return;
     }
