@@ -225,7 +225,7 @@ class scraper
         // Get the YouTube results and add to scrape array.
         $this->options->scrape[$this->_scrape_key]['yt_scrape_response'] = $this->api->run();
 
-        (new \yt\r)->new('search', $this->options->scrape[$this->_scrape_key]['yt_scrape_response']->items[0]);
+        (new \yt\r)->new('search', $this->options->scrape[$this->_scrape_key]['yt_scrape_response']->items);
         unset($this->api);
 
         return;
@@ -266,7 +266,7 @@ class scraper
         // object.
         $this->options->scrape[$this->_scrape_key]['yt_scrape_filtered'] = $this->filter->run();
 
-        (new \yt\r)->new('filter', $this->options->scrape[$this->_scrape_key]['yt_scrape_filtered']->items[0]);
+        (new \yt\r)->new('filter', $this->options->scrape[$this->_scrape_key]['yt_scrape_filtered']->items);
         unset($this->filter);
 
         return;
@@ -326,7 +326,7 @@ class scraper
 
         // Report last response.
         // (new \yt\r)->clear('mapper');
-        (new \yt\r)->new('mapper', $this->options->scrape[$this->_scrape_key]['yt_scrape_mapped'][0]);
+        (new \yt\r)->new('mapper', $this->options->scrape[$this->_scrape_key]['yt_scrape_mapped']);
 
         unset($this->mapper);
 
@@ -361,7 +361,7 @@ class scraper
         $this->add_term();
         $this->add_posts();
 
-        (new \yt\r)->new('import', $this->options->scrape[$this->_scrape_key]['yt_scrape_imported'][0]);
+        (new \yt\r)->new('import', $this->options->scrape[$this->_scrape_key]['yt_scrape_imported']);
         unset($this->importer);
         
         return $this;
