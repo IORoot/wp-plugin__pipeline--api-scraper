@@ -6,9 +6,8 @@ use WP_REST_Request;
 use MatthiasWeb\RealMediaLibrary\rest\Service;
 use MatthiasWeb\RealMediaLibrary\rest\Attachment;
 
-class downloader 
+class downloader
 {
-
     public $url;
     public $post_data;
     public $alttext;
@@ -23,9 +22,11 @@ class downloader
     public $rml_menu_id;
 
 
-    public function download($url = null, $post_data = array(), $alttext, $filename = null )
+    public function download($url = null, $post_data = array(), $alttext, $filename = null)
     {
-        if ( !$url ) return new \WP_Error('missing', "Need a valid URL to download image.");
+        if (!$url) {
+            return new \WP_Error('missing', "Need a valid URL to download image.");
+        }
 
         $this->url = $url;
         $this->post_data = $post_data;
@@ -33,15 +34,14 @@ class downloader
         $this->filename = $filename;
 
         // Does the image exist already?
-        if ($image_id = $this->does_image_exist($filename)) { 
-            return $image_id;  
+        if ($image_id = $this->does_image_exist($filename)) {
+            return $image_id;
         }
 
         $this->tmp = $this->url;
 
         // Check if this is a REMOTE file. (regex for leading 'HTTP'' )
-        if (preg_match('/^http/i', $url) == 1)
-        {
+        if (preg_match('/^http/i', $url) == 1) {
             $this->download_url();
         }
 
@@ -62,8 +62,8 @@ class downloader
     public function download_url()
     {
         // Download the file to temporary storage
-        require_once( ABSPATH . 'wp-admin/includes/file.php' );
-        $this->tmp = download_url( $this->url );
+        require_once(ABSPATH . 'wp-admin/includes/file.php');
+        $this->tmp = download_url($this->url);
         return;
     }
 
@@ -81,12 +81,12 @@ class downloader
     public function rename_output_filename()
     {
         // override filename if given, reconstruct server path
-        if ( !empty( $this->filename ) ) {
+        if (!empty($this->filename)) {
             $this->filename = sanitize_file_name($this->filename);
-            $tmppath = pathinfo( $this->tmp );                                                        // extract path parts
+            $tmppath = pathinfo($this->tmp);                                                        // extract path parts
             $new = $tmppath['dirname'] . "/". $this->filename . "." . $tmppath['extension'];          // build new path
             rename($this->tmp, $new);                                                                 // renames temp file on server
-            $this->tmp = $new;                                                                     
+            $this->tmp = $new;
         }
         
         return;
@@ -101,7 +101,7 @@ class downloader
         //      name: "newname.jpg"
         $this->file_array['tmp_name'] = $this->tmp;                                                         // full server path to temp file
 
-        if ( !empty( $this->filename ) ) {
+        if (!empty($this->filename)) {
             $this->file_array['name'] = $this->filename . "." . $this->url_type['ext'];                     // user given filename for title, add original URL extension
         } else {
             $this->file_array['name'] = $this->url_filename;                                                // just use original URL filename
@@ -114,7 +114,7 @@ class downloader
     public function unique_image_title()
     {
         // set additional wp_posts columns
-        if ( empty( $this->post_data['post_title'] ) ) {
+        if (empty($this->post_data['post_title'])) {
             $this->post_data['post_title'] = basename($this->url_filename, "." . $this->url_type['ext']);         // just use the original filename (no extension)
         }
 
@@ -143,7 +143,7 @@ class downloader
         //
         // Note - $post_id is NULL. This is because we'll attach the image to the post with the
         // 'attach' class instead.
-        $this->att_id = media_handle_sideload( $this->file_array, null, null, $this->post_data ); 
+        $this->att_id = media_handle_sideload($this->file_array, null, null, $this->post_data);
 
         return;
     }
@@ -152,7 +152,7 @@ class downloader
     public function update_image_meta()
     {
         // Set the image Alt-Text
-        update_post_meta( $this->att_id, '_wp_attachment_image_alt', $this->alttext );
+        update_post_meta($this->att_id, '_wp_attachment_image_alt', $this->alttext);
 
         return;
     }
@@ -161,9 +161,9 @@ class downloader
     public function delete_image_if_error()
     {
         // If error storing permanently, unlink
-        if ( is_wp_error($this->att_id) ) {
+        if (is_wp_error($this->att_id)) {
             @unlink($this->file_array['tmp_name']);   // clean up
-            (new \yt\e)->line('There was an error with an image file, so it was deleted. ', 2 );
+            (new \yt\e)->line('There was an error with an image file, so it was deleted. ', 2);
         }
 
         return;
@@ -173,8 +173,8 @@ class downloader
     public function does_image_exist($filename)
     {
         global $wpdb;
-        return intval( 
-            $wpdb->get_var( "SELECT post_id FROM {$wpdb->postmeta} WHERE meta_value LIKE '%/$filename.%'" ) 
+        return intval(
+            $wpdb->get_var("SELECT post_id FROM {$wpdb->postmeta} WHERE meta_value LIKE '%/$filename.%'")
         );
     }
 
@@ -187,37 +187,33 @@ class downloader
             return;
         }
 
-        if( !is_plugin_active( 'real-media-library/index.php' ) ) {
+        if (!is_plugin_active('real-media-library/index.php')) {
             return;
         }
 
 
-        if( !$this->att_id || $this->att_id == '' || $this->att_id == null) {
+        if (!$this->att_id || $this->att_id == '' || $this->att_id == null) {
             return;
         }
 
 
         $this->get_RML_folder_id();
         $this->move_image_into_RML_folder();
-
     }
 
 
     public function get_RML_folder_id()
     {
-
         $rml_service = new Service;
 
-        $request = new WP_REST_Request( 'GET', '/wp/v2/posts' );
+        $request = new WP_REST_Request('GET', '/wp/v2/posts');
 
         $tree =  $rml_service->routeTree($request);
 
         $slugs = $tree->get_data();
 
-        foreach ($slugs['slugs']['names'] as $key => $name)
-        {
-            if (stripos($name, 'PULSE'))
-            {
+        foreach ($slugs['slugs']['names'] as $key => $name) {
+            if (stripos($name, 'PULSE')) {
                 $this->rml_menu_id = $slugs['slugs']['slugs'][$key];
             }
         }
@@ -230,26 +226,32 @@ class downloader
 
     public function move_image_into_RML_folder()
     {
+        if (!$this->rml_menu_id || $this->rml_menu_id == '' || $this->rml_menu_id == null) {
+            return;
+        }
 
-        if( !$this->rml_menu_id || $this->rml_menu_id == '' || $this->rml_menu_id == null ) {
+        if (is_a($this->rml_menu_id, 'WP_Error')) {
+            (new \yt\e)->line('WP_ERROR when looking for RML folder :' . json_encode($this->rml_menu_id), 2);
+            return;
+        }
+
+        if (is_object($this->rml_menu_id)) {
+            (new \yt\e)->line('rml_menu_id is an object. Error. ', 2);
             return;
         }
         
         $rml_attachment = new Attachment;
 
-        $request = new WP_REST_Request( 'PUT', '/wp/v2/posts' );
+        $request = new WP_REST_Request('PUT', '/wp/v2/posts');
     
         // PULSE DIRECTORY
         $request->set_query_params([
             'ids' => [$this->att_id],
-            'to' => $this->rml_menu_id 
+            'to' => $this->rml_menu_id
         ]);
     
         $rml_attachment->routeBulkMove($request);
     
         return;
     }
-
-
-
 }
