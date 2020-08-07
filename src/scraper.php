@@ -143,11 +143,14 @@ class scraper
         // Query API.
         $this->scrape_api();
 
-        // // Filter the results returned
+        // Filter the results returned
         $this->filter();
 
         // Map fields
         $this->mapper();
+
+        // Add all scrape details
+        $this->add_scrape_details_items();
 
         // Import results into CPT
         $this->import();
@@ -552,5 +555,25 @@ class scraper
         }
 
         return true;
+    }
+
+
+
+
+    public function add_scrape_details_items()
+    {
+
+        foreach ( $this->options->scrape[$this->_scrape_key]['yt_scrape_mapped'] as $key => $item )
+        {
+
+            $this->options->scrape[$this->_scrape_key]['yt_scrape_mapped'][$key]['meta']['scrapeId'] = $this->options->scrape[$this->_scrape_key]['yt_scrape_group']['yt_scrape_id'];
+            $this->options->scrape[$this->_scrape_key]['yt_scrape_mapped'][$key]['meta']['authId']   = $this->options->scrape[$this->_scrape_key]['yt_scrape_auth']['yt_auth_id'];
+            $this->options->scrape[$this->_scrape_key]['yt_scrape_mapped'][$key]['meta']['searchId'] = $this->options->scrape[$this->_scrape_key]['yt_scrape_search']['yt_search_id'];
+            $this->options->scrape[$this->_scrape_key]['yt_scrape_mapped'][$key]['meta']['filterId'] = $this->options->scrape[$this->_scrape_key]['yt_scrape_filter']['yt_filter_id'];
+            $this->options->scrape[$this->_scrape_key]['yt_scrape_mapped'][$key]['meta']['mapperId'] = $this->options->scrape[$this->_scrape_key]['yt_scrape_mapper']['yt_mapper_id'];
+            $this->options->scrape[$this->_scrape_key]['yt_scrape_mapped'][$key]['meta']['importId'] = $this->options->scrape[$this->_scrape_key]['yt_scrape_import']['yt_import_id'];
+        }
+
+        return;
     }
 }
