@@ -20,7 +20,7 @@ class r
         return $result;
     }
 
-    
+        
     public function last($field, $value)
     {
         if (is_array($value)){
@@ -31,12 +31,16 @@ class r
             $value = json_encode($value, JSON_PRETTY_PRINT);
         }
 
+        $trim_length = intval(get_field( 'yt_'.$field.'_group_yt_debug_'.$field.'_length' , 'options' ));
+
         $field = 'yt_'.$field.'_group_yt_debug_'.$field;
 
         $old_value = get_field( $field, 'options' ). '
         ';
 
-        $trimmed_string = substr($old_value . $value, 0, 5000);
+        if ($trim_length != 0){
+            $trimmed_string = substr($old_value . $value, 0, $trim_length);
+        }
 
         update_field($field, $trimmed_string, 'option');
 

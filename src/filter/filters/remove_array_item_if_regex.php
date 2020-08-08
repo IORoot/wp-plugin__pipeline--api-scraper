@@ -94,7 +94,7 @@ class remove_array_item_if_regex implements filterInterface
         foreach ($array_of_values as $array_item)
         {
             // if any match the regex, return true.
-            if (preg_match($this->config['regex'], $array_of_values))
+            if (preg_match($this->config['regex'], $array_item))
             {
                 return true;
             }
