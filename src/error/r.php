@@ -30,9 +30,6 @@ class r
         if (is_object($value)){
             $value = json_encode($value, JSON_PRETTY_PRINT);
         }
-        if (!empty($value)){
-            $value = $value[0];
-        }
 
         $field = 'yt_'.$field.'_group_yt_debug_'.$field;
 

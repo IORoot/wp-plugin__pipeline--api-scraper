@@ -4,10 +4,10 @@ namespace yt\transform;
 
 use yt\interfaces\transformInterface;
 
-class md5 implements transformInterface
+class encode_json implements transformInterface
 {
     
-    public $description = "MD5 Encodes input.";
+    public $description = "JSON Encodes input.";
 
     public $parameters = 'None';
 
@@ -26,7 +26,7 @@ class md5 implements transformInterface
 
     public function out()
     {
-        return md5($this->input);
+        return json_encode($this->input);
     }
 
 }
