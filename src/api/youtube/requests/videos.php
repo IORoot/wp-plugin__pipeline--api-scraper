@@ -84,7 +84,7 @@ class videos implements requestInterface
     public function build_request_url()
     {
         if(!$this->check_url()){return false;}  
-        $this->built_request_url = $this->domain . '/videos?part=snippet&part=statistics&id=' . $this->config['query_string'] . "&key=" . $this->config['api_key'];
+        $this->built_request_url = $this->domain . '/videos?part=snippet&part=statistics&part=topicDetails&id=' . $this->config['query_string'] . "&key=" . $this->config['api_key'];
         (new \yt\e)->line('search - QUERSTRING = '. $this->built_request_url); 
     }
 
