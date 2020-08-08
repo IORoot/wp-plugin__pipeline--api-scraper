@@ -36,7 +36,9 @@ class r
         $old_value = get_field( $field, 'options' ). '
         ';
 
-        update_field($field, $old_value . $value, 'option');
+        $trimmed_string = substr($old_value . $value, 0, 5000);
+
+        update_field($field, $trimmed_string, 'option');
 
     }
 
