@@ -82,6 +82,11 @@ class remove_item_if_regex implements filterInterface
 
     public function should_item_be_in_collection($value_in_field)
     {
+
+        if (!is_string($value_in_field)){
+            $value_in_field = json_encode($value_in_field);
+        }
+
         return preg_match($this->config['regex'], $value_in_field);
     }
 
