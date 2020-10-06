@@ -6,7 +6,8 @@
 function save_yt_options()
 {
     $screen = get_current_screen();
-    if ($screen->id != "youtube_page_youtube_scraper") {
+
+    if ($screen->id != "pipeline_page_youtube_scraper") {
         return;
     }
         
