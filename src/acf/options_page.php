@@ -1,11 +1,14 @@
 <?php
 
 
+add_action('acf/init', 'scraper_acf_add_menus_init');
+
+
+function scraper_acf_add_menus_init() {
 
 // Create Parent Menu
-if( function_exists('acf_add_options_page') ) {
-    
-    $argsparent = array(
+    if (function_exists('acf_add_options_page')) {
+        $argsparent = array(
         'page_title' => 'Pipeline',
         'menu_title' => 'Pipeline',
         'menu_slug' => 'pipeline',
@@ -19,16 +22,17 @@ if( function_exists('acf_add_options_page') ) {
         'update_button'		=> __('Update', 'acf'),
         'updated_message'	=> __("Options Updated", 'acf'),
     );
-	acf_add_options_page($argsparent);
-	acf_add_options_sub_page(array(
+        acf_add_options_page($argsparent);
+        acf_add_options_sub_page(
+            array(
         'parent_slug'	=> 'pipeline',
         )
-    );
-}
+        );
+    }
 
-// Create New Menu
-if (function_exists('acf_add_options_page')) {
-    $args = array(
+    // Create New Menu
+    if (function_exists('acf_add_options_page')) {
+        $args = array(
 
         'page_title' => 'API Scraper',
         'menu_title' => '➡️ API Scraper',
@@ -44,8 +48,9 @@ if (function_exists('acf_add_options_page')) {
         'updated_message'	=> __("Options Updated", 'acf'),
     );
 
-    /**
-     * Create a new options page.
-     */
-    acf_add_options_sub_page($args);
+        /**
+         * Create a new options page.
+         */
+        acf_add_options_sub_page($args);
+    }
 }
