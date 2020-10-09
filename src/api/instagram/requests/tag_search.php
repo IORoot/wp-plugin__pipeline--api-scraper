@@ -104,11 +104,14 @@ class tag_search implements requestInterface
         $instamancer .= ' --screenshots';
         $instamancer .= ' --user '. $this->config['api_username'];
         $instamancer .= ' --pass '. $this->config['api_key'];
-        $instamancer .= ' --logging debug';
-        $instamancer .= ' --logfile ' . WP_CONTENT_DIR . '/instamancer.log';
+        $instamancer .= ' --logging error';
+        $instamancer .= ' --logfile ' . WP_CONTENT_DIR . '/uploads/instamancer/debug/instamancer_tagSearch.json';
 
         // delete all screenshots
         shell_exec('rm /tmp/instamancer/*.png');
+
+        // delete log file
+        shell_exec('rm ' . WP_CONTENT_DIR . '/uploads/instamancer/debug/instamancer_tagSearch.json');
 
         $command = escapeshellcmd($instamancer);
 

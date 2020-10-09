@@ -101,11 +101,14 @@ class multi_accounts implements requestInterface
         $instamancer .= ' --screenshots';
         $instamancer .= ' --user '. $this->config['api_username'];
         $instamancer .= ' --pass '. $this->config['api_key'];
-        $instamancer .= ' --logging debug';
-        $instamancer .= ' --logfile ' . WP_CONTENT_DIR . '/instamancer.log';
+        $instamancer .= ' --logging error';
+        $instamancer .= ' --logfile ' . WP_CONTENT_DIR . '/uploads/instamancer/debug/instamancer_multiAccounts.json';
 
         // delete all screenshots
         shell_exec('rm /tmp/instamancer/*.png');
+
+        // delete log file
+        shell_exec('rm ' . WP_CONTENT_DIR . '/uploads/instamancer/debug/instamancer_multiAccounts.json');
 
         $command = escapeshellcmd($instamancer);
 
