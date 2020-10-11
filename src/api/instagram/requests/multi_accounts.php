@@ -106,7 +106,7 @@ class multi_accounts implements requestInterface
         $instamancer .= ' --logfile ' . $logfile;
 
         // delete all screenshots / JSON older than 2 days
-        shell_exec('find '.$temp_dir.' -type f -mmin +10 -delete');
+        shell_exec('find '.$temp_dir.' -type f -mmin +2880 -delete');
 
         $command = escapeshellcmd($instamancer);
 
