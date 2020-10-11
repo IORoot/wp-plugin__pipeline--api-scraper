@@ -104,8 +104,8 @@ class multi_accounts implements requestInterface
         $instamancer .= ' --logging error';
         $instamancer .= ' --logfile ' . WP_CONTENT_DIR . '/uploads/instamancer/debug/instamancer_multiAccounts.json';
 
-        // delete all screenshots
-        shell_exec('rm /tmp/instamancer/*.png');
+        // delete all screenshots / JSON
+        shell_exec('rm /tmp/instamancer/*.*');
 
         // delete log file
         shell_exec('rm ' . WP_CONTENT_DIR . '/uploads/instamancer/debug/instamancer_multiAccounts.json');
@@ -117,6 +117,7 @@ class multi_accounts implements requestInterface
         $return = shell_exec($command . ' 2>&1');
 
         (new \yt\e)->line('Instamancer returned:'. $return);
+        (new \yt\e)->line('Instamancer logfile:' . WP_CONTENT_DIR . '/uploads/instamancer/debug/instamancer_multiAccounts.json');
 
         return;
     }

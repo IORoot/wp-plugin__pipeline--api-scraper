@@ -108,7 +108,7 @@ class tag_search implements requestInterface
         $instamancer .= ' --logfile ' . WP_CONTENT_DIR . '/uploads/instamancer/debug/instamancer_tagSearch.json';
 
         // delete all screenshots
-        shell_exec('rm /tmp/instamancer/*.png');
+        shell_exec('rm /tmp/instamancer/*.*');
 
         // delete log file
         shell_exec('rm ' . WP_CONTENT_DIR . '/uploads/instamancer/debug/instamancer_tagSearch.json');
@@ -120,6 +120,7 @@ class tag_search implements requestInterface
         $return = shell_exec($command . ' 2>&1');
 
         (new \yt\e)->line('Instamancer returned:'. $return);
+        (new \yt\e)->line('Instamancer logfile:' . WP_CONTENT_DIR . '/uploads/instamancer/debug/instamancer_tagSearch.json');
 
         return;
     }
