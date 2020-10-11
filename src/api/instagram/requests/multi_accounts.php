@@ -90,7 +90,7 @@ class multi_accounts implements requestInterface
         
         $logfile = WP_CONTENT_DIR . '/instamancer.json';
 
-        // $screenshot_path = '/tmp/instamancer/';
+        $screenshot_dir = '/tmp/instamancer';
         // $screenshot_dir = $screenshot_path . date('Ymd_h');
         // if (!file_exists($screenshot_dir)) {
         //     mkdir($screenshot_dir , 0777, true);
@@ -107,7 +107,7 @@ class multi_accounts implements requestInterface
         $instamancer .= ' --count '.$count;
         $instamancer .= ' --full';
         $instamancer .= ' --screenshots';
-        // $instamancer .= ' --screenshotPath ' . $screenshot_dir;
+        $instamancer .= ' --screenshotPath ' . $screenshot_dir;
         $instamancer .= ' --user '. $this->config['api_username'];
         $instamancer .= ' --pass '. $this->config['api_key'];
         $instamancer .= ' --logging error';
@@ -117,7 +117,7 @@ class multi_accounts implements requestInterface
         shell_exec('find '.$temp_dir.' -type f -mmin +2880 -delete');
 
         // delete all old screenshots
-        shell_exec('find '.$screenshot_path.' -mmin +2880 -delete');
+        shell_exec('find '.$screenshot_dir.' -mmin +2880 -delete');
 
         $command = escapeshellcmd($instamancer);
 
