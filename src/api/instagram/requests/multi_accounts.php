@@ -110,7 +110,7 @@ class multi_accounts implements requestInterface
         $instamancer .= ' --screenshotPath ' . $screenshot_dir;
         $instamancer .= ' --user '. $this->config['api_username'];
         $instamancer .= ' --pass '. $this->config['api_key'];
-        $instamancer .= ' --logging error';
+        $instamancer .= ' --logging info';
         $instamancer .= ' --logfile ' . $logfile;
 
         // delete all Uploads older than 2 days
