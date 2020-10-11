@@ -90,11 +90,11 @@ class multi_accounts implements requestInterface
         
         $logfile = WP_CONTENT_DIR . '/instamancer.json';
 
-        $screenshot_path = '/tmp/instamancer/';
-        $screenshot_dir = $screenshot_path . date('Ymd');
-        if (!file_exists($screenshot_dir)) {
-            mkdir($screenshot_dir , 0777, true);
-        }
+        $screenshot_dir = '/tmp/instamancer/';
+        // $screenshot_dir = $screenshot_path . date('Ymd');
+        // if (!file_exists($screenshot_dir)) {
+        //     mkdir($screenshot_dir , 0777, true);
+        // }
 
         $json_file = $temp_dir.'output_' . date('Ymd') . '.json';
         $count = $this->default_count();
