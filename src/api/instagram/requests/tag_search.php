@@ -92,6 +92,8 @@ class tag_search implements requestInterface
             mkdir($temp_dir , 0777, true);
         }
         
+
+        $logfile = WP_CONTENT_DIR . '/uploads/instamancer/debug/instamancer_tagSearch_'.date('Ymdh').'.json';
         $json_file = $temp_dir.'output_' . date('Ymd') . '.json';
         $count = $this->default_count();
         
@@ -105,22 +107,19 @@ class tag_search implements requestInterface
         $instamancer .= ' --user '. $this->config['api_username'];
         $instamancer .= ' --pass '. $this->config['api_key'];
         $instamancer .= ' --logging error';
-        $instamancer .= ' --logfile ' . WP_CONTENT_DIR . '/uploads/instamancer/debug/instamancer_tagSearch.json';
+        $instamancer .= ' --logfile ' . $logfile;
 
-        // delete all screenshots
-        shell_exec('rm /tmp/instamancer/*.*');
-
-        // delete log file
-        shell_exec('rm ' . WP_CONTENT_DIR . '/uploads/instamancer/debug/instamancer_tagSearch.json');
+        // delete all screenshots / JSON older than 2 days
+        shell_exec('find '.$temp_dir.' -type f -mmin +2880 -delete');
 
         $command = escapeshellcmd($instamancer);
 
         (new \yt\e)->line('Instamancer command:'. $command);
 
-        $return = shell_exec($command . ' 2>&1');
+        shell_exec($command . ' 2>&1');
 
-        (new \yt\e)->line('Instamancer returned:'. $return);
-        (new \yt\e)->line('Instamancer logfile:' . WP_CONTENT_DIR . '/uploads/instamancer/debug/instamancer_tagSearch.json');
+        // (new \yt\e)->line('Instamancer returned:'. $return);
+        (new \yt\e)->line('Instamancer logfile:' . $logfile);
 
         return;
     }
