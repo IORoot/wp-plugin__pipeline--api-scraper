@@ -94,7 +94,7 @@ class tag_search implements requestInterface
         
         $logfile = WP_CONTENT_DIR . '/instamancer.json';
 
-        $screenshot_dir = '/tmp/instamancer/';
+        $screenshot_dir = '/tmp/instamancer';
         // $screenshot_dir = $screenshot_path . date('Ymd');
         // if (!file_exists($screenshot_dir)) {
         //     mkdir($screenshot_dir , 0777, true);
