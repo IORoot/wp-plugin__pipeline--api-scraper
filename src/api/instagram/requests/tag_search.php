@@ -95,10 +95,6 @@ class tag_search implements requestInterface
         $logfile = WP_CONTENT_DIR . '/instamancer.json';
 
         $screenshot_dir = '/tmp/instamancer';
-        // $screenshot_dir = $screenshot_path . date('Ymd');
-        // if (!file_exists($screenshot_dir)) {
-        //     mkdir($screenshot_dir , 0777, true);
-        // }
 
         $json_file = $temp_dir.'output_' . date('Ymd') . '.json';
         $count = $this->default_count();
@@ -115,6 +111,10 @@ class tag_search implements requestInterface
         $instamancer .= ' --pass '. $this->config['api_key'];
         $instamancer .= ' --logging error';
         $instamancer .= ' --logfile ' . $logfile;
+
+        if (isset($this->config['extra_parameters']['proxy'])) {
+            $instamancer .= ' --proxyURL ' . $this->config['extra_parameters']['proxy'];
+        }
 
         // delete all Uploads older than 2 days
         shell_exec('find '.$temp_dir.' -type f -mmin +2880 -delete');
@@ -183,8 +183,8 @@ class tag_search implements requestInterface
     public function default_count()
     {
         $count = 3;
-        if ($this->config['extra_parameters'] != null){ 
-            $count = $this->config['extra_parameters']; 
+        if ($this->config['extra_parameters']['count'] != null){ 
+            $count = $this->config['extra_parameters']['count']; 
         }
 
         return $count;
