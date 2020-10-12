@@ -113,7 +113,7 @@ class tag_search implements requestInterface
         $instamancer .= ' --screenshotPath ' . $screenshot_dir;
         $instamancer .= ' --user '. $this->config['api_username'];
         $instamancer .= ' --pass '. $this->config['api_key'];
-        $instamancer .= ' --logging info';
+        $instamancer .= ' --logging error';
         $instamancer .= ' --logfile ' . $logfile;
 
         // delete all Uploads older than 2 days
