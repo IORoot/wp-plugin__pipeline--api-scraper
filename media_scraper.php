@@ -18,6 +18,11 @@
 
 date_default_timezone_set('Europe/London'); // make sure the Scheduler is correct with time picker.
 
+//  ┌─────────────────────────────────────────────────────────────────────────┐
+//  │                    Register with ANDYP Plugins                          │
+//  └─────────────────────────────────────────────────────────────────────────┘
+require __DIR__.'/src/acf/andyp_plugin_register.php';
+
 // ┌─────────────────────────────────────────────────────────────────────────┐
 // │                         Use composer autoloader                         │
 // └─────────────────────────────────────────────────────────────────────────┘
