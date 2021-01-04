@@ -29,6 +29,22 @@ class string_explode implements transformInterface
 
     public function out()
     {
-        return explode($this->config, $this->input);
+
+        $result = [];
+
+        if (is_array($this->input))
+        {
+            foreach ($this->input as $input)
+            {
+                $result = array_merge($result, explode($this->config, $input));
+            }
+        }
+
+        if (is_string($this->input))
+        {
+            $result = array_merge($result, explode($this->config, $this->input));
+        }
+
+        return $result;
     }
 }

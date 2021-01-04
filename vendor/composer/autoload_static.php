@@ -6,6 +6,16 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit30fd7ec9b8e2598fd2f686f91346eea7
 {
+    public static $prefixesPsr0 = array (
+        'P' => 
+        array (
+            'Parsedown' => 
+            array (
+                0 => __DIR__ . '/..' . '/erusev/parsedown',
+            ),
+        ),
+    );
+
     public static $classMap = array (
         'yt\\api' => __DIR__ . '/../..' . '/src/api/api.php',
         'yt\\api_list' => __DIR__ . '/../..' . '/src/api/api_list.php',
@@ -64,9 +74,11 @@ class ComposerStaticInit30fd7ec9b8e2598fd2f686f91346eea7
         'yt\\transform\\field_as_string' => __DIR__ . '/../..' . '/src/transform/transforms/field_as_string.php',
         'yt\\transform\\md5' => __DIR__ . '/../..' . '/src/transform/transforms/md5.php',
         'yt\\transform\\none' => __DIR__ . '/../..' . '/src/transform/transforms/none.php',
+        'yt\\transform\\regex_match' => __DIR__ . '/../..' . '/src/transform/transforms/regex_match.php',
         'yt\\transform\\regex_remove' => __DIR__ . '/../..' . '/src/transform/transforms/regex_remove.php',
         'yt\\transform\\string_append' => __DIR__ . '/../..' . '/src/transform/transforms/string_append.php',
         'yt\\transform\\string_explode' => __DIR__ . '/../..' . '/src/transform/transforms/string_explode.php',
+        'yt\\transform\\string_parsedown' => __DIR__ . '/../..' . '/src/transform/transforms/string_parsedown.php',
         'yt\\transform\\string_prepend' => __DIR__ . '/../..' . '/src/transform/transforms/string_prepend.php',
         'yt\\transform\\string_remove' => __DIR__ . '/../..' . '/src/transform/transforms/string_remove.php',
         'yt\\transform\\string_trim' => __DIR__ . '/../..' . '/src/transform/transforms/string_trim.php',
@@ -87,6 +99,7 @@ class ComposerStaticInit30fd7ec9b8e2598fd2f686f91346eea7
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
+            $loader->prefixesPsr0 = ComposerStaticInit30fd7ec9b8e2598fd2f686f91346eea7::$prefixesPsr0;
             $loader->classMap = ComposerStaticInit30fd7ec9b8e2598fd2f686f91346eea7::$classMap;
 
         }, null, ClassLoader::class);
