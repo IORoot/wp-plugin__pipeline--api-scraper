@@ -39,7 +39,7 @@ class options
         $this->get_repeater_options('yt_auth_instance', 'auth');
 
         // search
-        $this->get_repeater_options('yt_search_group_yt_search_instance', 'search');
+        $this->get_cloned_flexible_content('yt_search_group', 'yt_search_instance', 'search');
 
         // search substitutions
         $this->get_repeater_options('yt_search_group_yt_search_substitutions', 'substitutions');
@@ -65,6 +65,21 @@ class options
         return $this;
     }
 
+
+    public function get_cloned_flexible_content($wrapper_group, $flexible_fieldname, $result_parameter)
+    {
+        $wrapper = get_field($wrapper_group, 'option', true);
+    
+        if( is_array($wrapper)  && is_array($wrapper[$flexible_fieldname]) ) {
+            
+            foreach( $wrapper[$flexible_fieldname] as $row ) {
+                
+                $this->$result_parameter[] = $row;
+
+            }
+            
+        }
+    }
 
 
     public function get_repeater_options($repeater_field_name, $result_parameter)
@@ -114,9 +129,7 @@ class options
         }
     }
 
-    public function process_scrape_enable_and_id(){
-        
-    }
+
 
 
 

@@ -371,18 +371,26 @@ class scraper
     }
 
 
+    /**
+     * This is the primary term
+     */
     public function add_term()
     {
         $scrape_taxonomy    = $this->options->scrape[$this->_scrape_key]['yt_scrape_import']['yt_import_taxonomy_type'];
         $term_name          = $this->options->scrape[$this->_scrape_key]['yt_scrape_search']['yt_search_id'];
-        $term_desc          = $this->options->scrape[$this->_scrape_key]['yt_scrape_search']['yt_search_description'];
+        $term_desc          = $this->options->scrape[$this->_scrape_key]['yt_scrape_search']['search_description'];
         
         (new \yt\e)->line('- Add_Term : '.$scrape_taxonomy, 1);
 
         $this->importer->add_term($scrape_taxonomy, $term_name, $term_desc);
 
+        $this->importer->set_primary_taxonomy($scrape_taxonomy, $term_name, $term_desc);
+        
+
         return;
     }
+
+    
 
     public function add_posts()
     {

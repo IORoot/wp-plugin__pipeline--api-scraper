@@ -163,13 +163,15 @@ class api
      */
     public function run()
     {
+        $this->combine_search_params_to_make_query();
+        $this->work_out_request_type();
         $this->config_extra_parameters();
         $this->config_query();
 
         if (!$this->check_input($this->search_config['yt_search_api'])) {
             return;
         };
-        if (!$this->check_input($this->search_config['yt_search_type'])) {
+        if (!$this->check_input($this->search_config['acf_fc_layout'])) {
             return;
         };
         if (!$this->check_input($this->config['api_key'])) {
@@ -192,6 +194,53 @@ class api
 
 
     /**
+     * This will build up the query string from all of the param parts
+     */
+    private function combine_search_params_to_make_query()
+    {
+        $query = '';
+        foreach ($this->search_config as $param => $value)
+        {
+            // Skip all the non-param rows
+            if ($param == 'acf_fc_layout' ||
+                $param == 'yt_search_id' ||
+                $param == 'search_description' ||
+                $param == 'search_string' ||
+                $param == 'search_parameters'
+            ){
+                continue;
+            }
+
+            if (empty($value)){
+                continue;
+            }
+            
+            $query .= $param . '=' . $value . '&';
+
+        }
+
+        // remove laast character &
+        $query = substr($query, 0, -1);
+
+        $this->config['query_string'] = $query;
+    }
+
+
+    /**
+     * This will work out the request type based on the 
+     * flexible content name.
+     */
+    private function work_out_request_type()
+    {
+        $request_parts = explode('_', $this->search_config['acf_fc_layout']);
+
+        $this->search_config['yt_search_api'] = $request_parts[0];
+        $this->search_config['yt_search_type'] = $request_parts[1];
+    }
+
+
+
+    /**
      * config_extra_parameters()
      *
      * This function will take the inputted textarea string that users can add
@@ -202,11 +251,14 @@ class api
      */
     public function config_extra_parameters()
     {
-        if (!isset($this->search_config['yt_search_parameters'])) {
+        if (!isset($this->search_config['search_parameters'])) {
             return $this;
         }
-        $this->config['extra_parameters'] = $this->string_to_array($this->search_config['yt_search_parameters']);
-        (new e)->line('- Query Config = '.$this->search_config['yt_search_parameters'], 1);
+        if (empty($this->search_config['search_parameters'])) {
+            return $this;
+        }
+        $this->config['extra_parameters'] = $this->string_to_array($this->search_config['search_parameters']);
+        (new e)->line('- Query Config = '.$this->search_config['search_parameters'], 1);
         return $this;
     }
 
@@ -222,10 +274,13 @@ class api
      */
     public function config_query()
     {
-        if (!isset($this->search_config['yt_search_string'])) {
+        if (!isset($this->search_config['search_string'])) {
             return $this;
         }
-        $string = $this->replace_any_substitutions($this->search_config['yt_search_string']);
+        if (empty($this->search_config['search_string'])) {
+            return $this;
+        }
+        $string = $this->replace_any_substitutions($this->search_config['search_string']);
         $string = $this->replace_any_tokens($string);
         (new e)->line('- Final Query string = '.$string, 1);
         $this->config['query_string'] = $string;

@@ -11,6 +11,8 @@ use \yt\import\attach;
 
 class import
 {
+    public $primary_taxonomy;
+
     public $taxonomy;
 
     public $post;
@@ -41,6 +43,17 @@ class import
 
 
 
+    public function set_primary_taxonomy($taxonomy, $term, $description)
+    {
+        $this->primary_taxonomy = [
+            'taxonomy' => $taxonomy,
+            'term' => $term,
+            'description' => $description,
+
+        ];
+        
+    }
+
     
 
     public function add_posts($post_type, $collection)
@@ -58,16 +71,24 @@ class import
 
             $post_id_if_exists = $this->does_post_exist($item, $post_type);
 
+            /**
+             * Existing posts, update them.
+             */
             if ($post_id_if_exists) {
                 $this->add_new_meta($post_id_if_exists, $item['meta']);
-                $this->add_taxonomy_to_existing_post($post_id_if_exists);
+                $this->add_primary_taxonomy_to_existing_post($post_id_if_exists);
+                $this->add_tax_fields_to_existing_post($post_id_if_exists, $item['tax']);
                 continue;
             }
 
+            /**
+             * New Posts, create them.
+             */
             $item['post']['post_type'] = $post_type;
             $item = $this->append_taxonomy_to_image_content($item);
 
             $this->add_post_and_combine($item);
+            $this->add_tax_fields_to_existing_post($this->returned_ids['post'], $item['tax']);
 
             $collection[$key]['returned'] = $this->returned_ids;
         }
@@ -80,6 +101,9 @@ class import
     public function add_post_and_combine($item)
     {
         foreach ($item as $target_object => $post_args) {
+
+            if ($target_object == 'tax'){ continue; }
+
             $this->$target_object->set_args($post_args);
             $this->$target_object->add();
             $this->returned_ids[$target_object] = $this->$target_object->result();
@@ -97,8 +121,11 @@ class import
             $this->attach->image_to_post($this->returned_ids['image'], $this->returned_ids['post']);
         }
         
+        // Add meta to post
         $this->attach->meta_to_post($this->meta->args, $this->returned_ids['post']);
-        $this->attach->tax_to_post($this->taxonomy->taxonomy_type, $this->taxonomy->taxonomy_term, $this->returned_ids['post']);
+
+        // Add primary taxonomy to post
+        $this->attach->tax_to_post($this->primary_taxonomy['taxonomy'], $this->primary_taxonomy['term'], $this->returned_ids['post']);
 
         return;
     }
@@ -153,10 +180,41 @@ class import
 
 
 
-    public function add_taxonomy_to_existing_post($post_id)
+    public function add_primary_taxonomy_to_existing_post($post_id)
     {
-        $this->attach->tax_to_post($this->taxonomy->taxonomy_type, $this->taxonomy->taxonomy_term, $post_id);
+        $this->attach->tax_to_post(
+            $this->taxonomy['primary_taxonomy'], 
+            $this->taxonomy['term'], 
+            $post_id)
+        ;
     }
+
+
+
+    public function add_tax_fields_to_existing_post($post_id, $tax)
+    {
+        if (!$tax){ return; }
+
+        foreach($tax as $taxonomy => $terms_array)
+        {
+
+            foreach ($terms_array as $term)
+            {
+            
+                // Add new term
+                $this->add_term($taxonomy, $term);
+
+                // Attach taxonomy term to post
+                $this->attach->tax_to_post($taxonomy, $term, $post_id);
+
+            }
+
+        }
+
+    }
+
+
+    
 
     public function add_new_meta($post_id, $post_meta)
     {
