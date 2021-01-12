@@ -30,6 +30,6 @@ class string_parsedown implements transformInterface
     public function out()
     {
         $Parsedown = new \Parsedown();
-        return $Parsedown->text($this->input);
+        return $Parsedown->setBreaksEnabled(true)->text($this->input);
     }
 }

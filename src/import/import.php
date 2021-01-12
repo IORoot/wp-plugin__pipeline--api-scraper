@@ -183,8 +183,8 @@ class import
     public function add_primary_taxonomy_to_existing_post($post_id)
     {
         $this->attach->tax_to_post(
-            $this->taxonomy['primary_taxonomy'], 
-            $this->taxonomy['term'], 
+            $this->primary_taxonomy['taxonomy'], 
+            $this->primary_taxonomy['term'], 
             $post_id)
         ;
     }
