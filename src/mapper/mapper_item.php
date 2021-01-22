@@ -110,6 +110,9 @@ class mapper_item
 
     public function process_single_mapping()
     {
+
+        if (empty($this->single_mapping['enabled'])){ return; }
+
         $destination_field = $this->destination_field();
 
         $source_value = $this->source_value();

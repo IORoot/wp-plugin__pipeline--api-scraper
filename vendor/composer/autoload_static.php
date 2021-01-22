@@ -69,6 +69,7 @@ class ComposerStaticInit30fd7ec9b8e2598fd2f686f91346eea7
         'yt\\scheduler' => __DIR__ . '/../..' . '/src/scheduler/scheduler.php',
         'yt\\scraper' => __DIR__ . '/../..' . '/src/scraper.php',
         'yt\\token\\date' => __DIR__ . '/../..' . '/src/api/tokens/date.php',
+        'yt\\transform\\array_slice' => __DIR__ . '/../..' . '/src/transform/transforms/array_slice.php',
         'yt\\transform\\best_image' => __DIR__ . '/../..' . '/src/transform/transforms/best_image.php',
         'yt\\transform\\clean_date' => __DIR__ . '/../..' . '/src/transform/transforms/clean_date.php',
         'yt\\transform\\encode_json' => __DIR__ . '/../..' . '/src/transform/transforms/encode_json.php',
