@@ -376,11 +376,16 @@ class scraper
      */
     public function add_term()
     {
+
         $scrape_taxonomy    = $this->options->scrape[$this->_scrape_key]['yt_scrape_import']['yt_import_taxonomy_type'];
         $taxonomy_parent    = $this->options->scrape[$this->_scrape_key]['yt_scrape_import']['taxonomy_parent_id'];
         $term_name          = $this->options->scrape[$this->_scrape_key]['yt_scrape_search']['yt_search_id'];
         $term_desc          = $this->options->scrape[$this->_scrape_key]['yt_scrape_search']['search_description'];
-        
+                
+        if (!empty($this->options->scrape[$this->_scrape_key]['yt_scrape_import']['term_name'])){
+            $term_name = $this->options->scrape[$this->_scrape_key]['yt_scrape_import']['term_name'];
+        }
+
         (new \yt\e)->line('- Add_Term : '.$scrape_taxonomy, 1);
 
         $this->importer->add_term($scrape_taxonomy, $term_name, $term_desc, $taxonomy_parent);
