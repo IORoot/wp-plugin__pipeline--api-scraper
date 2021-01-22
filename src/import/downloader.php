@@ -5,6 +5,7 @@ namespace yt\import;
 use WP_REST_Request;
 use MatthiasWeb\RealMediaLibrary\rest\Service;
 use MatthiasWeb\RealMediaLibrary\rest\Attachment;
+use MatthiasWeb\RealMediaLibrary\rest\Folder;
 
 class downloader
 {
@@ -211,15 +212,36 @@ class downloader
         $slugs = $tree->get_data();
 
         foreach ($slugs['slugs']['names'] as $key => $name) {
-            if (stripos($name, 'PULSE')) {
+
+            // Does the "Imported" folder exist?
+            if (stripos($name, 'Imported')) {
                 $this->rml_menu_id = $slugs['slugs']['slugs'][$key];
+                return;
             }
         }
+
+        /**
+         * Imported Folder does not exist, create it.
+         */
+        $this->create_RML_folder();
 
         return;
     }
 
 
+    private function create_RML_folder()
+    {
+        $rml_folder = new Folder;
+
+        $create_folder_request = new WP_REST_Request('POST', '/wp/v2/posts');
+        $create_folder_request->set_param('name', 'Imported');
+        $create_folder_request->set_param('parent', -1); // parent -1 is root level.
+        $create_folder_request->set_param('type', 0);
+
+        $folder = $rml_folder->createItem($create_folder_request);
+
+        $this->rml_menu_id = $folder->data['id'];
+    }
 
 
     public function move_image_into_RML_folder()
