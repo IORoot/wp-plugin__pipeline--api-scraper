@@ -103,6 +103,7 @@ class import
         foreach ($item as $target_object => $post_args) {
 
             if ($target_object == 'tax'){ continue; }
+            if ($target_object == 'image'){ $post_args['taxonomy'] = $this->primary_taxonomy; }
 
             $this->$target_object->set_args($post_args);
             $this->$target_object->add();

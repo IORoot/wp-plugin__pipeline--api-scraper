@@ -45,6 +45,7 @@ class ComposerStaticInit30fd7ec9b8e2598fd2f686f91346eea7
         'yt\\import\\image' => __DIR__ . '/../..' . '/src/import/create_image.php',
         'yt\\import\\meta' => __DIR__ . '/../..' . '/src/import/create_meta.php',
         'yt\\import\\post' => __DIR__ . '/../..' . '/src/import/create_post.php',
+        'yt\\import\\real_media_library' => __DIR__ . '/../..' . '/src/import/real_media_library.php',
         'yt\\import\\taxonomy' => __DIR__ . '/../..' . '/src/import/create_taxonomy.php',
         'yt\\instagram\\request\\multi_accounts' => __DIR__ . '/../..' . '/src/api/instagram/requests/multi_accounts.php',
         'yt\\instagram\\request\\tag_search' => __DIR__ . '/../..' . '/src/api/instagram/requests/tag_search.php',

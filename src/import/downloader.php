@@ -2,10 +2,7 @@
 
 namespace yt\import;
 
-use WP_REST_Request;
-use MatthiasWeb\RealMediaLibrary\rest\Service;
-use MatthiasWeb\RealMediaLibrary\rest\Attachment;
-use MatthiasWeb\RealMediaLibrary\rest\Folder;
+use yt\import\real_media_library;
 
 class downloader
 {
@@ -196,86 +193,11 @@ class downloader
             return;
         }
 
-        $this->get_RML_folder_id();
-        $this->move_image_into_RML_folder();
+        $rml = new real_media_library;
+        $rml->set_att_id($this->att_id);
+        $rml->set_taxonomy($this->post_data['taxonomy']);
+        $rml->run();
+
     }
 
-
-    public function get_RML_folder_id()
-    {
-        $rml_service = new Service;
-
-        $request = new WP_REST_Request('GET', '/wp/v2/posts');
-
-        $tree =  $rml_service->routeTree($request);
-
-        $slugs = $tree->get_data();
-
-        foreach ($slugs['slugs']['names'] as $key => $name) {
-
-            // Does the "Imported" folder exist?
-            if (stripos($name, 'Imported')) {
-                $this->rml_menu_id = $slugs['slugs']['slugs'][$key];
-                return;
-            }
-        }
-
-        /**
-         * Imported Folder does not exist, create it.
-         */
-        $this->create_RML_folder();
-
-        return;
-    }
-
-
-    private function create_RML_folder()
-    {
-        $rml_folder = new Folder;
-
-        $create_folder_request = new WP_REST_Request('POST', '/wp/v2/posts');
-        $create_folder_request->set_param('name', 'Imported');
-        $create_folder_request->set_param('parent', -1); // parent -1 is root level.
-        $create_folder_request->set_param('type', 0);
-
-        $folder = $rml_folder->createItem($create_folder_request);
-
-        $this->rml_menu_id = $folder->data['id'];
-    }
-
-
-    public function move_image_into_RML_folder()
-    {
-        if (!$this->rml_menu_id || $this->rml_menu_id == '' || $this->rml_menu_id == null) {
-            return;
-        }
-
-        if (is_a($this->rml_menu_id, 'WP_Error')) {
-            (new \yt\e)->line('rml_menu_id WP_ERROR when looking for RML folder :' . json_encode($this->rml_menu_id), 2);
-            return;
-        }
-
-        if (is_a($this->att_id, 'WP_Error')) {
-            (new \yt\e)->line('att_id WP_ERROR when looking for RML folder :' . json_encode($this->rml_menu_id), 2);
-            return;
-        }
-        
-        $rml_attachment = new Attachment;
-
-        $request = new WP_REST_Request('PUT', '/wp/v2/posts');
-    
-        // PULSE DIRECTORY
-        $request->set_query_params([
-            'ids' => [$this->att_id],
-            'to' => $this->rml_menu_id
-        ]);
-    
-        try {
-            $rml_attachment->routeBulkMove($request);
-        } catch (Exception $e) {
-            (new \yt\e)->line('Exception trying to move into RML Folder. '. $e, 2);
-        }
-    
-        return;
-    }
 }

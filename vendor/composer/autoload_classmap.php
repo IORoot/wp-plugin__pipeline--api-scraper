@@ -34,6 +34,7 @@ return array(
     'yt\\import\\image' => $baseDir . '/src/import/create_image.php',
     'yt\\import\\meta' => $baseDir . '/src/import/create_meta.php',
     'yt\\import\\post' => $baseDir . '/src/import/create_post.php',
+    'yt\\import\\real_media_library' => $baseDir . '/src/import/real_media_library.php',
     'yt\\import\\taxonomy' => $baseDir . '/src/import/create_taxonomy.php',
     'yt\\instagram\\request\\multi_accounts' => $baseDir . '/src/api/instagram/requests/multi_accounts.php',
     'yt\\instagram\\request\\tag_search' => $baseDir . '/src/api/instagram/requests/tag_search.php',
