@@ -12,6 +12,8 @@ class taxonomy
 
     public $taxonomy_description = '';
 
+    public $parent_id = 0;
+
     public $result;
 
 
@@ -49,6 +51,12 @@ class taxonomy
     }
 
 
+    public function set_parent_id($parent_id)
+    {
+        $this->parent_id = $parent_id;
+    }
+
+
     /**
      * create category
      *
@@ -81,17 +89,19 @@ class taxonomy
     {
         (new \yt\e)->line('Insert Term : '.$this->taxonomy_term . ' into '. $this->taxonomy_type, 2 );
 
+        if (empty($this->parent_id)){ $this->parent_id = 0; }
+
         try {
             $this->result = wp_insert_term(
                 $this->taxonomy_term,
                 $this->taxonomy_type,
                 array(
                     'description' => $this->taxonomy_description,
-                    'slug' => $this->taxonomy_slug
+                    'slug' => $this->taxonomy_slug,
+                    'parent' => (int) $this->parent_id,
                 )
             );
 
-        
 
         } catch (\Exception $e) {
             (new \yt\e)->line('FAILED Insert Term : '.$this->taxonomy_term . ' into '. $this->taxonomy_type, 2 );

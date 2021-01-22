@@ -49,7 +49,6 @@ class import
             'taxonomy' => $taxonomy,
             'term' => $term,
             'description' => $description,
-
         ];
         
     }
@@ -134,7 +133,7 @@ class import
 
 
 
-    public function add_term($taxonomy, $term, $description = '')
+    public function add_term($taxonomy, $term, $description = '', $parent_id = 0)
     {
         if ($taxonomy == null || $taxonomy == '') {
             (new e)->line('- No Taxonomy has been specified. Cannot import->add_term().', 1);
@@ -146,6 +145,7 @@ class import
         }
 
         $this->taxonomy->set_type($taxonomy);
+        $this->taxonomy->set_parent_id($parent_id);
         $this->taxonomy->set_term($term);
         $this->taxonomy->set_desc($description);   // optional
         $this->taxonomy->add_term();
@@ -198,15 +198,16 @@ class import
 
         foreach($tax as $taxonomy => $terms_array)
         {
-
-            foreach ($terms_array as $term)
+            foreach ($terms_array as $term_string)
             {
-            
-                // Add new term
-                $this->add_term($taxonomy, $term);
+                foreach (explode(',', $term_string) as $term){
 
-                // Attach taxonomy term to post
-                $this->attach->tax_to_post($taxonomy, $term, $post_id);
+                    // Add new term
+                    $this->add_term($taxonomy, $term);
+
+                    // Attach taxonomy term to post
+                    $this->attach->tax_to_post($taxonomy, $term, $post_id);
+                }
 
             }
 

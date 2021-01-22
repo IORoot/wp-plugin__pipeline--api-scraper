@@ -141,6 +141,7 @@ class downloader
         //
         // Note - $post_id is NULL. This is because we'll attach the image to the post with the
         // 'attach' class instead.
+        global $_wp_additional_image_sizes; 
         $this->att_id = media_handle_sideload($this->file_array, null, null, $this->post_data);
 
         return;

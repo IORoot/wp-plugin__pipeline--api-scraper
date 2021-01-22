@@ -106,17 +106,38 @@ class real_media_library
 
         $slugs = $tree->get_data();
 
-        foreach ($slugs['slugs']['names'] as $key => $name) {
+        $id = $this->find_folder_in_tree($slugs['tree'], $folder);
 
-            // Does the "Imported" folder exist?
-            if (stripos($name, $folder)) {
-                return $slugs['slugs']['slugs'][$key];
-            }
-        }
+        if ($id){ return $id; }
+
+        // foreach ($slugs['slugs']['names'] as $key => $name) {
+
+        //     if (stripos($name, $folder)) {
+        //         return $slugs['slugs']['slugs'][$key];
+        //     }
+        // }
 
         return false;
     }
 
+
+    /** Recursive function */
+    private function find_folder_in_tree($tree, $slug)
+    {
+        $id = false;
+        foreach($tree as $branch)
+        {
+            if ($branch['name'] == $slug){ return $branch['id']; }
+
+            if (!empty($branch['children'])){ 
+                $id = $this->find_folder_in_tree($branch['children'], $slug);
+            }
+
+            continue;
+        }
+
+        return $id;
+    }
 
 
     private function create_RML_folder($name = 'Imported', $parent = -1)
