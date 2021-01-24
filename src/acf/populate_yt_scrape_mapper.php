@@ -4,21 +4,26 @@ function acf_populate_yt_scrape_mapper_choices( $field ) {
     
     // reset choices
     $field['choices'] = array();
+
+    /**
+     * 
+     * Version 3 - Cloned Flexible Component version.
+     * 
+     */
+    $choices = get_field('yt_mapper_group', 'option', true);
     
-    // get the textarea value from options page without any formatting
-    $choices = get_field('yt_mapper_group_yt_mapper_instance', 'option', true);
-    
-    // loop through array and add to field 'choices'
-    if( is_array($choices) ) {
+    if( is_array($choices)  && is_array($choices['yt_mapper_instance']) ) {
         
-        foreach( $choices as $choice ) {
+        foreach( $choices['yt_mapper_instance'] as $choice ) {
             
             $choice_name = $choice['yt_mapper_id'];
             $field['choices'][ $choice_name ] = $choice_name;
-            
+
         }
         
     }
+
+
     
     // Add 'none'
     $field['choices']['none'] = 'none';

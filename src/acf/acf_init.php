@@ -67,3 +67,11 @@ require __DIR__.'/populate_yt_search_type.php';
 require __DIR__.'/populate_yt_transform_catalog.php';
 
 require __DIR__.'/populate_yt_transform.php';
+
+//  ┌─────────────────────────────────────────────────────────────────────────┐
+//  │            Flexible Content - Update Title Fields on minimised          │
+//  └─────────────────────────────────────────────────────────────────────────┘
+
+require __DIR__.'/flexible_content/search_layout_title.php';
+
+require __DIR__.'/flexible_content/mapping_layout_title.php';

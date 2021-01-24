@@ -48,7 +48,7 @@ class options
         $this->get_repeater_options('yt_filter_group_yt_filter_instance', 'filter');
 
         // mapper
-        $this->get_repeater_options('yt_mapper_group_yt_mapper_instance', 'mapper');
+        $this->get_cloned_flexible_content('yt_mapper_group', 'yt_mapper_instance', 'mapper');
 
         // transforms
         $this->get_repeater_options('yt_mapper_group_yt_transform_instance', 'transform');
