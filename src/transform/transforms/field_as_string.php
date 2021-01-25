@@ -7,9 +7,9 @@ use yt\interfaces\transformInterface;
 class field_as_string implements transformInterface
 {
     
-    public $description = "Use value of field source as a literal string rather than a reference.";
+    public $description = "Use value of field source as a literal string rather than a reference. ID MIUST BE 'field_as_string' to work. Special Case in mapper.";
 
-    public $parameters = 'None';
+    public $parameters = 'ID MIUST BE "field_as_string" to work. Special Case in mapper.';
 
     public $input;
     

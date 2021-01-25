@@ -31,10 +31,9 @@ class regex_match implements transformInterface
     {
         $return=[];
 
-        preg_match($this->config, $this->input, $matched);
-        unset($matched[0]);
+        preg_match_all($this->config, $this->input, $matched);
 
-        foreach ($matched as $match)
+        foreach ($matched[1] as $match)
         {
             if (is_string($match)){
                 $return[] = $match;

@@ -58,6 +58,8 @@ return array(
     'yt\\scheduler' => $baseDir . '/src/scheduler/scheduler.php',
     'yt\\scraper' => $baseDir . '/src/scraper.php',
     'yt\\token\\date' => $baseDir . '/src/api/tokens/date.php',
+    'yt\\transform\\array_implode' => $baseDir . '/src/transform/transforms/array_implode.php',
+    'yt\\transform\\array_item' => $baseDir . '/src/transform/transforms/array_item.php',
     'yt\\transform\\array_slice' => $baseDir . '/src/transform/transforms/array_slice.php',
     'yt\\transform\\best_image' => $baseDir . '/src/transform/transforms/best_image.php',
     'yt\\transform\\clean_date' => $baseDir . '/src/transform/transforms/clean_date.php',
