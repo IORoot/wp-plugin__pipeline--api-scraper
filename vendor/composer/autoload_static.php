@@ -81,6 +81,8 @@ class ComposerStaticInit30fd7ec9b8e2598fd2f686f91346eea7
         'yt\\transform\\regex_match' => __DIR__ . '/../..' . '/src/transform/transforms/regex_match.php',
         'yt\\transform\\regex_remove' => __DIR__ . '/../..' . '/src/transform/transforms/regex_remove.php',
         'yt\\transform\\string_append' => __DIR__ . '/../..' . '/src/transform/transforms/string_append.php',
+        'yt\\transform\\string_capitalise' => __DIR__ . '/../..' . '/src/transform/transforms/string_capitalise.php',
+        'yt\\transform\\string_capitalise_all' => __DIR__ . '/../..' . '/src/transform/transforms/string_capitalise_all.php',
         'yt\\transform\\string_explode' => __DIR__ . '/../..' . '/src/transform/transforms/string_explode.php',
         'yt\\transform\\string_parsedown' => __DIR__ . '/../..' . '/src/transform/transforms/string_parsedown.php',
         'yt\\transform\\string_prepend' => __DIR__ . '/../..' . '/src/transform/transforms/string_prepend.php',

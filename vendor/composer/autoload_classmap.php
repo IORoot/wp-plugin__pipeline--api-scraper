@@ -70,6 +70,8 @@ return array(
     'yt\\transform\\regex_match' => $baseDir . '/src/transform/transforms/regex_match.php',
     'yt\\transform\\regex_remove' => $baseDir . '/src/transform/transforms/regex_remove.php',
     'yt\\transform\\string_append' => $baseDir . '/src/transform/transforms/string_append.php',
+    'yt\\transform\\string_capitalise' => $baseDir . '/src/transform/transforms/string_capitalise.php',
+    'yt\\transform\\string_capitalise_all' => $baseDir . '/src/transform/transforms/string_capitalise_all.php',
     'yt\\transform\\string_explode' => $baseDir . '/src/transform/transforms/string_explode.php',
     'yt\\transform\\string_parsedown' => $baseDir . '/src/transform/transforms/string_parsedown.php',
     'yt\\transform\\string_prepend' => $baseDir . '/src/transform/transforms/string_prepend.php',
