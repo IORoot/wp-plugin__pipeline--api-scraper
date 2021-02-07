@@ -166,6 +166,7 @@ class api
         $this->combine_search_params_to_make_query();
         $this->work_out_request_type();
         $this->config_extra_parameters();
+        $this->replace_with_manual_query();
         $this->config_query();
 
         if (!$this->check_input($this->search_config['yt_search_api'])) {
@@ -262,6 +263,14 @@ class api
         return $this;
     }
 
+    public function replace_with_manual_query()
+    {
+        if (!empty($this->search_config['search_string']))
+        {
+            $this->config['query_string'] = $this->search_config['search_string'];
+        }
+    }
+
 
     /**
      * config_query()
@@ -274,13 +283,13 @@ class api
      */
     public function config_query()
     {
-        if (!isset($this->search_config['search_string'])) {
+        if (!isset($this->config['query_string'])) {
             return $this;
         }
-        if (empty($this->search_config['search_string'])) {
+        if (empty($this->config['query_string'])) {
             return $this;
         }
-        $string = $this->replace_any_substitutions($this->search_config['search_string']);
+        $string = $this->replace_any_substitutions($this->config['query_string']);
         $string = $this->replace_any_tokens($string);
         (new e)->line('- Final Query string = '.$string, 1);
         $this->config['query_string'] = $string;
