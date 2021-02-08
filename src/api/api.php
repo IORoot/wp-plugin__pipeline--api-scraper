@@ -227,6 +227,8 @@ class api
             // Skip all the non-param rows
             if ($param == 'acf_fc_layout' ||
                 $param == 'yt_search_id' ||
+                $param == 'yt_search_api' ||
+                $param == 'yt_search_type' ||
                 $param == 'search_description' ||
                 $param == 'search_string' ||
                 $param == 'search_parameters'
