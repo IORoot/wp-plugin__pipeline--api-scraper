@@ -6,16 +6,6 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit30fd7ec9b8e2598fd2f686f91346eea7
 {
-    public static $prefixesPsr0 = array (
-        'P' => 
-        array (
-            'Parsedown' => 
-            array (
-                0 => __DIR__ . '/..' . '/erusev/parsedown',
-            ),
-        ),
-    );
-
     public static $classMap = array (
         'yt\\api' => __DIR__ . '/../..' . '/src/api/api.php',
         'yt\\api_list' => __DIR__ . '/../..' . '/src/api/api_list.php',
@@ -54,9 +44,9 @@ class ComposerStaticInit30fd7ec9b8e2598fd2f686f91346eea7
         'yt\\interfaces\\requestInterface' => __DIR__ . '/../..' . '/src/interfaces/requestInterface.php',
         'yt\\interfaces\\tokenInterface' => __DIR__ . '/../..' . '/src/interfaces/tokenInterface.php',
         'yt\\interfaces\\transformInterface' => __DIR__ . '/../..' . '/src/interfaces/transformInterface.php',
+        'yt\\itunes\\request\\episode' => __DIR__ . '/../..' . '/src/api/itunes/requests/podcast_episode.php',
+        'yt\\itunes\\request\\group' => __DIR__ . '/../..' . '/src/api/itunes/requests/podcast_group.php',
         'yt\\itunes\\request\\podcast' => __DIR__ . '/../..' . '/src/api/itunes/requests/podcast.php',
-        'yt\\itunes\\request\\podcast_episode' => __DIR__ . '/../..' . '/src/api/itunes/requests/podcast_episode.php',
-        'yt\\itunes\\request\\podcast_group' => __DIR__ . '/../..' . '/src/api/itunes/requests/podcast_group.php',
         'yt\\itunes\\response' => __DIR__ . '/../..' . '/src/api/itunes/responses/responses.php',
         'yt\\l' => __DIR__ . '/../..' . '/src/error/l.php',
         'yt\\mapper_collection' => __DIR__ . '/../..' . '/src/mapper/mapper_collection.php',
@@ -105,7 +95,6 @@ class ComposerStaticInit30fd7ec9b8e2598fd2f686f91346eea7
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixesPsr0 = ComposerStaticInit30fd7ec9b8e2598fd2f686f91346eea7::$prefixesPsr0;
             $loader->classMap = ComposerStaticInit30fd7ec9b8e2598fd2f686f91346eea7::$classMap;
 
         }, null, ClassLoader::class);

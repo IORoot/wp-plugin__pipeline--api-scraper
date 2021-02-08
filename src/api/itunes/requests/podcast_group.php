@@ -4,9 +4,9 @@ namespace yt\itunes\request;
 
 use yt\interfaces\requestInterface;
 use yt\itunes\response;
-use yt\itunes\request\podcast_episode;
+use yt\itunes\request\episode;
 
-class podcast_group implements requestInterface
+class group implements requestInterface
 {
     public $nice_name = "iTunes Podcast Group";
 
@@ -59,13 +59,17 @@ class podcast_group implements requestInterface
                 'extra_parameters' => null,
             ];
             
-            $podcast = new podcast_episode; 
+            $podcast = new episode; 
             $podcast->config($config);
             $podcast->request();
 
             $podcast_response = $podcast->response();
 
             $sliced_podcast = array_slice($podcast_response->items, 0, $this->config['extra_parameters']);
+
+            if ($sliced_podcast == null) {
+                continue;
+            }
 
             // if the first entry.
             if (!isset($this->response->items)){

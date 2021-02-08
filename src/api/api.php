@@ -163,8 +163,9 @@ class api
      */
     public function run()
     {
-        $this->combine_search_params_to_make_query();
         $this->work_out_request_type();
+        $this->combine_podcasts_into_csv_query_string();
+        $this->combine_search_params_to_make_query();
         $this->config_extra_parameters();
         $this->replace_with_manual_query();
         $this->config_query();
@@ -193,12 +194,33 @@ class api
         return $request->response();
     }
 
+    private function combine_podcasts_into_csv_query_string()
+    {
+        if ($this->search_config['yt_search_api'] != 'itunes'){ return; }
+
+        $query = '';
+        foreach ($this->search_config['podcasts'] as $podcast)
+        {
+            $query .= $podcast['podcast_id'] . ',';
+        }
+
+        // remove laast character &
+        $query = substr($query, 0, -1);
+
+        $this->config['query_string'] = $query;
+        $this->config['extra_parameters'] = $this->search_config["result_count"];
+
+    }
+
+
 
     /**
      * This will build up the query string from all of the param parts
      */
     private function combine_search_params_to_make_query()
     {
+        if ($this->search_config['yt_search_api'] == 'itunes'){ return; }
+
         $query = '';
         foreach ($this->search_config as $param => $value)
         {

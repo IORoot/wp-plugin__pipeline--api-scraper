@@ -5,7 +5,7 @@ namespace yt\itunes\request;
 use yt\interfaces\requestInterface;
 use yt\itunes\response;
 
-class podcast_episode implements requestInterface
+class episode implements requestInterface
 {
     public $nice_name = "iTunes Podcast Episodes";
 
