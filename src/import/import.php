@@ -87,7 +87,12 @@ class import
             $item = $this->append_taxonomy_to_image_content($item);
 
             $this->add_post_and_combine($item);
-            $this->add_tax_fields_to_existing_post($this->returned_ids['post'], $item['tax']);
+
+            if (array_key_exists($item['tax']))
+            {
+                $this->add_tax_fields_to_existing_post($this->returned_ids['post'], $item['tax']);
+            }
+            
 
             $collection[$key]['returned'] = $this->returned_ids;
         }
