@@ -17,7 +17,16 @@
  */
 
 // Load this on ALL pages. 
+require __DIR__.'/vendor/autoload.php';
+
+require __DIR__.'/src/acf/andyp_plugin_register.php';
 require __DIR__.'/src/acf/options_page.php';
+require __DIR__.'/src/scheduler/add_schedules.php';
+require __DIR__.'/src/actions/action_run_scraper.php';
+require __DIR__.'/src/actions/reset_quota.php';
+require __DIR__.'/src/shortcodes/scrape_date.php';
+require __DIR__.'/deactivate.php';
+
 
 // Load everything else ONLY on API Scraper pages.
 add_action( 'current_screen', 'media_scraper_initialise' );
@@ -30,45 +39,6 @@ function media_scraper_initialise() {
 
     date_default_timezone_set('Europe/London'); // make sure the Scheduler is correct with time picker.
 
-    //  ┌─────────────────────────────────────────────────────────────────────────┐
-    //  │                    Register with ANDYP Plugins                          │
-    //  └─────────────────────────────────────────────────────────────────────────┘
-    require __DIR__.'/src/acf/andyp_plugin_register.php';
-    
-    // ┌─────────────────────────────────────────────────────────────────────────┐
-    // │                         Use composer autoloader                         │
-    // └─────────────────────────────────────────────────────────────────────────┘
-    require __DIR__.'/vendor/autoload.php';
-    
-    //  ┌─────────────────────────────────────────────────────────────────────────┐
-    //  │                      The CPT for YouTube Videos                         │
-    //  └─────────────────────────────────────────────────────────────────────────┘
-    // require __DIR__.'/src/cpt/youtube_cpt.php';
-    
-    //  ┌─────────────────────────────────────────────────────────────────────────┐
-    //  │                           The ACF Parts                                 │
-    //  └─────────────────────────────────────────────────────────────────────────┘
     require __DIR__.'/src/acf/acf_init.php';
-    
-    //  ┌─────────────────────────────────────────────────────────────────────────┐
-    //  │                           Add schedule times                            │
-    //  └─────────────────────────────────────────────────────────────────────────┘
-    require __DIR__.'/src/scheduler/add_schedules.php';
-    
-    //  ┌─────────────────────────────────────────────────────────────────────────┐
-    //  │                              Actions                                    │
-    //  └─────────────────────────────────────────────────────────────────────────┘
-    require __DIR__.'/src/actions/reset_quota.php';
-    require __DIR__.'/src/actions/action_run_scraper.php';
-    
-    //  ┌─────────────────────────────────────────────────────────────────────────┐
-    //  │                            Shortcodes                                   │
-    //  └─────────────────────────────────────────────────────────────────────────┘
-    require __DIR__.'/src/shortcodes/scrape_date.php';
-    
-    //  ┌─────────────────────────────────────────────────────────────────────────┐
-    //  │                           Plugin (De)activate                           │
-    //  └─────────────────────────────────────────────────────────────────────────┘
-    require __DIR__.'/deactivate.php';
     
 }

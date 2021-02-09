@@ -76,7 +76,9 @@ class import
             if ($post_id_if_exists) {
                 $this->add_new_meta($post_id_if_exists, $item['meta']);
                 $this->add_primary_taxonomy_to_existing_post($post_id_if_exists);
-                $this->add_tax_fields_to_existing_post($post_id_if_exists, $item['tax']);
+                if (array_key_exists('tax', $item)) {
+                    $this->add_tax_fields_to_existing_post($post_id_if_exists, $item['tax']);
+                }
                 continue;
             }
 
@@ -88,7 +90,7 @@ class import
 
             $this->add_post_and_combine($item);
 
-            if (array_key_exists($item['tax']))
+            if (array_key_exists('tax',$item))
             {
                 $this->add_tax_fields_to_existing_post($this->returned_ids['post'], $item['tax']);
             }
