@@ -35,8 +35,7 @@ class r
 
         $field = 'yt_'.$field.'_group_yt_debug_'.$field;
 
-        $old_value = get_field( $field, 'options' ). '
-        ';
+        $old_value = get_field( $field, 'options' ) . PHP_EOL;
 
         if ($trim_length != 0){
             $trimmed_string = substr($old_value . $value, 0, $trim_length);

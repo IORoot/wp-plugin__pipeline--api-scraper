@@ -225,10 +225,20 @@ class scraper
         // automatically be passed through.
         $this->api->set_search_config($this->options->scrape[$this->_scrape_key]['yt_scrape_search']);
 
+        // clear log
+        (new \yt\r)->clear('search');
         // Get the YouTube results and add to scrape array.
         $this->options->scrape[$this->_scrape_key]['yt_scrape_response'] = $this->api->run();
 
-        (new \yt\r)->new('search', $this->options->scrape[$this->_scrape_key]['yt_scrape_response']->items);
+        // log
+        (new \yt\r)->last('search', $this->options->scrape[$this->_scrape_key]['yt_scrape_response']->items[0]);
+        foreach( $this->options->scrape[$this->_scrape_key]['yt_scrape_response']->items as $key => $item)
+        {
+            if (!isset($item->snippet->title)){continue; }
+            (new \yt\r)->last('search', 'Item['.$key.'] : ' . substr($item->snippet->title,0,80) );
+        }
+
+
         unset($this->api);
 
         return;
@@ -264,12 +274,23 @@ class scraper
         // This is so we can perform all of the filters on them
         $this->filter->set_item_collection($this->options->scrape[$this->_scrape_key]['yt_scrape_response']);
 
+
+        // clear debug
+        (new \yt\r)->clear('filter');
+
         // once everything is set, run it.
         // Then add the response of the filtering into the scrape
         // object.
         $this->options->scrape[$this->_scrape_key]['yt_scrape_filtered'] = $this->filter->run();
 
-        (new \yt\r)->new('filter', $this->options->scrape[$this->_scrape_key]['yt_scrape_filtered']->items);
+        // log - YOUTUBE ONLY? (snippet->title not on podcasts or instagram.)
+        (new \yt\r)->last('filter', $this->options->scrape[$this->_scrape_key]['yt_scrape_filtered']->items[0]);
+        foreach( $this->options->scrape[$this->_scrape_key]['yt_scrape_filtered']->items as $key => $item)
+        {
+            if (!isset($item->snippet->title)){continue; }
+            (new \yt\r)->last('filter', 'Item['.$key.'] : ' . substr($item->snippet->title,0,80) );
+        }
+
         unset($this->filter);
 
         return;

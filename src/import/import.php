@@ -232,7 +232,10 @@ class import
         foreach($post_meta as $key => $value)
         {
             // Keep unique. - do not overwrite values, just append.
-            add_post_meta($post_id, $key, $value, TRUE);
+            // add_post_meta($post_id, $key, $value, TRUE);
+
+            // update all
+            update_post_meta($post_id, $key, $value);
         }
     }
 }

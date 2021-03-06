@@ -27,7 +27,7 @@ class date implements tokenInterface
          * DateTime('first day of this month') will work.
          */
         $DT = new \DateTime($this->config);
-        $out = $DT->format(\DateTime::ATOM);
+        $out = $DT->format(\DateTime::RFC3339);
         return urlencode($out);
     }
 

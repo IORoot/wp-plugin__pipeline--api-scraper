@@ -70,6 +70,9 @@ class remove_item_if_regex implements filterInterface
 
             if ($this->should_item_be_in_collection($value_in_field))
             {
+                (new \yt\r)->last('filter', 
+                    'REGEX ITEM Match. Removing item ['.$key.']['.$this->config['item_field'].']. Value: ' . substr($value_in_field,0,40) . PHP_EOL 
+                );
                 unset($this->collection->items[$key]);
             }
         }
