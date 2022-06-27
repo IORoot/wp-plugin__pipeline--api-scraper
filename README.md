@@ -99,7 +99,7 @@ Below is a brief description of each tab in the system:
 
 The main controller. The 'scrape' tab allows you to select all of the other components that make up the scrape you're going to run.
 
-![scrape](https://github.com/IORoot/wp-plugin__api-scraper/blob/master/files/images/scrape.png?raw=true)
+![scrape](https://github.com/IORoot/wp-plugin__api-scraper/blob/master/files/images/Scrape.png?raw=true)
 
 ###  3.2. <a name='Authenticate'></a>Authenticate
 
@@ -140,7 +140,7 @@ The mappings have been defined, but now the scraper needs to import the generate
 
 Everything is running smoothly and you're generating content. However, you're not removing any old posts or data you don't want anymore. The housekeeping tab allows you to manage this.
 
-![housekeep](https://github.com/IORoot/wp-plugin__api-scraper/blob/master/files/images/Housekeeping.png?raw=true)
+![housekeep](https://github.com/IORoot/wp-plugin__api-scraper/blob/master/files/images/Housekeep.png?raw=true)
 
 ###  3.8. <a name='Schedule'></a>Schedule 
 
