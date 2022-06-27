@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
     'yt\\api' => $baseDir . '/src/api/api.php',
     'yt\\api_list' => $baseDir . '/src/api/api_list.php',
     'yt\\e' => $baseDir . '/src/error/e.php',
