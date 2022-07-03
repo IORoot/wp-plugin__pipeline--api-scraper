@@ -5,7 +5,7 @@
 <div align="center">
 
 
-<img src="https://svg-rewriter.sachinraja.workers.dev/?url=https%3A%2F%2Fcdn.jsdelivr.net%2Fnpm%2F%40mdi%2Fsvg%406.7.96%2Fsvg%2Fyoutube.svg&fill=%233B82F6&width=200px&height=200px" style="width:200px;"/>
+<img src="https://svg-rewriter.sachinraja.workers.dev/?url=https%3A%2F%2Fcdn.jsdelivr.net%2Fnpm%2F%40mdi%2Fsvg%406.7.96%2Fsvg%2Fyoutube.svg&fill=%23DC2626&width=200px&height=200px" style="width:200px;"/>
 
 <h3 align="center">Wordpress API Scraper for YouTube</h3>
 
