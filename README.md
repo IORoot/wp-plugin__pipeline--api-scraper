@@ -1,13 +1,11 @@
 
-
 <div id="top"></div>
 
 <div align="center">
 
+<img src="https://svg-rewriter.sachinraja.workers.dev/?url=https%3A%2F%2Fcdn.jsdelivr.net%2Fnpm%2F%40mdi%2Fsvg%406.7.96%2Fsvg%2Fyoutube.svg&fill=%23A855F7&width=200px&height=200px" style="width:200px;"/>
 
-<img src="https://svg-rewriter.sachinraja.workers.dev/?url=https%3A%2F%2Fcdn.jsdelivr.net%2Fnpm%2F%40mdi%2Fsvg%406.7.96%2Fsvg%2Fyoutube.svg&fill=%23DC2626&width=200px&height=200px" style="width:200px;"/>
-
-<h3 align="center">Wordpress API Scraper for YouTube</h3>
+<h3 align="center">Pipeline : Wordpress API Scraper for YouTube</h3>
 
 <p align="center">
     Predominantly built for interacting with the youtube API. This plugin is what runs parkourpulse.com
@@ -15,6 +13,7 @@
 </div>
 
 ##  1. <a name='TableofContents'></a>Table of Contents
+
 
 
 * 1. [Table of Contents](#TableofContents)
@@ -35,6 +34,8 @@
 * 6. [Contributing](#Contributing)
 * 7. [License](#License)
 * 8. [Contact](#Contact)
+* 9. [Changelog](#Changelog)
+
 
 
 
@@ -215,3 +216,6 @@ Author Link: [https://github.com/IORoot](https://github.com/IORoot)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
+##  9. <a name='Changelog'></a>Changelog
+
+- v1.0.0 - Initial Commit
