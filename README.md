@@ -75,7 +75,7 @@ These are the steps to get up and running with this plugin.
 
 1. Clone the repo into your wordpress plugin folder
     ```bash
-    git clone https://github.com/IORoot/wp-plugin__api-scraper ./wp-content/plugins/api-scraper
+    git clone https://github.com/IORoot/wp-plugin__pipeline--api-scraper ./wp-content/plugins/pipeline-api-scraper
     ```
 1. Activate the plugin.
 
