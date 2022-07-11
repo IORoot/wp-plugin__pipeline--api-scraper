@@ -17,29 +17,46 @@
 
 
 * 1. [Table of Contents](#TableofContents)
-* 2. [About The Project](#AboutTheProject)
-	* 2.1. [Built With](#BuiltWith)
-	* 2.2. [Installation](#Installation)
-* 3. [Usage](#Usage)
-	* 3.1. [Scrape](#Scrape)
-	* 3.2. [Authenticate](#Authenticate)
-	* 3.3. [Search](#Search)
-	* 3.4. [Filter](#Filter)
-	* 3.5. [Mapping](#Mapping)
-	* 3.6. [import](#import)
-	* 3.7. [Housekeep](#Housekeep)
-	* 3.8. [Schedule](#Schedule)
-* 4. [Customising](#Customising)
-* 5. [Testing](#Testing)
-* 6. [Contributing](#Contributing)
-* 7. [License](#License)
-* 8. [Contact](#Contact)
-* 9. [Changelog](#Changelog)
+* 2. [The Pipeline Project](#ThePipelineProject)
+* 3. [About The Project](#AboutTheProject)
+	* 3.1. [Built With](#BuiltWith)
+	* 3.2. [Installation](#Installation)
+* 4. [Usage](#Usage)
+	* 4.1. [Scrape](#Scrape)
+	* 4.2. [Authenticate](#Authenticate)
+	* 4.3. [Search](#Search)
+	* 4.4. [Filter](#Filter)
+	* 4.5. [Mapping](#Mapping)
+	* 4.6. [import](#import)
+	* 4.7. [Housekeep](#Housekeep)
+	* 4.8. [Schedule](#Schedule)
+* 5. [Customising](#Customising)
+* 6. [Testing](#Testing)
+* 7. [Contributing](#Contributing)
+* 8. [License](#License)
+* 9. [Contact](#Contact)
+* 10. [Changelog](#Changelog)
 
 
 
+##  2. <a name='ThePipelineProject'></a>The Pipeline Project
 
-##  2. <a name='AboutTheProject'></a>About The Project
+The pipeline project was one where I wanted to be able to do the following:
+
+1. Query YouTube / Instagram for specific videos and download the results (video file, post content, meta, etc).
+1. Automatically create some cover art.
+1. Combine the videos to create a quick trailer.
+1. Export the results to my social media.
+
+This then became the components of the pipeline project:
+
+1. [API Scraper](https://github.com/IORoot/wp-plugin__pipeline--api-scraper)
+1. [Generative Images](https://github.com/IORoot/wp-plugin__pipeline--generative-images)
+1. [The Processor](https://github.com/IORoot/wp-plugin__pipeline--processor)
+1. [Exporter](https://github.com/IORoot/wp-plugin__pipeline--exporter)
+
+
+##  3. <a name='AboutTheProject'></a>About The Project
 
 The API Scraper was a project born out of wanting to build parkourpulse.com. Using wordpress, I wanted to pull various query data out of youtube and present it in a nice way.
 
@@ -52,7 +69,7 @@ This plugin grabs the data, filters it, maps it to post objects, imports them, h
 
 
 
-###  2.1. <a name='BuiltWith'></a>Built With
+###  3.1. <a name='BuiltWith'></a>Built With
 
 This project was built with the following frameworks, technologies and software.
 
@@ -67,7 +84,7 @@ This project was built with the following frameworks, technologies and software.
 
 
 
-###  2.2. <a name='Installation'></a>Installation
+###  3.2. <a name='Installation'></a>Installation
 
 > This was built with ACF PRO - Please make sure it is installed before installing this plugin.
 
@@ -82,7 +99,7 @@ These are the steps to get up and running with this plugin.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-##  3. <a name='Usage'></a>Usage
+##  4. <a name='Usage'></a>Usage
 
 The API Scraper Wordpress plugin will allow you to get data from various API endpoints and output the results as posts into your custom post types / taxonomies. 
 
@@ -95,13 +112,13 @@ For more detailed usage, please see the [Wiki](https://github.com/IORoot/wp-plug
 
 Below is a brief description of each tab in the system:
 
-###  3.1. <a name='Scrape'></a>Scrape
+###  4.1. <a name='Scrape'></a>Scrape
 
 The main controller. The 'scrape' tab allows you to select all of the other components that make up the scrape you're going to run.
 
 ![scrape](https://github.com/IORoot/wp-plugin__api-scraper/blob/master/files/images/Scrape.png?raw=true)
 
-###  3.2. <a name='Authenticate'></a>Authenticate
+###  4.2. <a name='Authenticate'></a>Authenticate
 
 Any authentication methods for youtube APIs or other API's can be setup here.
 
@@ -110,19 +127,19 @@ This is handy for creating multiple youtube accounts and using them for differen
 
 ![auth](https://github.com/IORoot/wp-plugin__api-scraper/blob/master/files/images/Authenticate.png?raw=true)
 
-###  3.3. <a name='Search'></a>Search
+###  4.3. <a name='Search'></a>Search
 
 The search is the main component of *how* you are going to use the YouTube API. You can specify what your search query will be.
 
 ![search](https://github.com/IORoot/wp-plugin__api-scraper/blob/master/files/images/Search.png?raw=true)
 
-###  3.4. <a name='Filter'></a>Filter
+###  4.4. <a name='Filter'></a>Filter
 
 The filter is run once your search query has returned results. It will perform any dynamic filters required on the results.
 
 ![filter](https://github.com/IORoot/wp-plugin__api-scraper/blob/master/files/images/Filter.png?raw=true)
 
-###  3.5. <a name='Mapping'></a>Mapping
+###  4.5. <a name='Mapping'></a>Mapping
 
 Once the data has been retrieved and filtered you need to specify how your wordpress posts will be populated with that data.
 
@@ -130,30 +147,30 @@ Title, Post content, Images, Meta fields, etc... Map sources data to destination
 
 ![map](https://github.com/IORoot/wp-plugin__api-scraper/blob/master/files/images/Mapping.png?raw=true)
 
-###  3.6. <a name='import'></a>import
+###  4.6. <a name='import'></a>import
 
 The mappings have been defined, but now the scraper needs to import the generated post into a particular post-type, taxonomy, category, etc...
 
 ![import](https://github.com/IORoot/wp-plugin__api-scraper/blob/master/files/images/Import.png?raw=true)
 
-###  3.7. <a name='Housekeep'></a>Housekeep
+###  4.7. <a name='Housekeep'></a>Housekeep
 
 Everything is running smoothly and you're generating content. However, you're not removing any old posts or data you don't want anymore. The housekeeping tab allows you to manage this.
 
 ![housekeep](https://github.com/IORoot/wp-plugin__api-scraper/blob/master/files/images/Housekeep.png?raw=true)
 
-###  3.8. <a name='Schedule'></a>Schedule 
+###  4.8. <a name='Schedule'></a>Schedule 
 
 Once everything is ready to go you can put it on a scheduled timer. Now you'll be getting your up-to-date scrape data without you having to manually run it.
 
 ![schedule](https://github.com/IORoot/wp-plugin__api-scraper/blob/master/files/images/Schedule.png?raw=true)
 
 
-##  4. <a name='Customising'></a>Customising
+##  5. <a name='Customising'></a>Customising
 
 Please refer to the [Wiki](https://github.com/IORoot/wp-plugin__api-scraper/wiki)
 
-##  5. <a name='Testing'></a>Testing
+##  6. <a name='Testing'></a>Testing
 
 This plugin has PHPUnit tests built in. These are all located in the `/tests` folder. The config file is in the root of the plugin `phpunit.xml.dist`.
 
@@ -163,7 +180,7 @@ You also have a demo dashboard in the `/files/` folder that can be used to show 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
-##  6. <a name='Contributing'></a>Contributing
+##  7. <a name='Contributing'></a>Contributing
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
@@ -180,7 +197,7 @@ Don't forget to give the project a star! Thanks again!
 
 
 
-##  7. <a name='License'></a>License
+##  8. <a name='License'></a>License
 
 Distributed under the MIT License.
 
@@ -210,12 +227,12 @@ SOFTWARE.
 
 
 
-##  8. <a name='Contact'></a>Contact
+##  9. <a name='Contact'></a>Contact
 
 Author Link: [https://github.com/IORoot](https://github.com/IORoot)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-##  9. <a name='Changelog'></a>Changelog
+##  10. <a name='Changelog'></a>Changelog
 
 - v1.0.0 - Initial Commit
